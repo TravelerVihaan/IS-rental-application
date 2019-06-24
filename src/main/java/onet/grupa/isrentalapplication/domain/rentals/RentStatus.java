@@ -3,6 +3,7 @@ package onet.grupa.isrentalapplication.domain.rentals;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "rent_status")
@@ -17,6 +18,9 @@ public class RentStatus implements Serializable {
     @Column(nullable = false, unique = true)
     private String status;
 
+    @OneToMany(mappedBy = "rentStatus")
+    private List<ComputerRentals> computerRentals;
+
     public RentStatus(){}
     public RentStatus(@NotEmpty String status) {
         this.status = status;
@@ -29,6 +33,14 @@ public class RentStatus implements Serializable {
     public String getStatus() { return status; }
 
     public void setStatus(String status) { this.status = status; }
+
+    public List<ComputerRentals> getComputerRentals() {
+        return computerRentals;
+    }
+
+    public void setComputerRentals(List<ComputerRentals> computerRentals) {
+        this.computerRentals = computerRentals;
+    }
 
     @Override
     public String toString() {

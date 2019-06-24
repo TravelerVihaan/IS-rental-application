@@ -1,9 +1,12 @@
 package onet.grupa.isrentalapplication.domain.computers;
 
+import onet.grupa.isrentalapplication.domain.rentals.ComputerRentals;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "computers")
@@ -33,6 +36,9 @@ public class Computer implements Serializable {
     @JoinColumn(name = "producer_id")
     @Column(name = "operating_system", nullable = false)
     private Producer producer;
+
+    @OneToMany(mappedBy = "rentedComputer")
+    private List<ComputerRentals> computerRentals;
 
     public Computer(){}
     public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull Producer producer) {
@@ -80,6 +86,14 @@ public class Computer implements Serializable {
 
     public void setProducer(Producer producer) {
         this.producer = producer;
+    }
+
+    public List<ComputerRentals> getComputerRentals() {
+        return computerRentals;
+    }
+
+    public void setComputerRentals(List<ComputerRentals> computerRentals) {
+        this.computerRentals = computerRentals;
     }
 
     @Override
