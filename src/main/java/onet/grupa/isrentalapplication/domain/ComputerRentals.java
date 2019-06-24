@@ -4,15 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "rentals")
-public class Rental implements Serializable {
+@Table(name = "computer_rentals")
+public class ComputerRentals implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_rental")
     private Long id;
 
-    public Rental() {}
+    public ComputerRentals() {}
 
     public Long getId() { return id; }
 
