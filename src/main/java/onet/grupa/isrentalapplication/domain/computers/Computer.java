@@ -28,13 +28,11 @@ public class Computer implements Serializable {
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "os_id")
-    @Column(name = "operating_system", nullable = false)
     private OperatingSystem operatingSystem;
 
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "producer_id")
-    @Column(name = "operating_system", nullable = false)
     private Producer producer;
 
     @OneToMany(mappedBy = "rentedComputer")
