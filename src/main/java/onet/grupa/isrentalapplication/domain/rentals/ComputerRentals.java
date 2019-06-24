@@ -1,5 +1,6 @@
 package onet.grupa.isrentalapplication.domain.rentals;
 
+import onet.grupa.isrentalapplication.domain.User;
 import onet.grupa.isrentalapplication.domain.computers.Computer;
 
 import javax.persistence.*;
@@ -44,6 +45,10 @@ public class ComputerRentals implements Serializable {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "rent_status_id")
     private RentStatus rentStatus;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "who_set_status")
+    private User whoSetStatus;
 
     public ComputerRentals(){}
 
@@ -108,6 +113,14 @@ public class ComputerRentals implements Serializable {
         this.rentStatus = rentStatus;
     }
 
+    public User getWhoSetStatus() {
+        return whoSetStatus;
+    }
+
+    public void setWhoSetStatus(User whoSetStatus) {
+        this.whoSetStatus = whoSetStatus;
+    }
+
     @Override
     public String toString() {
         return "ComputerRentals{" +
@@ -118,6 +131,7 @@ public class ComputerRentals implements Serializable {
                 ", rentingPersonName='" + rentingPersonName + '\'' +
                 ", rentedComputer=" + rentedComputer +
                 ", rentStatus=" + rentStatus +
+                ", whoSetStatus=" + whoSetStatus +
                 '}';
     }
 }

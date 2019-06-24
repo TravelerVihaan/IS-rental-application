@@ -1,8 +1,11 @@
 package onet.grupa.isrentalapplication.domain;
 
+import onet.grupa.isrentalapplication.domain.rentals.ComputerRentals;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -28,6 +31,9 @@ public class User implements Serializable {
     @NotEmpty
     @Column(nullable = false)
     private String surname;
+
+    @OneToMany(mappedBy = "whoSetStatus")
+    private List<ComputerRentals> computerRentals;
 
     public User(){}
     public User(@NotEmpty String username, @NotEmpty String password, @NotEmpty String name, @NotEmpty String surname) {
@@ -56,4 +62,22 @@ public class User implements Serializable {
     public String getSurname() { return surname; }
 
     public void setSurname(String surname) { this.surname = surname; }
+
+    public List<ComputerRentals> getComputerRentals() {
+        return computerRentals;
+    }
+
+    public void setComputerRentals(List<ComputerRentals> computerRentals) {
+        this.computerRentals = computerRentals;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
 }
