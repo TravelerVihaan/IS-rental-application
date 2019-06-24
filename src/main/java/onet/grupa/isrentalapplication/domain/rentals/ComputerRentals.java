@@ -1,4 +1,4 @@
-package onet.grupa.isrentalapplication.domain;
+package onet.grupa.isrentalapplication.domain.rentals;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package onet.grupa.isrentalapplication.domain;
+package onet.grupa.isrentalapplication.domain.rentals;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -17,25 +17,18 @@ public class RentStatus implements Serializable {
     @Column(nullable = false, unique = true)
     private String status;
 
+    public RentStatus(){}
     public RentStatus(@NotEmpty String status) {
         this.status = status;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public String getStatus() {
-        return status;
-    }
+    public String getStatus() { return status; }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public void setStatus(String status) { this.status = status; }
 
     @Override
     public String toString() {
