@@ -3,10 +3,11 @@ package onet.grupa.isrentalapplication.domain.computers;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "computer_models")
-public class ComputerModel {
+@Table(name = "models_computer")
+public class ComputerModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +21,12 @@ public class ComputerModel {
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "producer_id")
-    private Producer producer;
+    private ComputerProducer computerProducer;
 
     public ComputerModel(){}
-    public ComputerModel(@NotEmpty String model, @NotNull Producer producer) {
+    public ComputerModel(@NotEmpty String model, @NotNull ComputerProducer computerProducer) {
         this.model = model;
-        this.producer = producer;
+        this.computerProducer = computerProducer;
     }
 
     public Long getId() {
@@ -44,12 +45,12 @@ public class ComputerModel {
         this.model = model;
     }
 
-    public Producer getProducer() {
-        return producer;
+    public ComputerProducer getComputerProducer() {
+        return computerProducer;
     }
 
-    public void setProducer(Producer producer) {
-        this.producer = producer;
+    public void setComputerProducer(ComputerProducer computerProducer) {
+        this.computerProducer = computerProducer;
     }
 
     @Override
@@ -57,7 +58,7 @@ public class ComputerModel {
         return "ComputerModel{" +
                 "id=" + id +
                 ", model='" + model + '\'' +
-                ", producer=" + producer +
+                ", producer=" + computerProducer +
                 '}';
     }
 }

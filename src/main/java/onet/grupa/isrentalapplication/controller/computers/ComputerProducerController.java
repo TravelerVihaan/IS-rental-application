@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/computers/producers")
-public class ProducerController {
+public class ComputerProducerController {
 }

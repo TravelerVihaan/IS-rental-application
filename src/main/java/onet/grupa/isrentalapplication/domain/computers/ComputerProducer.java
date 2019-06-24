@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "producers_computer")
-public class Producer implements Serializable {
+public class ComputerProducer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,11 @@ public class Producer implements Serializable {
     @Column(name = "name", nullable = false, unique = true)
     private String producerName;
 
-    @OneToMany(mappedBy = "producer")
+    @OneToMany(mappedBy = "computerProducer")
     private List<ComputerModel> computerModels;
 
-    public Producer(){}
-    public Producer(@NotEmpty String producerName) {
+    public ComputerProducer(){}
+    public ComputerProducer(@NotEmpty String producerName) {
         this.producerName = producerName;
     }
 
