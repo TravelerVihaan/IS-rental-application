@@ -19,7 +19,7 @@ public class Producer implements Serializable {
     private String producerName;
 
     @OneToMany(mappedBy = "producer")
-    private List<Computer> computers;
+    private List<ComputerModel> computerModels;
 
     public Producer(){}
     public Producer(@NotEmpty String producerName) {
@@ -42,12 +42,12 @@ public class Producer implements Serializable {
         this.producerName = producerName;
     }
 
-    public List<Computer> getComputers() {
-        return computers;
+    public List<ComputerModel> getComputerModels() {
+        return computerModels;
     }
 
-    public void setComputers(List<Computer> computers) {
-        this.computers = computers;
+    public void setComputerModels(List<ComputerModel> computerModels) {
+        this.computerModels = computerModels;
     }
 
     @Override

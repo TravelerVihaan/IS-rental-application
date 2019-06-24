@@ -32,18 +32,18 @@ public class Computer implements Serializable {
 
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "producer_id")
-    private Producer producer;
+    @JoinColumn(name = "model_id")
+    private ComputerModel computerModel;
 
     @OneToMany(mappedBy = "rentedComputer")
     private List<ComputerRentals> computerRentals;
 
     public Computer(){}
-    public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull Producer producer) {
+    public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull ComputerModel computerModel) {
         this.OTNumber = OTNumber;
         this.serialNumber = serialNumber;
         this.operatingSystem = operatingSystem;
-        this.producer = producer;
+        this.computerModel = computerModel;
     }
 
     public Long getId() {
@@ -78,12 +78,12 @@ public class Computer implements Serializable {
         this.operatingSystem = operatingSystem;
     }
 
-    public Producer getProducer() {
-        return producer;
+    public ComputerModel getComputerModel() {
+        return computerModel;
     }
 
-    public void setProducer(Producer producer) {
-        this.producer = producer;
+    public void setComputerModel(ComputerModel computerModel) {
+        this.computerModel = computerModel;
     }
 
     public List<ComputerRentals> getComputerRentals() {
@@ -101,7 +101,7 @@ public class Computer implements Serializable {
                 ", OTNumber='" + OTNumber + '\'' +
                 ", serialNumber='" + serialNumber + '\'' +
                 ", operatingSystem=" + operatingSystem +
-                ", producer=" + producer +
+                ", producer=" + computerModel +
                 '}';
     }
 }
