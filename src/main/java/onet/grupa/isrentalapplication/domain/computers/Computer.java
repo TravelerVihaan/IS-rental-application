@@ -32,6 +32,11 @@ public class Computer implements Serializable {
 
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "disk_id")
+    private DiskType diskType;
+
+    @NotNull
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "model_id")
     private ComputerModel computerModel;
 
@@ -39,10 +44,11 @@ public class Computer implements Serializable {
     private List<ComputerRentals> computerRentals;
 
     public Computer(){}
-    public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull ComputerModel computerModel) {
+    public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull DiskType diskType, @NotNull ComputerModel computerModel) {
         this.OTNumber = OTNumber;
         this.serialNumber = serialNumber;
         this.operatingSystem = operatingSystem;
+        this.diskType = diskType;
         this.computerModel = computerModel;
     }
 
@@ -94,6 +100,14 @@ public class Computer implements Serializable {
         this.computerRentals = computerRentals;
     }
 
+    public DiskType getDiskType() {
+        return diskType;
+    }
+
+    public void setDiskType(DiskType diskType) {
+        this.diskType = diskType;
+    }
+
     @Override
     public String toString() {
         return "Computer{" +
@@ -101,7 +115,8 @@ public class Computer implements Serializable {
                 ", OTNumber='" + OTNumber + '\'' +
                 ", serialNumber='" + serialNumber + '\'' +
                 ", operatingSystem=" + operatingSystem +
-                ", producer=" + computerModel +
+                ", diskType=" + diskType +
+                ", computerModel=" + computerModel +
                 '}';
     }
 }
