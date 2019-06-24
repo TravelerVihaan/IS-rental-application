@@ -26,13 +26,13 @@ public class Computer implements Serializable {
     private String serialNumber;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "os_id")
     @Column(name = "operating_system", nullable = false)
     private OperatingSystem operatingSystem;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "producer_id")
     @Column(name = "operating_system", nullable = false)
     private Producer producer;

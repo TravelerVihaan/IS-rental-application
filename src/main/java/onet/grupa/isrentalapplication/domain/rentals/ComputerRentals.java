@@ -36,12 +36,12 @@ public class ComputerRentals implements Serializable {
     private String rentingPersonName;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "computer_id")
     private Computer rentedComputer;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "rent_status_id")
     private RentStatus rentStatus;
 
