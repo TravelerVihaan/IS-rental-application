@@ -1,10 +1,11 @@
 package onet.grupa.isrentalapplication.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "rentals")
-public class Rental {
+public class Rental implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
