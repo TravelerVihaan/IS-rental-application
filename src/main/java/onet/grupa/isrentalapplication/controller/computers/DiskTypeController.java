@@ -1,7 +1,7 @@
 package onet.grupa.isrentalapplication.controller.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.DiskType;
-import onet.grupa.isrentalapplication.repository.computers.DiskTypeRepository;
+import onet.grupa.isrentalapplication.service.computers.DiskTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,20 +18,20 @@ import java.util.List;
 @RequestMapping("computers/disks")
 public class DiskTypeController {
 
-    private DiskTypeRepository diskTypeRepository;
+    private DiskTypeService diskTypeService;
 
     @Autowired
-    public DiskTypeController(DiskTypeRepository diskTypeRepository){
-        this.diskTypeRepository = diskTypeRepository;
+    public DiskTypeController(DiskTypeService diskTypeService){
+        this.diskTypeService = diskTypeService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DiskType>> getAllDisks(){
-        return new ResponseEntity<>(diskTypeRepository.findAll(), new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(diskTypeService.getAllDisks(), new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DiskType> getDisk(@PathVariable long id){
-        return new ResponseEntity<>(diskTypeRepository.findById(id).orElseGet("????"), new HttpHeaders(), HttpStatus.OK);
+        return ResponseEntity.of(diskTypeService.getDiskType(id));
     }
 }
