@@ -23,7 +23,8 @@ public class ComputerService {
         if (computerRepository.findById(id).isPresent())
             return computerRepository.findById(id).get();
         else
-            return new Computer();
+            //TODO
+            return null;
     }
 
     public Computer updateComputer(long id, Computer computer){
