@@ -18,4 +18,15 @@ public class ComputerService {
     public List<Computer> getAllComputers(){
         return computerRepository.findAll();
     }
+
+    public Computer findComputerById(long id) {
+        if (computerRepository.findById(id).isPresent())
+            return computerRepository.findById(id).get();
+        else
+            return new Computer();
+    }
+
+    public Computer updateComputer(long id, Computer computer){
+        return null;
+    }
 }
