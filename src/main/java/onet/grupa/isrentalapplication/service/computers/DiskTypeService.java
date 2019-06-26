@@ -3,6 +3,7 @@ package onet.grupa.isrentalapplication.service.computers;
 import onet.grupa.isrentalapplication.domain.computers.DiskType;
 import onet.grupa.isrentalapplication.repository.computers.DiskTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +15,21 @@ public class DiskTypeService {
     private DiskTypeRepository diskTypeRepository;
 
     @Autowired
-    public DiskTypeService(DiskTypeRepository diskTypeRepository){
-        this.diskTypeRepository = diskTypeRepository;
+    public DiskTypeService(DiskTypeRepository diskTypeRepository){ this.diskTypeRepository = diskTypeRepository; }
+
+    public ResponseEntity<List<DiskType>> getResponseWithAllDisks(){
+        return ResponseEntity.of(getAllDisks());
     }
 
-    public Optional<DiskType> getDiskType(long id){
+    public ResponseEntity<DiskType> getResponseWithDisk(long id){
+        return ResponseEntity.of(getDiskType(id));
+    }
+
+    private Optional<DiskType> getDiskType(long id){
             return diskTypeRepository.findById(id);
     }
 
-    public List<DiskType> getAllDisks(){
-        return diskTypeRepository.findAll();
+    private Optional<List<DiskType>> getAllDisks(){
+        return Optional.ofNullable(diskTypeRepository.findAll());
     }
 }

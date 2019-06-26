@@ -27,11 +27,11 @@ public class DiskTypeController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DiskType>> getAllDisks(){
-        return new ResponseEntity<>(diskTypeService.getAllDisks(), new HttpHeaders(), HttpStatus.OK);
+        return diskTypeService.getResponseWithAllDisks();
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DiskType> getDisk(@PathVariable long id){
-        return ResponseEntity.of(diskTypeService.getDiskType(id));
+        return diskTypeService.getResponseWithDisk(id);
     }
 }
