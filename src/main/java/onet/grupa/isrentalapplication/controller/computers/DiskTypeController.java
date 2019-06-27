@@ -5,11 +5,10 @@ import onet.grupa.isrentalapplication.service.computers.DiskTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,5 +30,10 @@ public class DiskTypeController {
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DiskType> getDisk(@PathVariable long id){
         return diskTypeService.getResponseWithDisk(id);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addDiskType(@RequestBody @Valid DiskType diskType, BindingResult result){
+        return diskTypeService.addNewDiskType(diskType, result);
     }
 }
