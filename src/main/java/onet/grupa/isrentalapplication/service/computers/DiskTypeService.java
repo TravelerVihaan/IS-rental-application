@@ -33,6 +33,11 @@ public class DiskTypeService {
         return ResponseEntity.of(getDiskType(id));
     }
 
+    /*
+    * This function add new Disk Type to database
+    * @param diskType
+    * @param binding result
+     */
     public ResponseEntity<?> addNewDiskType(DiskType diskType, BindingResult result){
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
