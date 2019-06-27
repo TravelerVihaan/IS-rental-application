@@ -28,12 +28,12 @@ public class ComputerProducerController {
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ComputerProducer> getDisk(@PathVariable long id){
+    public ResponseEntity<ComputerProducer> getComputerProducer(@PathVariable long id){
         return computerProducerService.getResponseWithComputerProducer(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addDiskType(@RequestBody @Valid ComputerProducer computerProducer, BindingResult result){
-        return computerProducerService.addNewDiskType(computerProducer, result);
+    public ResponseEntity<?> addComputerProducer(@RequestBody @Valid ComputerProducer computerProducer, BindingResult result){
+        return computerProducerService.addNewComputerProducer(computerProducer, result);
     }
 }

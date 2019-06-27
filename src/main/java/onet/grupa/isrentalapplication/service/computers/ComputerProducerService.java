@@ -32,14 +32,14 @@ public class ComputerProducerService {
         return ResponseEntity.of(getComputerProducer(id));
     }
 
-    public ResponseEntity<?> addNewDiskType(ComputerProducer computerProducer, BindingResult result){
+    public ResponseEntity<?> addNewComputerProducer(ComputerProducer computerProducer, BindingResult result){
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         if(getAllComputerProducers().isPresent()){
             if(getAllComputerProducers()
                     .get()
                     .stream()
-                    .anyMatch(disk -> disk.getProducerName()
+                    .anyMatch(producer -> producer.getProducerName()
                             .equalsIgnoreCase(computerProducer.getProducerName())))
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
