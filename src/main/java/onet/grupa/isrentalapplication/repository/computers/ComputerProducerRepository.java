@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComputerProducerRepository extends JpaRepository<ComputerProducer, Long> {
+
+    ComputerProducer findByProducerName(String producerName);
 }

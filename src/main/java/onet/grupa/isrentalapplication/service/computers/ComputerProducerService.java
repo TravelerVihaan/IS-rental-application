@@ -35,25 +35,20 @@ public class ComputerProducerService {
     public ResponseEntity<?> addNewComputerProducer(ComputerProducer computerProducer, BindingResult result){
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        if(getAllComputerProducers().isPresent()){
-            if(isComputerProducerAlreadyExist(computerProducer))
+        if(getComputerProducerByName(computerProducer.getProducerName()).isPresent())
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+
         computerProducerRepository.save(computerProducer);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    private boolean isComputerProducerAlreadyExist(ComputerProducer computerProducer){
-        return getAllComputerProducers()
-                .get()
-                .stream()
-                .anyMatch(producer -> producer.getProducerName()
-                        .equalsIgnoreCase(computerProducer.getProducerName()));
     }
 
     /*
     Private methods
      */
+    private Optional<ComputerProducer> getComputerProducerByName(String computerProducerName){
+        return Optional.ofNullable(computerProducerRepository.findByProducerName(computerProducerName));
+    }
+
     private Optional<ComputerProducer> getComputerProducer(long id){
         return computerProducerRepository.findById(id);
     }

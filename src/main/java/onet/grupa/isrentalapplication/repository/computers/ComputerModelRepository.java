@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComputerModelRepository extends JpaRepository<ComputerModel, Long> {
+
+    ComputerModel findByModel(String modelName);
 }

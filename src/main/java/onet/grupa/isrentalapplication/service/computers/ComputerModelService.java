@@ -40,34 +40,20 @@ public class ComputerModelService {
     public ResponseEntity<?> addNewComputerModel(ComputerModel computerModel, BindingResult result){
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        if(getAllComputerModels().isPresent()){
-                if(isComputerModelAlreadyExist(computerModel))
-                    return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+        if(getComputerModelByName(computerModel.getModel()).isPresent())
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+
         computerModelRepository.save(computerModel);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    private boolean isComputerModelAlreadyExist(ComputerModel computerModel){
-        return getAllComputerModels()
-                .get()
-                .stream()
-                .anyMatch(
-                        cmodel -> cmodel
-                                .getModel()
-                                .equalsIgnoreCase(computerModel.getModel())
-                                &&
-                                cmodel.getComputerProducer()
-                                        .getProducerName()
-                                        .equalsIgnoreCase(computerModel.getComputerProducer().getProducerName()));
-        //.filter(cmodel -> cmodel.getModel().equalsIgnoreCase(computerModel.getModel()))
-        //.filter(cmodel -> cmodel.getComputerProducer().getProducerName().equalsIgnoreCase(computerModel.getComputerProducer().getProducerName()))
-        //.count() > 0)
     }
 
     /*
     Private methods
      */
+    private Optional<ComputerModel> getComputerModelByName(String modelName){
+        return Optional.ofNullable(computerModelRepository.findByModel(modelName));
+    }
+
     private Optional<ComputerModel> getComputerModel(long id){
         return computerModelRepository.findById(id);
     }

@@ -41,25 +41,20 @@ public class DiskTypeService {
     public ResponseEntity<?> addNewDiskType(DiskType diskType, BindingResult result){
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        if(getAllDisks().isPresent()){
-            if(isDiskTypeAlreadyExist(diskType))
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+        if(getDiskTypeByName(diskType.getDiskType()).isPresent())
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+
         diskTypeRepository.save(diskType);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    private boolean isDiskTypeAlreadyExist(DiskType diskType){
-        return getAllDisks()
-                .get()
-                .stream()
-                .anyMatch(disk -> disk.getDiskType()
-                        .equalsIgnoreCase(diskType.getDiskType()));
     }
 
     /*
     Private methods
      */
+    private Optional<DiskType> getDiskTypeByName(String diskType){
+        return Optional.ofNullable(diskTypeRepository.findByDiskType(diskType));
+    }
+
     private Optional<DiskType> getDiskType(long id){
             return diskTypeRepository.findById(id);
     }

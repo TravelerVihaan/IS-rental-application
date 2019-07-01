@@ -40,25 +40,20 @@ public class OperatingSystemService {
     public ResponseEntity<?> addNewOperatingSystem(OperatingSystem operatingSystem, BindingResult result){
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        if(getAllOperatingSystems().isPresent()){
-            if(isOperatingSystemAlreadyExist(operatingSystem))
+        if(getOperatingSystemByName(operatingSystem.getOperatingSystem()).isPresent())
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+
         operatingSystemRepository.save(operatingSystem);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    private boolean isOperatingSystemAlreadyExist(OperatingSystem operatingSystem){
-        return getAllOperatingSystems()
-                .get()
-                .stream()
-                .anyMatch(os -> os.getOperatingSystem()
-                        .equalsIgnoreCase(operatingSystem.getOperatingSystem()));
     }
 
     /*
     Private methods
      */
+    private Optional<OperatingSystem> getOperatingSystemByName(String operatingSystem){
+        return Optional.ofNullable(operatingSystemRepository.findByOperatingSystem(operatingSystem));
+    }
+
     private Optional<OperatingSystem> getOperatingSystem(long id){
         return operatingSystemRepository.findById(id);
     }

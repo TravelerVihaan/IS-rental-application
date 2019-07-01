@@ -18,7 +18,7 @@ public class OperatingSystemController {
     private OperatingSystemService operatingSystemService;
 
     @Autowired
-    public OperatingSystemController(onet.grupa.isrentalapplication.service.computers.OperatingSystemService operatingSystemService){
+    public OperatingSystemController(OperatingSystemService operatingSystemService){
         this.operatingSystemService = operatingSystemService;
     }
 
