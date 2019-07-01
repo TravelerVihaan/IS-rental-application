@@ -41,24 +41,28 @@ public class ComputerModelService {
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         if(getAllComputerModels().isPresent()){
-                if(getAllComputerModels()
-                        .get()
-                        .stream()
-                        .anyMatch(
-                            cmodel -> cmodel
+                if(isComputerModelAlreadyExist(computerModel))
+                    return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        computerModelRepository.save(computerModel);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    private boolean isComputerModelAlreadyExist(ComputerModel computerModel){
+        return getAllComputerModels()
+                .get()
+                .stream()
+                .anyMatch(
+                        cmodel -> cmodel
                                 .getModel()
                                 .equalsIgnoreCase(computerModel.getModel())
                                 &&
                                 cmodel.getComputerProducer()
                                         .getProducerName()
-                                        .equalsIgnoreCase(computerModel.getComputerProducer().getProducerName())))
-                    //.filter(cmodel -> cmodel.getModel().equalsIgnoreCase(computerModel.getModel()))
-                    //.filter(cmodel -> cmodel.getComputerProducer().getProducerName().equalsIgnoreCase(computerModel.getComputerProducer().getProducerName()))
-                    //.count() > 0)
-                    return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        computerModelRepository.save(computerModel);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+                                        .equalsIgnoreCase(computerModel.getComputerProducer().getProducerName()));
+        //.filter(cmodel -> cmodel.getModel().equalsIgnoreCase(computerModel.getModel()))
+        //.filter(cmodel -> cmodel.getComputerProducer().getProducerName().equalsIgnoreCase(computerModel.getComputerProducer().getProducerName()))
+        //.count() > 0)
     }
 
     /*
