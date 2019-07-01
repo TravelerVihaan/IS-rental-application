@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RentStatusRepository extends JpaRepository<RentStatus, Long> {
+
+    RentStatus findByStatus(String status);
 }
