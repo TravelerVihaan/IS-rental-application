@@ -41,15 +41,19 @@ public class OperatingSystemService {
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         if(getAllOperatingSystems().isPresent()){
-            if(getAllOperatingSystems()
-                    .get()
-                    .stream()
-                    .anyMatch(os -> os.getOperatingSystem()
-                            .equalsIgnoreCase(operatingSystem.getOperatingSystem())))
+            if(isOperatingSystemAlreadyExist(operatingSystem))
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         operatingSystemRepository.save(operatingSystem);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    private boolean isOperatingSystemAlreadyExist(OperatingSystem operatingSystem){
+        return getAllOperatingSystems()
+                .get()
+                .stream()
+                .anyMatch(os -> os.getOperatingSystem()
+                        .equalsIgnoreCase(operatingSystem.getOperatingSystem()));
     }
 
     /*

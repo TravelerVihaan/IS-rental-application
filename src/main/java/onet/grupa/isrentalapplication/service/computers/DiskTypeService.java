@@ -42,15 +42,19 @@ public class DiskTypeService {
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         if(getAllDisks().isPresent()){
-            if(getAllDisks()
-                    .get()
-                    .stream()
-                    .anyMatch(disk -> disk.getDiskType()
-                    .equalsIgnoreCase(diskType.getDiskType())))
+            if(isDiskTypeAlreadyExist(diskType))
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         diskTypeRepository.save(diskType);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    private boolean isDiskTypeAlreadyExist(DiskType diskType){
+        return getAllDisks()
+                .get()
+                .stream()
+                .anyMatch(disk -> disk.getDiskType()
+                        .equalsIgnoreCase(diskType.getDiskType()));
     }
 
     /*

@@ -36,15 +36,19 @@ public class ComputerProducerService {
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         if(getAllComputerProducers().isPresent()){
-            if(getAllComputerProducers()
-                    .get()
-                    .stream()
-                    .anyMatch(producer -> producer.getProducerName()
-                            .equalsIgnoreCase(computerProducer.getProducerName())))
+            if(isComputerProducerAlreadyExist(computerProducer))
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         computerProducerRepository.save(computerProducer);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    private boolean isComputerProducerAlreadyExist(ComputerProducer computerProducer){
+        return getAllComputerProducers()
+                .get()
+                .stream()
+                .anyMatch(producer -> producer.getProducerName()
+                        .equalsIgnoreCase(computerProducer.getProducerName()));
     }
 
     /*
