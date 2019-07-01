@@ -29,7 +29,7 @@ public class ComputerController {
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Computer>> getComputers(){
-        return new ResponseEntity<>(computerService.getAllComputers(), new HttpHeaders(), HttpStatus.OK);
+        return computerService.getResponseWithAllComputers();
     }
 
     /*
@@ -38,7 +38,7 @@ public class ComputerController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Computer> getComputer(@PathVariable long id){
-        return new ResponseEntity<>(computerService.findComputerById(id), new HttpHeaders(), HttpStatus.OK);
+        return computerService.getResponseWithComputer(id);
     }
 
     /*
