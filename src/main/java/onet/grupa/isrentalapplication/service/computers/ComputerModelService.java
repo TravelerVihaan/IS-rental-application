@@ -41,13 +41,21 @@ public class ComputerModelService {
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         if(getAllComputerModels().isPresent()){
-            if(getAllComputerModels()
-                    .get()
-                    .stream()
-                    .filter(cmodel -> cmodel.getModel().equalsIgnoreCase(computerModel.getModel()))
-                    .filter(cmodel -> cmodel.getComputerProducer().getProducerName().equalsIgnoreCase(computerModel.getComputerProducer().getProducerName()))
-                    .count() > 0)
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
+                if(getAllComputerModels()
+                        .get()
+                        .stream()
+                        .anyMatch(
+                            cmodel -> cmodel
+                                .getModel()
+                                .equalsIgnoreCase(computerModel.getModel())
+                                &&
+                                cmodel.getComputerProducer()
+                                        .getProducerName()
+                                        .equalsIgnoreCase(computerModel.getComputerProducer().getProducerName())))
+                    //.filter(cmodel -> cmodel.getModel().equalsIgnoreCase(computerModel.getModel()))
+                    //.filter(cmodel -> cmodel.getComputerProducer().getProducerName().equalsIgnoreCase(computerModel.getComputerProducer().getProducerName()))
+                    //.count() > 0)
+                    return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         computerModelRepository.save(computerModel);
         return new ResponseEntity<>(HttpStatus.CREATED);
