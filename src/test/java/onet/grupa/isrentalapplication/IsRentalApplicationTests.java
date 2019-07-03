@@ -23,20 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class IsRentalApplicationTests {
 
-
-    @Autowired
-    WebApplicationContext webCtx;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp(){
-        mockMvc = MockMvcBuilders.webAppContextSetup(webCtx).build();
-    }
-
     @Test
-    public void contextLoads() throws Exception {
-        mockMvc.perform(get("/computers/disks/")).andExpect(status().isOk());
+    public void contextLoads() {
     }
 
 }

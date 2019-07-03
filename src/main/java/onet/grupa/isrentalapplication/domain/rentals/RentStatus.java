@@ -19,7 +19,7 @@ public class RentStatus implements Serializable {
     private String status;
 
     @OneToMany(mappedBy = "rentStatus")
-    private List<ComputerRentals> computerRentals;
+    private List<ComputerRental> computerRentals;
 
     public RentStatus(){}
     public RentStatus(@NotEmpty String status) {
@@ -34,11 +34,11 @@ public class RentStatus implements Serializable {
 
     public void setStatus(String status) { this.status = status; }
 
-    public List<ComputerRentals> getComputerRentals() {
+    public List<ComputerRental> getComputerRentals() {
         return computerRentals;
     }
 
-    public void setComputerRentals(List<ComputerRentals> computerRentals) {
+    public void setComputerRentals(List<ComputerRental> computerRentals) {
         this.computerRentals = computerRentals;
     }
 
