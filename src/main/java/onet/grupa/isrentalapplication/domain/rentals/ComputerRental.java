@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "computer_rentals")
-public class ComputerRentals implements Serializable {
+public class ComputerRental implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,9 +50,9 @@ public class ComputerRentals implements Serializable {
     @JoinColumn(name = "who_set_status")
     private User whoSetStatus;
 
-    public ComputerRentals(){}
+    public ComputerRental(){}
 
-    public ComputerRentals(@NotNull LocalDate startRentalDate, @NotNull LocalDate endRentalDate, @Email @NotEmpty String rentingPersonemail, @NotEmpty String rentingPersonName, @NotNull Computer rentedComputer, @NotNull RentStatus rentStatus) {
+    public ComputerRental(@NotNull LocalDate startRentalDate, @NotNull LocalDate endRentalDate, @Email @NotEmpty String rentingPersonemail, @NotEmpty String rentingPersonName, @NotNull Computer rentedComputer, @NotNull RentStatus rentStatus) {
         this.startRentalDate = startRentalDate;
         this.endRentalDate = endRentalDate;
         this.rentingPersonemail = rentingPersonemail;

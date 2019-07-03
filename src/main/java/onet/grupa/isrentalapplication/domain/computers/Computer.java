@@ -1,6 +1,6 @@
 package onet.grupa.isrentalapplication.domain.computers;
 
-import onet.grupa.isrentalapplication.domain.rentals.ComputerRentals;
+import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -41,7 +41,7 @@ public class Computer implements Serializable {
     private ComputerModel computerModel;
 
     @OneToMany(mappedBy = "rentedComputer")
-    private List<ComputerRentals> computerRentals;
+    private List<ComputerRental> computerRentals;
 
     public Computer(){}
     public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull DiskType diskType, @NotNull ComputerModel computerModel) {
@@ -92,11 +92,11 @@ public class Computer implements Serializable {
         this.computerModel = computerModel;
     }
 
-    public List<ComputerRentals> getComputerRentals() {
+    public List<ComputerRental> getComputerRentals() {
         return computerRentals;
     }
 
-    public void setComputerRentals(List<ComputerRentals> computerRentals) {
+    public void setComputerRentals(List<ComputerRental> computerRentals) {
         this.computerRentals = computerRentals;
     }
 
