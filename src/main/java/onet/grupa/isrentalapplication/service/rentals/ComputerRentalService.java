@@ -24,7 +24,11 @@ public class ComputerRentalService {
     }
 
     public ResponseEntity<List<ComputerRental>> getResponseWithComputerRentalsAndSearching(String searchPhrase){
-        return null;
+        List<ComputerRental> foundRentalsList = computerRentalRepository.findAllByRentingPersonemailContaining(searchPhrase);
+        foundRentalsList.addAll(computerRentalRepository.findAllByRentingPersonNameContaining(searchPhrase));
+        //TO DO REST SEARCH
+
+        return ResponseEntity.of(Optional.ofNullable(foundRentalsList));
     }
 
     /*
