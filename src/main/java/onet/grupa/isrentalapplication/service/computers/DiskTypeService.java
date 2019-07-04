@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -18,15 +17,15 @@ import java.util.Set;
 public class DiskTypeService {
 
     private DiskTypeRepository diskTypeRepository;
-    private Validator diskValidator;
+    private Validator validator;
 
     /*
     Constructor with Autowired DiskTypeRepo
      */
     @Autowired
-    public DiskTypeService(DiskTypeRepository diskTypeRepository, Validator diskValidator){
+    public DiskTypeService(DiskTypeRepository diskTypeRepository, Validator validator){
         this.diskTypeRepository = diskTypeRepository;
-        this.diskValidator = diskValidator;
+        this.validator = validator;
     }
 
     /*
@@ -64,7 +63,7 @@ public class DiskTypeService {
      *
      */
     public ResponseEntity<?> addNewDiskType(DiskType diskType){
-        Set<ConstraintViolation<DiskType>> validationErrors = diskValidator.validate(diskType);
+        Set<ConstraintViolation<DiskType>> validationErrors = validator.validate(diskType);
         if(!validationErrors.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         if(getDiskTypeByName(diskType.getDiskType()).isPresent())

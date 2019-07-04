@@ -5,10 +5,8 @@ import onet.grupa.isrentalapplication.service.computers.ComputerProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +31,7 @@ public class ComputerProducerController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addComputerProducer(@RequestBody @Valid ComputerProducer computerProducer, BindingResult result){
-        return computerProducerService.addNewComputerProducer(computerProducer, result);
+    public ResponseEntity<?> addComputerProducer(@RequestBody ComputerProducer computerProducer){
+        return computerProducerService.addNewComputerProducer(computerProducer);
     }
 }

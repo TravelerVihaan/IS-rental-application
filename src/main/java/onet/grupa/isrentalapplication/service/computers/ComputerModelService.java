@@ -6,19 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ComputerModelService {
 
     private ComputerModelRepository computerModelRepository;
+    private Validator validator;
 
     @Autowired
-    public ComputerModelService(ComputerModelRepository computerModelRepository){
+    public ComputerModelService(ComputerModelRepository computerModelRepository, Validator validator){
         this.computerModelRepository = computerModelRepository;
+        this.validator = validator;
     }
 
     /*
@@ -49,7 +53,6 @@ public class ComputerModelService {
      * Add new computer model to database
      *
      * @param computerModel Object of computer model generated from JSON incoming from front-end
-     * @param result BindingResult object with list of errors, if any exist.
      *
      * @return ResponseEntity with status depending on result of insert entity to DB,
      * can return BAD_REQUEST if result has errors
@@ -57,8 +60,9 @@ public class ComputerModelService {
      *            CREATED if entity was saved in DB
      *
      */
-    public ResponseEntity<?> addNewComputerModel(ComputerModel computerModel, BindingResult result){
-        if(result.hasErrors())
+    public ResponseEntity<?> addNewComputerModel(ComputerModel computerModel){
+        Set<ConstraintViolation<ComputerModel>> validationErrors = validator.validate(computerModel);
+        if(!validationErrors.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         if(getComputerModelByName(computerModel.getModel()).isPresent())
             return new ResponseEntity<>(HttpStatus.CONFLICT);
