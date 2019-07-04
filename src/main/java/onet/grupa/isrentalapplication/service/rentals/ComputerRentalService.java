@@ -14,9 +14,6 @@ public class ComputerRentalService {
 
     private ComputerRentalRepository computerRentalRepository;
 
-    public static final String STATUS_AVAILABLE = "available";
-    public static final String STATUS_UNAVAILABLE = "unavailable";
-
     @Autowired
     public ComputerRentalService(ComputerRentalRepository computerRentalRepository){
         this.computerRentalRepository = computerRentalRepository;

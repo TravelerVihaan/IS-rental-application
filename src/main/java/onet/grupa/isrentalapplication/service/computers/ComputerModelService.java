@@ -24,18 +24,38 @@ public class ComputerModelService {
     /*
    Public methods
     */
+
+    /**
+     * Return simple response with list of all found Computer Models in database.
+     *
+     * @return ResponseEntity with list and status (OK, or BAD_REQUEST
+     */
     public ResponseEntity<List<ComputerModel>> getResponseWithAllComputerModels(){
         return ResponseEntity.of(getAllComputerModels());
     }
 
+    /**
+     * Return simple response with found Computer Model in database.
+     *
+     * @param id id of ComputerModel entity
+     *
+     * @return ResponseEntity with Computer Model and status (OK, or BAD_REQUEST
+     */
     public ResponseEntity<ComputerModel> getResponseWithComputerModel(long id){
         return ResponseEntity.of(getComputerModel(id));
     }
 
-    /*
-     * This function add new Disk Type to database
-     * @param diskType
-     * @param binding result
+    /**
+     * Add new computer model to database
+     *
+     * @param computerModel Object of computer model generated from JSON incoming from front-end
+     * @param result BindingResult object with list of errors, if any exist.
+     *
+     * @return ResponseEntity with status depending on result of insert entity to DB,
+     * can return BAD_REQUEST if result has errors
+     *            CONFLICT if entity has already exists
+     *            CREATED if entity was saved in DB
+     *
      */
     public ResponseEntity<?> addNewComputerModel(ComputerModel computerModel, BindingResult result){
         if(result.hasErrors())
