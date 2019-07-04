@@ -14,6 +14,10 @@ public interface ComputerRentalRepository extends JpaRepository<ComputerRental, 
 
     List<ComputerRental> findAllByRentingPersonNameContaining(String pattern);
 
+    List<ComputerRental> findAllByRentedComputer_ComputerModel_ModelContaining(String pattern);
+
+    List<ComputerRental> findAllByRentedComputer_ComputerModel_ComputerProducer_ProducerNameContaining(String pattern);
+
     List<ComputerRental> findAllByRentStatus_Status(String status);
 
 }

@@ -29,8 +29,8 @@ public class ComputerRentalService {
     public ResponseEntity<List<ComputerRental>> getResponseWithComputerRentalsAndSearching(String searchPhrase){
         List<ComputerRental> foundRentalsList = computerRentalRepository.findAllByRentingPersonemailContaining(searchPhrase);
         foundRentalsList.addAll(computerRentalRepository.findAllByRentingPersonNameContaining(searchPhrase));
-        //TO DO REST SEARCH
-
+        foundRentalsList.addAll(getRentalsByProducer(searchPhrase));
+        foundRentalsList.addAll(getRentalsByModel(searchPhrase));
         return ResponseEntity.ok(foundRentalsList);
     }
 
@@ -48,5 +48,15 @@ public class ComputerRentalService {
 
     private Optional<List<ComputerRental>> getAllComputerRentals(){
         return Optional.ofNullable(computerRentalRepository.findAll());
+    }
+
+    private List<ComputerRental> getRentalsByProducer(String searchPhrase){
+        return computerRentalRepository
+                .findAllByRentedComputer_ComputerModel_ComputerProducer_ProducerNameContaining(searchPhrase);
+    }
+
+    private List<ComputerRental> getRentalsByModel(String searchPhrase) {
+        return computerRentalRepository
+                .findAllByRentedComputer_ComputerModel_ModelContaining(searchPhrase);
     }
 }

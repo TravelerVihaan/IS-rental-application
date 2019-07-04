@@ -43,7 +43,7 @@ public class ComputerController {
     /*
     Update existing computer from database
      */
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Void> addComputer(@PathVariable("id") Long id, @RequestBody @Valid Computer computer, BindingResult result){
         if (result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

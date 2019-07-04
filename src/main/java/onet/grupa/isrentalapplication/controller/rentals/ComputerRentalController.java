@@ -22,7 +22,7 @@ public class ComputerRentalController {
     @GetMapping
     public ResponseEntity<List<ComputerRental>> getRentals(@RequestParam(required = false) String searchPhrase){
         if(searchPhrase != null && !searchPhrase.isEmpty())
-            return computerRentalService.getResponseWithComputerRentals();
+            return computerRentalService.getResponseWithComputerRentalsAndSearching(searchPhrase);
 
         return computerRentalService.getResponseWithComputerRentals();
     }
