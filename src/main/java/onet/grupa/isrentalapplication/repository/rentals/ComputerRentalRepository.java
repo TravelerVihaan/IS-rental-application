@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.repository.rentals;
 
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,5 +13,7 @@ public interface ComputerRentalRepository extends JpaRepository<ComputerRental, 
     List<ComputerRental> findAllByRentingPersonemailContaining(String pattern);
 
     List<ComputerRental> findAllByRentingPersonNameContaining(String pattern);
+
+    List<ComputerRental> findAllByRentStatus_Status(String status);
 
 }

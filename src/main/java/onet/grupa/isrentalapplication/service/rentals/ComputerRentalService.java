@@ -14,6 +14,9 @@ public class ComputerRentalService {
 
     private ComputerRentalRepository computerRentalRepository;
 
+    public static final String STATUS_AVAILABLE = "available";
+    public static final String STATUS_UNAVAILABLE = "unavailable";
+
     @Autowired
     public ComputerRentalService(ComputerRentalRepository computerRentalRepository){
         this.computerRentalRepository = computerRentalRepository;
@@ -28,12 +31,20 @@ public class ComputerRentalService {
         foundRentalsList.addAll(computerRentalRepository.findAllByRentingPersonNameContaining(searchPhrase));
         //TO DO REST SEARCH
 
-        return ResponseEntity.of(Optional.ofNullable(foundRentalsList));
+        return ResponseEntity.ok(foundRentalsList);
+    }
+
+    public ResponseEntity<List<ComputerRental>> getResponseWithComputerRentalsAndStatus(String status){
+        return ResponseEntity.of(getAllComputerRentalsByStatus(status));
     }
 
     /*
     Private methods
      */
+
+    private Optional<List<ComputerRental>> getAllComputerRentalsByStatus(String status){
+        return Optional.ofNullable(computerRentalRepository.findAllByRentStatus_Status(status));
+    }
 
     private Optional<List<ComputerRental>> getAllComputerRentals(){
         return Optional.ofNullable(computerRentalRepository.findAll());

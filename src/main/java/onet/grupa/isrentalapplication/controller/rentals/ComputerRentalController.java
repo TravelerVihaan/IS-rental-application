@@ -4,10 +4,7 @@ import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.service.rentals.ComputerRentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,4 +26,10 @@ public class ComputerRentalController {
 
         return computerRentalService.getResponseWithComputerRentals();
     }
+
+    @GetMapping("rentals/computers/status/{status}")
+    public ResponseEntity<List<ComputerRental>> getRentalsWithStatus(@PathVariable String status){
+        return computerRentalService.getResponseWithComputerRentalsAndStatus(status);
+    }
+
 }
