@@ -33,7 +33,7 @@ public class DiskTypeController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addDiskType(@RequestBody @Valid DiskType diskType, BindingResult result){
-        return diskTypeService.addNewDiskType(diskType, result);
+    public ResponseEntity<?> addDiskType(@RequestBody DiskType diskType){
+        return diskTypeService.addNewDiskType(diskType);
     }
 }

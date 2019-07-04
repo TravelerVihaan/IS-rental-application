@@ -8,19 +8,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class DiskTypeService {
 
     private DiskTypeRepository diskTypeRepository;
+    private Validator diskValidator;
 
     /*
     Constructor with Autowired DiskTypeRepo
      */
     @Autowired
-    public DiskTypeService(DiskTypeRepository diskTypeRepository){ this.diskTypeRepository = diskTypeRepository; }
+    public DiskTypeService(DiskTypeRepository diskTypeRepository, Validator diskValidator){
+        this.diskTypeRepository = diskTypeRepository;
+        this.diskValidator = diskValidator;
+    }
 
     /*
     Public methods
@@ -49,7 +56,6 @@ public class DiskTypeService {
      * Add new DiskType entity to database
      *
      * @param diskType Object of computer model generated from JSON incoming from front-end
-     * @param result BindingResult object with list of errors, if any exist.
      *
      * @return ResponseEntity with status depending on result of insert entity to DB,
      * can return BAD_REQUEST if result has errors
@@ -57,8 +63,9 @@ public class DiskTypeService {
      *            CREATED if entity was saved in DB
      *
      */
-    public ResponseEntity<?> addNewDiskType(DiskType diskType, BindingResult result){
-        if(result.hasErrors())
+    public ResponseEntity<?> addNewDiskType(DiskType diskType){
+        Set<ConstraintViolation<DiskType>> validationErrors = diskValidator.validate(diskType);
+        if(!validationErrors.isEmpty())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         if(getDiskTypeByName(diskType.getDiskType()).isPresent())
             return new ResponseEntity<>(HttpStatus.CONFLICT);

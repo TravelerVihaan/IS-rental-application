@@ -27,10 +27,6 @@ public class ComputerService {
         return ResponseEntity.of(getAllComputers());
     }
 
-    public Computer updateComputer(long id, Computer computer){
-        return null;
-    }
-
     /*
     Private methods to get computers from repo
      */
