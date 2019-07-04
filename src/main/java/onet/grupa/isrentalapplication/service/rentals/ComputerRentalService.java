@@ -19,10 +19,24 @@ public class ComputerRentalService {
         this.computerRentalRepository = computerRentalRepository;
     }
 
+    /**
+     * Return simple response with list of all found ComputerRentals in database.
+     *
+     * @return ResponseEntity with list and status (OK, or BAD_REQUEST)
+     */
     public ResponseEntity<List<ComputerRental>> getResponseWithComputerRentals(){
         return ResponseEntity.of(getAllComputerRentals());
     }
 
+    /**
+     * Return simple response with found ComputerRentals in database.
+     * Method is searching by email, name of renting person, by computer model
+     * and computer producer.
+     *
+     * @param searchPhrase pattern using to search in DB
+     *
+     * @return ResponseEntity with ComputerRentals found in DB and status OK.
+     */
     public ResponseEntity<List<ComputerRental>> getResponseWithComputerRentalsAndSearching(String searchPhrase){
         List<ComputerRental> foundRentalsList = computerRentalRepository.findAllByRentingPersonemailContaining(searchPhrase);
         foundRentalsList.addAll(computerRentalRepository.findAllByRentingPersonNameContaining(searchPhrase));
@@ -31,6 +45,13 @@ public class ComputerRentalService {
         return ResponseEntity.ok(foundRentalsList);
     }
 
+    /**
+     * Return response with found ComputerRental by status.
+     *
+     * @param status status of computer rental ( approved or rejected).
+     *
+     * @return ResponseEntity with OperatingSystem and status (OK, or BAD_REQUEST)
+     */
     public ResponseEntity<List<ComputerRental>> getResponseWithComputerRentalsAndStatus(String status){
         return ResponseEntity.of(getAllComputerRentalsByStatus(status));
     }

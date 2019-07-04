@@ -40,6 +40,11 @@ public class Computer implements Serializable {
     @JoinColumn(name = "model_id")
     private ComputerModel computerModel;
 
+    @NotNull
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "status_id")
+    private ComputerStatus computerStatus;
+
     @OneToMany(mappedBy = "rentedComputer")
     private List<ComputerRental> computerRentals;
 
@@ -108,6 +113,14 @@ public class Computer implements Serializable {
         this.diskType = diskType;
     }
 
+    public ComputerStatus getComputerStatus() {
+        return computerStatus;
+    }
+
+    public void setComputerStatus(ComputerStatus computerStatus) {
+        this.computerStatus = computerStatus;
+    }
+
     @Override
     public String toString() {
         return "Computer{" +
@@ -117,6 +130,7 @@ public class Computer implements Serializable {
                 ", operatingSystem=" + operatingSystem +
                 ", diskType=" + diskType +
                 ", computerModel=" + computerModel +
+                ", computerStatus=" + computerStatus +
                 '}';
     }
 }
