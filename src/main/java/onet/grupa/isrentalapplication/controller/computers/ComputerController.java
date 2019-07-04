@@ -35,15 +35,20 @@ public class ComputerController {
     Get specified computer from database by id
     @param id - id of computer from database
      */
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Computer> getComputer(@PathVariable long id){
         return computerService.getResponseWithComputer(id);
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Void> changeComputerStatus(@PathVariable Long id, @RequestParam String status){
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /*
     Update existing computer from database
      */
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> addComputer(@PathVariable("id") Long id, @RequestBody @Valid Computer computer, BindingResult result){
         if (result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

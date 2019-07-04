@@ -27,14 +27,6 @@ public class ComputerService {
         return ResponseEntity.of(getAllComputers());
     }
 
-    public Computer findComputerById(long id) {
-        if (computerRepository.findById(id).isPresent())
-            return computerRepository.findById(id).get();
-        else
-            //TODO
-            return null;
-    }
-
     public Computer updateComputer(long id, Computer computer){
         return null;
     }
