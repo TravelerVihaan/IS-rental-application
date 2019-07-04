@@ -24,18 +24,37 @@ public class OperatingSystemService {
     /*
     Public methods
      */
+    /**
+     * Return simple response with list of all found OperatingSystems in database.
+     *
+     * @return ResponseEntity with list and status (OK, or BAD_REQUEST)
+     */
     public ResponseEntity<List<OperatingSystem>> getResponseWithAllOperatingSystems(){
         return ResponseEntity.of(getAllOperatingSystems());
     }
 
+    /**
+     * Return simple response with found OperatingSystem in database.
+     *
+     * @param id id of OperatingSystem entity
+     *
+     * @return ResponseEntity with OperatingSystem and status (OK, or BAD_REQUEST)
+     */
     public ResponseEntity<OperatingSystem> getResponseWithOperatingSystem(long id){
         return ResponseEntity.of(getOperatingSystem(id));
     }
 
-    /*
-     * This function add new Disk Type to database
-     * @param diskType
-     * @param binding result
+    /**
+     * Add new OperatingSystem entity to database
+     *
+     * @param operatingSystem Object of computer model generated from JSON incoming from front-end
+     * @param result BindingResult object with list of errors, if any exist.
+     *
+     * @return ResponseEntity with status depending on result of insert entity to DB,
+     * can return BAD_REQUEST if result has errors
+     *            CONFLICT if entity has already exists
+     *            CREATED if entity was saved in DB
+     *
      */
     public ResponseEntity<?> addNewOperatingSystem(OperatingSystem operatingSystem, BindingResult result){
         if(result.hasErrors())

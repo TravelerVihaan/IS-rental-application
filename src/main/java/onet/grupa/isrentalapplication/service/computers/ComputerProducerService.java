@@ -24,14 +24,38 @@ public class ComputerProducerService {
     /*
     Public methods
      */
+    /**
+     * Return simple response with list of all found Computer Producers in database.
+     *
+     * @return ResponseEntity with list and status (OK, or BAD_REQUEST)
+     */
     public ResponseEntity<List<ComputerProducer>> getResponseWithAllComputerProducers(){
         return ResponseEntity.of(getAllComputerProducers());
     }
 
+    /**
+     * Return simple response with found Computer Producer in database.
+     *
+     * @param id id of ComputerProducer entity
+     *
+     * @return ResponseEntity with ComputerProducer and status (OK, or BAD_REQUEST)
+     */
     public ResponseEntity<ComputerProducer> getResponseWithComputerProducer(long id){
         return ResponseEntity.of(getComputerProducer(id));
     }
 
+    /**
+     * Add new ComputerProducer entity to database
+     *
+     * @param computerProducer Object of computer model generated from JSON incoming from front-end
+     * @param result BindingResult object with list of errors, if any exist.
+     *
+     * @return ResponseEntity with status depending on result of insert entity to DB,
+     * can return BAD_REQUEST if result has errors
+     *            CONFLICT if entity has already exists
+     *            CREATED if entity was saved in DB
+     *
+     */
     public ResponseEntity<?> addNewComputerProducer(ComputerProducer computerProducer, BindingResult result){
         if(result.hasErrors())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

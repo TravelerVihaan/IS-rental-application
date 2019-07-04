@@ -28,7 +28,7 @@ public class ComputerModelService {
     /**
      * Return simple response with list of all found Computer Models in database.
      *
-     * @return ResponseEntity with list and status (OK, or BAD_REQUEST
+     * @return ResponseEntity with list and status (OK, or BAD_REQUEST)
      */
     public ResponseEntity<List<ComputerModel>> getResponseWithAllComputerModels(){
         return ResponseEntity.of(getAllComputerModels());
@@ -39,7 +39,7 @@ public class ComputerModelService {
      *
      * @param id id of ComputerModel entity
      *
-     * @return ResponseEntity with Computer Model and status (OK, or BAD_REQUEST
+     * @return ResponseEntity with Computer Model and status (OK, or BAD_REQUEST)
      */
     public ResponseEntity<ComputerModel> getResponseWithComputerModel(long id){
         return ResponseEntity.of(getComputerModel(id));

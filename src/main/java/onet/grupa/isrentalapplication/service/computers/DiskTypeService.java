@@ -25,18 +25,37 @@ public class DiskTypeService {
     /*
     Public methods
      */
+    /**
+     * Return simple response with list of all found DiskType in database.
+     *
+     * @return ResponseEntity with list and status (OK, or BAD_REQUEST)
+     */
     public ResponseEntity<List<DiskType>> getResponseWithAllDisks(){
         return ResponseEntity.of(getAllDisks());
     }
 
+    /**
+     * Return simple response with found DiskType in database.
+     *
+     * @param id id of DiskType entity
+     *
+     * @return ResponseEntity with DiskType and status (OK, or BAD_REQUEST)
+     */
     public ResponseEntity<DiskType> getResponseWithDisk(long id){
         return ResponseEntity.of(getDiskType(id));
     }
 
-    /*
-    * This function add new Disk Type to database
-    * @param diskType
-    * @param binding result
+    /**
+     * Add new DiskType entity to database
+     *
+     * @param diskType Object of computer model generated from JSON incoming from front-end
+     * @param result BindingResult object with list of errors, if any exist.
+     *
+     * @return ResponseEntity with status depending on result of insert entity to DB,
+     * can return BAD_REQUEST if result has errors
+     *            CONFLICT if entity has already exists
+     *            CREATED if entity was saved in DB
+     *
      */
     public ResponseEntity<?> addNewDiskType(DiskType diskType, BindingResult result){
         if(result.hasErrors())
