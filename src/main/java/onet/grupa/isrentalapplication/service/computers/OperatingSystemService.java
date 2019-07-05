@@ -2,9 +2,8 @@ package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.OperatingSystem;
 import onet.grupa.isrentalapplication.repository.computers.OperatingSystemRepository;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -31,10 +30,10 @@ public class OperatingSystemService {
     /**
      * Return simple response with list of all found OperatingSystems in database.
      *
-     * @return ResponseEntity with list and status (OK, or BAD_REQUEST)
+     * @return Optional with list
      */
-    public ResponseEntity<List<OperatingSystem>> getResponseWithAllOperatingSystems(){
-        return ResponseEntity.of(getAllOperatingSystems());
+    public Optional<List<OperatingSystem>> getAllOperatingSystems(){
+        return Optional.ofNullable(operatingSystemRepository.findAll());
     }
 
     /**
@@ -42,32 +41,33 @@ public class OperatingSystemService {
      *
      * @param id id of OperatingSystem entity
      *
-     * @return ResponseEntity with OperatingSystem and status (OK, or BAD_REQUEST)
+     * @return Optional with OS
      */
-    public ResponseEntity<OperatingSystem> getResponseWithOperatingSystem(long id){
-        return ResponseEntity.of(getOperatingSystem(id));
+    public Optional<OperatingSystem> getOperatingSystemById(long id){
+        return operatingSystemRepository.findById(id);
     }
+
 
     /**
      * Add new OperatingSystem entity to database
      *
      * @param operatingSystem Object of computer model generated from JSON incoming from front-end
      *
-     * @return ResponseEntity with status depending on result of insert entity to DB,
-     * can return BAD_REQUEST if result has errors
+     * @return HttpStatusEnum depending on result of insert entity to DB,
+     * can return BADREQUEST if result has errors
      *            CONFLICT if entity has already exists
      *            CREATED if entity was saved in DB
      *
      */
-    public ResponseEntity<?> addNewOperatingSystem(OperatingSystem operatingSystem){
+    public HttpStatusEnum addNewOperatingSystem(OperatingSystem operatingSystem){
         Set<ConstraintViolation<OperatingSystem>> validationErrors = validator.validate(operatingSystem);
         if(!validationErrors.isEmpty())
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return HttpStatusEnum.BADREQUEST;
         if(getOperatingSystemByName(operatingSystem.getOperatingSystem()).isPresent())
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
+                return HttpStatusEnum.CONFLICT;
 
         operatingSystemRepository.save(operatingSystem);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return HttpStatusEnum.CREATED;
     }
 
     /*
@@ -75,13 +75,5 @@ public class OperatingSystemService {
      */
     private Optional<OperatingSystem> getOperatingSystemByName(String operatingSystem){
         return Optional.ofNullable(operatingSystemRepository.findByOperatingSystem(operatingSystem));
-    }
-
-    private Optional<OperatingSystem> getOperatingSystem(long id){
-        return operatingSystemRepository.findById(id);
-    }
-
-    private Optional<List<OperatingSystem>> getAllOperatingSystems(){
-        return Optional.ofNullable(operatingSystemRepository.findAll());
     }
 }

@@ -66,7 +66,7 @@ public class DiskTypeService {
 
     public HttpStatusEnum addNewDiskType(DiskType diskType){
         Set<ConstraintViolation<DiskType>> validationErrors = validator.validate(diskType);
-        if(validationErrors.isEmpty())
+        if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;
         if(getDiskTypeByName(diskType.getDiskType()).isPresent())
             return HttpStatusEnum.CONFLICT;

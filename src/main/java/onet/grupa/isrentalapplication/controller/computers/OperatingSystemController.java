@@ -1,6 +1,7 @@
 package onet.grupa.isrentalapplication.controller.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.OperatingSystem;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.OperatingSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,16 +23,18 @@ public class OperatingSystemController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<OperatingSystem>> getAllOperatingSystems(){
-        return operatingSystemService.getResponseWithAllOperatingSystems();
+        return ResponseEntity.of(operatingSystemService.getAllOperatingSystems());
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OperatingSystem> getOperatingSystem(@PathVariable long id){
-        return operatingSystemService.getResponseWithOperatingSystem(id);
+        return ResponseEntity.of(operatingSystemService.getOperatingSystemById(id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addOperatingSystem(@RequestBody OperatingSystem operatingSystem){
-        return operatingSystemService.addNewOperatingSystem(operatingSystem);
+        HttpStatusEnum status = operatingSystemService.addNewOperatingSystem(operatingSystem);
+
+        return HttpStatusEnum.isHttpStatusEquals(status);
     }
 }

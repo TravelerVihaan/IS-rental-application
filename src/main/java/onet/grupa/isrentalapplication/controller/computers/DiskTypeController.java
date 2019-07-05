@@ -4,7 +4,6 @@ import onet.grupa.isrentalapplication.domain.computers.DiskType;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.DiskTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,12 +35,6 @@ public class DiskTypeController {
     public ResponseEntity<?> addDiskType(@RequestBody DiskType diskType){
         HttpStatusEnum status = diskTypeService.addNewDiskType(diskType);
 
-        if(status == HttpStatusEnum.BADREQUEST)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
-        if(status == HttpStatusEnum.CONFLICT)
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return HttpStatusEnum.isHttpStatusEquals(status);
     }
 }
