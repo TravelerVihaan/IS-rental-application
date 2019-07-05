@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 class OperatingSystemServiceTest {
 
-
     @Autowired
     OperatingSystemService operatingSystemService;
 
@@ -35,9 +34,15 @@ class OperatingSystemServiceTest {
         os2.setId(2L);
         operatingSystemRepository.save(os2);
 
-        assertEquals(HttpStatus.OK,operatingSystemService.getResponseWithOperatingSystem(1L).getStatusCode());
-        assertEquals(new ResponseEntity(HttpStatus.NOT_FOUND), operatingSystemService.getResponseWithOperatingSystem(3L));
-        assertEquals(2, operatingSystemRepository.findAll().size());
+        assertEquals(
+                HttpStatus.OK,
+                operatingSystemService.getResponseWithOperatingSystem(1L).getStatusCode());
+        assertEquals(
+                new ResponseEntity(HttpStatus.NOT_FOUND),
+                operatingSystemService.getResponseWithOperatingSystem(3L));
+        assertEquals(
+                2,
+                operatingSystemRepository.findAll().size());
 
         operatingSystemRepository.deleteAll();
 
@@ -61,9 +66,15 @@ class OperatingSystemServiceTest {
         OperatingSystem testOS3 = new OperatingSystem("");
         testOS3.setId(5L);
 
-        assertEquals(new ResponseEntity(HttpStatus.CREATED), operatingSystemService.addNewOperatingSystem(testOS));
-        assertEquals(new ResponseEntity(HttpStatus.CONFLICT), operatingSystemService.addNewOperatingSystem(testOS2));
-        assertEquals(new ResponseEntity(HttpStatus.BAD_REQUEST), operatingSystemService.addNewOperatingSystem(testOS3));
+        assertEquals(new ResponseEntity(
+                HttpStatus.CREATED),
+                operatingSystemService.addNewOperatingSystem(testOS));
+        assertEquals(
+                new ResponseEntity(HttpStatus.CONFLICT),
+                operatingSystemService.addNewOperatingSystem(testOS2));
+        assertEquals(
+                new ResponseEntity(HttpStatus.BAD_REQUEST),
+                operatingSystemService.addNewOperatingSystem(testOS3));
 
         operatingSystemRepository.deleteAll();
     }
