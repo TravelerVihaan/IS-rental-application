@@ -50,6 +50,17 @@ public class ComputerProducerService {
     }
 
     /**
+     * Return simple response with found Computer Producer in database.
+     *
+     * @param computerProducerName name of computer producer
+     *
+     * @return Optional with ComputerProducer
+     */
+    Optional<ComputerProducer> getComputerProducerByName(String computerProducerName){
+        return computerProducerRepository.findByProducerName(computerProducerName);
+    }
+
+    /**
      * Add new ComputerProducer entity to database
      *
      * @param computerProducer Object of computer model generated from JSON incoming from front-end
@@ -74,7 +85,4 @@ public class ComputerProducerService {
     /*
     Private methods
      */
-    private Optional<ComputerProducer> getComputerProducerByName(String computerProducerName){
-        return computerProducerRepository.findByProducerName(computerProducerName);
-    }
 }

@@ -27,6 +27,8 @@ class ComputerProducerServiceTest {
 
     @Test
     void getProducersFromDBTest(){
+        computerProducerRepository.deleteAll();
+
         ComputerProducer producer1 = new ComputerProducer("DELL");
         producer1.setId(1L);
         computerProducerRepository.save(producer1);
@@ -34,7 +36,7 @@ class ComputerProducerServiceTest {
         producer2.setId(2L);
         computerProducerRepository.save(producer2);
 
-        assertTrue(computerProducerService.getComputerProducerById(1L).isPresent());
+        assertTrue(computerProducerService.getComputerProducerByName("DELL").isPresent());
         assertFalse(computerProducerService.getComputerProducerById(3L).isPresent());
         assertEquals(
                 2,
@@ -45,6 +47,8 @@ class ComputerProducerServiceTest {
 
     @Test
     void addProducersToDBTest(){
+        computerProducerRepository.deleteAll();
+
         ComputerProducer producer1 = new ComputerProducer("DELL");
         producer1.setId(1L);
         computerProducerRepository.save(producer1);
