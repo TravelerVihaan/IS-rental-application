@@ -75,6 +75,6 @@ public class ComputerProducerService {
     Private methods
      */
     private Optional<ComputerProducer> getComputerProducerByName(String computerProducerName){
-        return Optional.ofNullable(computerProducerRepository.findByProducerName(computerProducerName));
+        return computerProducerRepository.findByProducerName(computerProducerName);
     }
 }

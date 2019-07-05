@@ -18,7 +18,7 @@ public class ComputerProducer implements Serializable {
     @Column(name = "name", nullable = false, unique = true)
     private String producerName;
 
-    @OneToMany(mappedBy = "computerProducer")
+    @OneToMany(mappedBy = "computerProducer", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ComputerModel> computerModels;
 
     public ComputerProducer(){}

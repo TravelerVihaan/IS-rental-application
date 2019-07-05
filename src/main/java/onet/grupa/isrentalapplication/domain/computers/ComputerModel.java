@@ -24,6 +24,9 @@ public class ComputerModel implements Serializable {
     private ComputerProducer computerProducer;
 
     public ComputerModel(){}
+    public ComputerModel(@NotEmpty String model) {
+        this.model = model;
+    }
     public ComputerModel(@NotEmpty String model, @NotNull ComputerProducer computerProducer) {
         this.model = model;
         this.computerProducer = computerProducer;

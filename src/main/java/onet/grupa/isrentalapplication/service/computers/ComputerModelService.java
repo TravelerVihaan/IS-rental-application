@@ -4,8 +4,6 @@ import onet.grupa.isrentalapplication.domain.computers.ComputerModel;
 import onet.grupa.isrentalapplication.repository.computers.ComputerModelRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -51,6 +49,17 @@ public class ComputerModelService {
     }
 
     /**
+     * Return simple response with found Computer Model in database.
+     *
+     * @param modelName computer model name
+     *
+     * @return Optional with Computer Model and status (OK, or BAD_REQUEST)
+     */
+    Optional<ComputerModel> getComputerModelByName(String modelName){
+        return Optional.ofNullable(computerModelRepository.findByModel(modelName));
+    }
+
+    /**
      * Add new computer model to database
      *
      * @param computerModel Object of computer model generated from JSON incoming from front-end
@@ -75,8 +84,5 @@ public class ComputerModelService {
     /*
     Private methods
      */
-    private Optional<ComputerModel> getComputerModelByName(String modelName){
-        return Optional.ofNullable(computerModelRepository.findByModel(modelName));
-    }
 
 }
