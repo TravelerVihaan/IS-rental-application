@@ -27,7 +27,24 @@ class OperatingSystemServiceTest {
     OperatingSystemRepository operatingSystemRepository;
 
     @Test
-    void testingOSService(){
+    void getOSFromDBTest(){
+        OperatingSystem os1 = new OperatingSystem("Windows 7");
+        os1.setId(1L);
+        operatingSystemRepository.save(os1);
+        OperatingSystem os2 = new OperatingSystem("Windows 10");
+        os2.setId(2L);
+        operatingSystemRepository.save(os2);
+
+        assertEquals(HttpStatus.OK,operatingSystemService.getResponseWithOperatingSystem(1L).getStatusCode());
+        assertEquals(new ResponseEntity(HttpStatus.NOT_FOUND), operatingSystemService.getResponseWithOperatingSystem(3L));
+        assertEquals(2, operatingSystemRepository.findAll().size());
+
+        operatingSystemRepository.deleteAll();
+
+    }
+
+    @Test
+    void addOSToDBTest(){
         OperatingSystem os1 = new OperatingSystem("Windows 7");
         os1.setId(1L);
         operatingSystemRepository.save(os1);
@@ -44,13 +61,9 @@ class OperatingSystemServiceTest {
         OperatingSystem testOS3 = new OperatingSystem("");
         testOS3.setId(5L);
 
-        assertEquals(HttpStatus.OK,operatingSystemService.getResponseWithOperatingSystem(1L).getStatusCode());
-        assertEquals(new ResponseEntity(HttpStatus.NOT_FOUND), operatingSystemService.getResponseWithOperatingSystem(3L));
         assertEquals(new ResponseEntity(HttpStatus.CREATED), operatingSystemService.addNewOperatingSystem(testOS));
         assertEquals(new ResponseEntity(HttpStatus.CONFLICT), operatingSystemService.addNewOperatingSystem(testOS2));
-
         assertEquals(new ResponseEntity(HttpStatus.BAD_REQUEST), operatingSystemService.addNewOperatingSystem(testOS3));
-
 
         operatingSystemRepository.deleteAll();
     }
