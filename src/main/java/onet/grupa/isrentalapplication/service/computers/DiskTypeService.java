@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.DiskType;
 import onet.grupa.isrentalapplication.repository.computers.DiskTypeRepository;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +35,10 @@ public class DiskTypeService {
     /**
      * Return simple response with list of all found DiskType in database.
      *
-     * @return ResponseEntity with list and status (OK, or BAD_REQUEST)
+     * @return Optional with list of disks
      */
-    public ResponseEntity<List<DiskType>> getResponseWithAllDisks(){
-        return ResponseEntity.of(getAllDisks());
+    public Optional<List<DiskType>> getAllDisks(){
+        return Optional.ofNullable(diskTypeRepository.findAll());
     }
 
     /**
@@ -45,10 +46,10 @@ public class DiskTypeService {
      *
      * @param id id of DiskType entity
      *
-     * @return ResponseEntity with DiskType and status (OK, or BAD_REQUEST)
+     * @return Optional with DiskType
      */
-    public ResponseEntity<DiskType> getResponseWithDisk(long id){
-        return ResponseEntity.of(getDiskType(id));
+    public Optional<DiskType> getDiskTypeById(long id){
+        return diskTypeRepository.findById(id);
     }
 
     /**
@@ -56,21 +57,21 @@ public class DiskTypeService {
      *
      * @param diskType Object of computer model generated from JSON incoming from front-end
      *
-     * @return ResponseEntity with status depending on result of insert entity to DB,
-     * can return BAD_REQUEST if result has errors
+     * @return HttpStatusEnum with status depending on result of insert entity to DB,
+     * can return BADREQUEST if result has errors
      *            CONFLICT if entity has already exists
      *            CREATED if entity was saved in DB
      *
      */
-    public ResponseEntity<?> addNewDiskType(DiskType diskType){
-        Set<ConstraintViolation<DiskType>> validationErrors = validator.validate(diskType);
-        if(!validationErrors.isEmpty())
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        if(getDiskTypeByName(diskType.getDiskType()).isPresent())
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
 
+    public HttpStatusEnum addNewDiskType(DiskType diskType){
+        Set<ConstraintViolation<DiskType>> validationErrors = validator.validate(diskType);
+        if(validationErrors.isEmpty())
+            return HttpStatusEnum.BADREQUEST;
+        if(getDiskTypeByName(diskType.getDiskType()).isPresent())
+            return HttpStatusEnum.CONFLICT;
         diskTypeRepository.save(diskType);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return HttpStatusEnum.CREATED;
     }
 
     /*
@@ -78,14 +79,6 @@ public class DiskTypeService {
      */
     private Optional<DiskType> getDiskTypeByName(String diskType){
         return Optional.ofNullable(diskTypeRepository.findByDiskType(diskType));
-    }
-
-    private Optional<DiskType> getDiskType(long id){
-            return diskTypeRepository.findById(id);
-    }
-
-    private Optional<List<DiskType>> getAllDisks(){
-        return Optional.ofNullable(diskTypeRepository.findAll());
     }
 
 }
