@@ -13,6 +13,12 @@ public enum HttpStatusEnum {
         if(status == HttpStatusEnum.CONFLICT)
             return new ResponseEntity<>(HttpStatus.CONFLICT);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        if(status == HttpStatusEnum.CREATED)
+            return new ResponseEntity<>(HttpStatus.CREATED);
+
+        if(status == HttpStatusEnum.NOTFOUND)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

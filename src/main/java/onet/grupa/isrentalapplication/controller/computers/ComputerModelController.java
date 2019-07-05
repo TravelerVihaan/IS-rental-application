@@ -1,6 +1,7 @@
 package onet.grupa.isrentalapplication.controller.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.ComputerModel;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.ComputerModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,16 +23,17 @@ public class ComputerModelController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ComputerModel>> getAllComputerModels(){
-        return computerModelService.getResponseWithAllComputerModels();
+        return ResponseEntity.of(computerModelService.getAllComputerModels());
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ComputerModel> getComputerModel(@PathVariable long id){
-        return computerModelService.getResponseWithComputerModel(id);
+        return ResponseEntity.of(computerModelService.getComputerModel(id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addComputerProducer(@RequestBody ComputerModel computerModel){
-        return computerModelService.addNewComputerModel(computerModel);
+        HttpStatusEnum status = computerModelService.addNewComputerModel(computerModel);
+        return HttpStatusEnum.isHttpStatusEquals(status);
     }
 }

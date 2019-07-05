@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.ComputerProducer;
 import onet.grupa.isrentalapplication.repository.computers.ComputerProducerRepository;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +32,10 @@ public class ComputerProducerService {
     /**
      * Return simple response with list of all found Computer Producers in database.
      *
-     * @return ResponseEntity with list and status (OK, or BAD_REQUEST)
+     * @return Optional with list
      */
-    public ResponseEntity<List<ComputerProducer>> getResponseWithAllComputerProducers(){
-        return ResponseEntity.of(getAllComputerProducers());
+    public Optional<List<ComputerProducer>> getAllComputerProducers(){
+        return Optional.ofNullable(computerProducerRepository.findAll());
     }
 
     /**
@@ -42,10 +43,10 @@ public class ComputerProducerService {
      *
      * @param id id of ComputerProducer entity
      *
-     * @return ResponseEntity with ComputerProducer and status (OK, or BAD_REQUEST)
+     * @return Optional with ComputerProducer
      */
-    public ResponseEntity<ComputerProducer> getResponseWithComputerProducer(long id){
-        return ResponseEntity.of(getComputerProducer(id));
+    public Optional<ComputerProducer> getComputerProducerById(long id){
+        return computerProducerRepository.findById(id);
     }
 
     /**
@@ -59,15 +60,15 @@ public class ComputerProducerService {
      *            CREATED if entity was saved in DB
      *
      */
-    public ResponseEntity<?> addNewComputerProducer(ComputerProducer computerProducer){
+    public HttpStatusEnum addNewComputerProducer(ComputerProducer computerProducer){
         Set<ConstraintViolation<ComputerProducer>> validationErrors = validator.validate(computerProducer);
         if(!validationErrors.isEmpty())
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return HttpStatusEnum.BADREQUEST;
         if(getComputerProducerByName(computerProducer.getProducerName()).isPresent())
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return HttpStatusEnum.CONFLICT;
 
         computerProducerRepository.save(computerProducer);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return HttpStatusEnum.CREATED;
     }
 
     /*
@@ -75,13 +76,5 @@ public class ComputerProducerService {
      */
     private Optional<ComputerProducer> getComputerProducerByName(String computerProducerName){
         return Optional.ofNullable(computerProducerRepository.findByProducerName(computerProducerName));
-    }
-
-    private Optional<ComputerProducer> getComputerProducer(long id){
-        return computerProducerRepository.findById(id);
-    }
-
-    private Optional<List<ComputerProducer>> getAllComputerProducers(){
-        return Optional.ofNullable(computerProducerRepository.findAll());
     }
 }

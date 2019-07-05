@@ -2,14 +2,15 @@ package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.ComputerProducer;
 import onet.grupa.isrentalapplication.repository.computers.ComputerProducerRepository;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,15 +34,11 @@ class ComputerProducerServiceTest {
         producer2.setId(2L);
         computerProducerRepository.save(producer2);
 
-        assertEquals(
-                HttpStatus.OK,
-                computerProducerService.getResponseWithComputerProducer(1L).getStatusCode());
-        assertEquals(
-                new ResponseEntity(HttpStatus.NOT_FOUND),
-                computerProducerService.getResponseWithComputerProducer(3L));
+        assertTrue(computerProducerService.getComputerProducerById(1L).isPresent());
+        assertFalse(computerProducerService.getComputerProducerById(3L).isPresent());
         assertEquals(
                 2,
-                computerProducerRepository.findAll().size());
+                computerProducerService.getAllComputerProducers().orElse(new ArrayList<>()).size());
 
         computerProducerRepository.deleteAll();
     }
@@ -64,15 +61,9 @@ class ComputerProducerServiceTest {
         ComputerProducer testProducer3 = new ComputerProducer("");
         testProducer3.setId(5L);
 
-        assertEquals(
-                new ResponseEntity(HttpStatus.CREATED),
-                computerProducerService.addNewComputerProducer(testProducer1));
-        assertEquals(
-                new ResponseEntity(HttpStatus.CONFLICT),
-                computerProducerService.addNewComputerProducer(testProducer2));
-        assertEquals(
-                new ResponseEntity(HttpStatus.BAD_REQUEST),
-                computerProducerService.addNewComputerProducer(testProducer3));
+        assertEquals(HttpStatusEnum.CREATED, computerProducerService.addNewComputerProducer(testProducer1));
+        assertEquals(HttpStatusEnum.CONFLICT, computerProducerService.addNewComputerProducer(testProducer2));
+        assertEquals(HttpStatusEnum.BADREQUEST, computerProducerService.addNewComputerProducer(testProducer3));
 
         computerProducerRepository.deleteAll();
     }
