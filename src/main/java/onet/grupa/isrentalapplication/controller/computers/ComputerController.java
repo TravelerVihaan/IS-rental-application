@@ -41,8 +41,8 @@ public class ComputerController {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<Void> changeComputerStatus(@PathVariable Long id, @RequestParam String status){
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> changeComputerStatus(@PathVariable Long id, @RequestParam String status){
+        return computerService.changeComputerStatus(status, id);
     }
 
     /*
