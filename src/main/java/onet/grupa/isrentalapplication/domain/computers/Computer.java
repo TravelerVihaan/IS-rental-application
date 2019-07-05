@@ -45,16 +45,21 @@ public class Computer implements Serializable {
     @JoinColumn(name = "status_id")
     private ComputerStatus computerStatus;
 
-    @OneToMany(mappedBy = "rentedComputer")
+    @OneToMany(mappedBy = "rentedComputer", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ComputerRental> computerRentals;
 
     public Computer(){}
-    public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull DiskType diskType, @NotNull ComputerModel computerModel) {
+    public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber){
+        this.OTNumber = OTNumber;
+        this.serialNumber = serialNumber;
+    }
+    public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull DiskType diskType, @NotNull ComputerModel computerModel, @NotNull ComputerStatus computerStatus) {
         this.OTNumber = OTNumber;
         this.serialNumber = serialNumber;
         this.operatingSystem = operatingSystem;
         this.diskType = diskType;
         this.computerModel = computerModel;
+        this.computerStatus = computerStatus;
     }
 
     public Long getId() {
