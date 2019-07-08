@@ -1,14 +1,13 @@
 package onet.grupa.isrentalapplication.controller.rentals;
 
 import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.rentals.RentStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,16 +23,18 @@ public class RentStatusController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RentStatus>> getAllStatuses(){
-        return rentStatusService.getResponseWithAllStatuses();
+        return ResponseEntity.of(rentStatusService.getAllStatuses());
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RentStatus> getStatus(@PathVariable long id){
-        return rentStatusService.getResponseWithStatus(id);
+        return ResponseEntity.of(rentStatusService.getStatus(id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addNewStatus(@RequestBody @Valid RentStatus rentStatus, BindingResult result){
-        return rentStatusService.addNewRentStatus(rentStatus, result);
+    public ResponseEntity<?> addNewStatus(@RequestBody RentStatus rentStatus){
+        HttpStatusEnum status = rentStatusService.addNewRentStatus(rentStatus);
+
+        return HttpStatusEnum.isHttpStatusEquals(status);
     }
 }
