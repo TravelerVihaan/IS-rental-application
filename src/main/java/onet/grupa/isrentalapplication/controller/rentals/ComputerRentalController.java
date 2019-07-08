@@ -23,14 +23,14 @@ public class ComputerRentalController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ComputerRental>> getRentals(@RequestParam(required = false) String searchPhrase){
         if(searchPhrase != null && !searchPhrase.isEmpty())
-            return computerRentalService.getResponseWithComputerRentalsAndSearching(searchPhrase);
+            return ResponseEntity.of(computerRentalService.getComputerRentalsWithSearching(searchPhrase));
 
-        return computerRentalService.getResponseWithComputerRentals();
+        return ResponseEntity.of(computerRentalService.getAllComputerRentals());
     }
 
     @GetMapping(path = "rentals/computers/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ComputerRental>> getRentalsWithStatus(@PathVariable String status){
-        return computerRentalService.getResponseWithComputerRentalsAndStatus(status);
+        return ResponseEntity.of(computerRentalService.getAllComputerRentalsWithStatus(status));
     }
 
 }
