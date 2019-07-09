@@ -29,11 +29,18 @@ public class ReminderMailService {
         this.mailSender = mailSender;
     }
 
+    /**
+     * This method send mail.
+     */
     public void sendMailsWithReminds(){
         getCurrentMailsList();
         prepareAndSendReminderMails();
     }
 
+    /**
+     * This method sets message parameters like recipients, subject,
+     * text of the message.
+     */
     private void prepareAndSendReminderMails(){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(setRecipientList());
@@ -43,17 +50,29 @@ public class ReminderMailService {
         mailSender.send(mailMessage);
     }
 
+    /**
+     * This method convert recipients list to an array
+     * @return array of recipients of mail.
+     */
     private String[] setRecipientList(){
         String[] recipientList = new String[mailsList.size()];
         mailsList.toArray(recipientList);
         return recipientList;
     }
 
+    /**
+     * This method get all active rentals
+     */
     private void getCurrentMailsList(){
         computerRentalService.getAllComputerRentalsWithStatus("active")
                 .ifPresent(this::addCurrentMailsToList);
     }
 
+
+    /**
+     * This method filter terminated rentals.
+     * @param rentalsList list of rentals
+     */
     private void addCurrentMailsToList(List<ComputerRental> rentalsList){
         rentalsList
                 .stream()
