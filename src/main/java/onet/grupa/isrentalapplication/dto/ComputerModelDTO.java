@@ -4,7 +4,7 @@ public class ComputerModelDTO {
 
     private String model;
 
-    private ComputerProducerDTO computerProducer;
+    private String computerProducer;
 
     public String getModel() {
         return model;
@@ -14,11 +14,11 @@ public class ComputerModelDTO {
         this.model = model;
     }
 
-    public ComputerProducerDTO getComputerProducer() {
+    public String getComputerProducer() {
         return computerProducer;
     }
 
-    public void setComputerProducer(ComputerProducerDTO computerProducer) {
+    public void setComputerProducer(String computerProducer) {
         this.computerProducer = computerProducer;
     }
 }

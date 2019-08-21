@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.controller.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.Computer;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,13 +18,15 @@ import java.util.List;
 public class ComputerController {
 
     private ComputerService computerService;
+    private ModelMapper modelMapper;
 
     @Autowired
-    public ComputerController(ComputerService computerService){
+    public ComputerController(ComputerService computerService, ModelMapper modelMapper){
         this.computerService = computerService;
+        this.modelMapper = modelMapper;
     }
 
-    /*
+    /**
     Get all computers from database
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,7 +34,7 @@ public class ComputerController {
         return computerService.getResponseWithAllComputers();
     }
 
-    /*
+    /**
     Get specified computer from database by id
     @param id - id of computer from database
      */
@@ -45,7 +48,7 @@ public class ComputerController {
         return computerService.changeComputerStatus(status, id);
     }
 
-    /*
+    /**
     Update existing computer from database
      */
     @PutMapping("/{id}")

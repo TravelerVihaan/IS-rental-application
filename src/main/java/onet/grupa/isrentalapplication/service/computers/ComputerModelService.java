@@ -31,10 +31,10 @@ public class ComputerModelService {
     /**
      * Return simple response with list of all found Computer Models in database.
      *
-     * @return Optional List of Computer Models
+     * @return List of Computer Models
      */
-    public Optional<List<ComputerModel>> getAllComputerModels(){
-        return Optional.ofNullable(computerModelRepository.findAll());
+    public List<ComputerModel> getAllComputerModels(){
+        return computerModelRepository.findAll();
     }
 
     /**
