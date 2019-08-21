@@ -37,12 +37,14 @@ public class ComputerModelController {
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ComputerModel> getComputerModel(@PathVariable long id){
-        return ResponseEntity.of(computerModelService.getComputerModel(id));
+    public ResponseEntity<ComputerModelDTO> getComputerModel(@PathVariable long id){
+        ComputerModelDTO computerModelDTO = modelMapper.map(computerModelService.getComputerModel(id).orElseThrow(),ComputerModelDTO.class);
+        return ResponseEntity.of(Optional.ofNullable(computerModelDTO));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addComputerProducer(@RequestBody ComputerModel computerModel){
+    public ResponseEntity<?> addComputerProducer(@RequestBody ComputerModelDTO computerModelDTO){
+        ComputerModel computerModel = modelMapper.map(computerModelDTO, ComputerModel.class);
         HttpStatusEnum status = computerModelService.addNewComputerModel(computerModel);
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
