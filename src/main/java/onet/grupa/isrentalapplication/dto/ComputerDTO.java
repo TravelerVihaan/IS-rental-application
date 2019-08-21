@@ -4,10 +4,11 @@ public class ComputerDTO {
 
     private String OTNumber;
     private String serialNumber;
-    private OperatingSystemDTO operatingSystem;
-    private DiskTypeDTO diskType;
-    private ComputerModelDTO computerModel;
-    private ComputerStatusDTO computerStatus;
+    private String operatingSystem;
+    private String diskType;
+    private String computerProducer;
+    private String computerModel;
+    private String computerStatus;
 
     public String getOTNumber() {
         return OTNumber;
@@ -25,35 +26,43 @@ public class ComputerDTO {
         this.serialNumber = serialNumber;
     }
 
-    public OperatingSystemDTO getOperatingSystem() {
+    public String getOperatingSystem() {
         return operatingSystem;
     }
 
-    public void setOperatingSystem(OperatingSystemDTO operatingSystem) {
+    public void setOperatingSystem(String operatingSystem) {
         this.operatingSystem = operatingSystem;
     }
 
-    public DiskTypeDTO getDiskType() {
+    public String getDiskType() {
         return diskType;
     }
 
-    public void setDiskType(DiskTypeDTO diskType) {
+    public void setDiskType(String diskType) {
         this.diskType = diskType;
     }
 
-    public ComputerModelDTO getComputerModel() {
+    public String getComputerProducer() {
+        return computerProducer;
+    }
+
+    public void setComputerProducer(String computerProducer) {
+        this.computerProducer = computerProducer;
+    }
+
+    public String getComputerModel() {
         return computerModel;
     }
 
-    public void setComputerModel(ComputerModelDTO computerModel) {
+    public void setComputerModel(String computerModel) {
         this.computerModel = computerModel;
     }
 
-    public ComputerStatusDTO getComputerStatus() {
+    public String getComputerStatus() {
         return computerStatus;
     }
 
-    public void setComputerStatus(ComputerStatusDTO computerStatus) {
+    public void setComputerStatus(String computerStatus) {
         this.computerStatus = computerStatus;
     }
 }
