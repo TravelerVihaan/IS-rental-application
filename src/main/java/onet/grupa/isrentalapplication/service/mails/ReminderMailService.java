@@ -19,7 +19,7 @@ public class ReminderMailService {
     private final String MAIL_FROM = "";
     private final String MAIL_SUBJECT = "[WYPOZYCZALNIA] PROSIMY O ZWROT POZYCZONEGO SPRZETU";
     private final String MAIL_TEXT = "Upłynął termin, który zadeklarowałeś jako datę zwrotu sprzętu. \n" +
-                                    " Dział Internal IT prosi o niezwłoczny zwrot wyporzyczonego sprzętu.";
+                                    " Dział Internal IT prosi o niezwłoczny zwrot wypożyczonego sprzętu.";
 
     private List<String> mailsList;
 
