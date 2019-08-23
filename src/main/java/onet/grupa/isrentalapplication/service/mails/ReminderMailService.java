@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,12 +17,12 @@ public class ReminderMailService {
     private JavaMailSender mailSender;
     private ComputerRentalService computerRentalService;
 
-    private final String MAIL_FROM = "";
+    private final String MAIL_FROM = "is@is.com";
     private final String MAIL_SUBJECT = "[WYPOZYCZALNIA] PROSIMY O ZWROT POZYCZONEGO SPRZETU";
     private final String MAIL_TEXT = "Upłynął termin, który zadeklarowałeś jako datę zwrotu sprzętu. \n" +
                                     " Dział Internal IT prosi o niezwłoczny zwrot wypożyczonego sprzętu.";
 
-    private List<String> mailsList;
+    private List<String> mailsList = new ArrayList<>();
 
     @Autowired
     public ReminderMailService(JavaMailSender mailSender, ComputerRentalService computerRentalService){
