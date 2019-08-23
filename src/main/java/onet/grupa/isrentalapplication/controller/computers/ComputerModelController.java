@@ -29,16 +29,17 @@ public class ComputerModelController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ComputerModelDTO>> getAllComputerModels(){
-        return ResponseEntity.of(Optional.of(computerModelService
+        return ResponseEntity.ok(computerModelService
                 .getAllComputerModels()
                 .stream()
                 .map(model -> modelMapper.map(model, ComputerModelDTO.class))
-                .collect(Collectors.toList())));
+                .collect(Collectors.toList()));
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ComputerModelDTO> getComputerModel(@PathVariable long id){
-        ComputerModelDTO computerModelDTO = modelMapper.map(computerModelService.getComputerModel(id).orElseThrow(),ComputerModelDTO.class);
+        ComputerModelDTO computerModelDTO = modelMapper
+                .map(computerModelService.getComputerModel(id).orElseThrow(),ComputerModelDTO.class);
         return ResponseEntity.of(Optional.ofNullable(computerModelDTO));
     }
 

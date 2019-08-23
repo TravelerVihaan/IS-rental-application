@@ -5,21 +5,19 @@ import onet.grupa.isrentalapplication.domain.computers.ComputerProducer;
 import onet.grupa.isrentalapplication.repository.computers.ComputerModelRepository;
 import onet.grupa.isrentalapplication.repository.computers.ComputerProducerRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-class ComputerModelServiceTest {
+public class ComputerModelServiceTest {
 
     @Autowired
     ComputerModelService computerModelService;
@@ -31,7 +29,7 @@ class ComputerModelServiceTest {
     ComputerModelRepository computerModelRepository;
 
     @Test
-    void getComputerModelTest(){
+    public void getComputerModelTest(){
         computerModelRepository.deleteAll();
         computerProducerRepository.deleteAll();
 
@@ -55,15 +53,15 @@ class ComputerModelServiceTest {
         assertFalse(computerModelService.getComputerModelByName("5480").isPresent());
         assertFalse(computerModelService.getComputerModel(3L).isPresent());
         assertEquals(producer1.getProducerName(),computerModelService.getComputerModel(4L).orElse(new ComputerModel()).getComputerProducer().getProducerName());
-        assertEquals(2, computerModelService.getAllComputerModels().orElse(new ArrayList<>()).size());
+        assertEquals(2, computerModelService.getAllComputerModels().size());
 
         computerProducerRepository.deleteAll();
-        assertEquals(0, computerModelService.getAllComputerModels().orElse(new ArrayList<>(10)).size());
+        assertEquals(0, computerModelService.getAllComputerModels().size());
         computerModelRepository.deleteAll();
     }
 
     @Test
-    void addComputerModelTest(){
+    public void addComputerModelTest(){
 
         computerModelRepository.deleteAll();
         computerProducerRepository.deleteAll();

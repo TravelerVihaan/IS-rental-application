@@ -3,7 +3,7 @@ package onet.grupa.isrentalapplication.service.computers;
 import onet.grupa.isrentalapplication.domain.computers.ComputerProducer;
 import onet.grupa.isrentalapplication.repository.computers.ComputerProducerRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,12 +12,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-class ComputerProducerServiceTest {
+public class ComputerProducerServiceTest {
 
     @Autowired
     ComputerProducerService computerProducerService;
@@ -26,7 +26,7 @@ class ComputerProducerServiceTest {
     ComputerProducerRepository computerProducerRepository;
 
     @Test
-    void getProducersFromDBTest(){
+    public void getProducersFromDBTest(){
         computerProducerRepository.deleteAll();
 
         ComputerProducer producer1 = new ComputerProducer("DELL");
@@ -46,7 +46,7 @@ class ComputerProducerServiceTest {
     }
 
     @Test
-    void addProducersToDBTest(){
+    public void addProducersToDBTest(){
         computerProducerRepository.deleteAll();
 
         ComputerProducer producer1 = new ComputerProducer("DELL");

@@ -3,20 +3,20 @@ package onet.grupa.isrentalapplication.service.computers;
 import onet.grupa.isrentalapplication.domain.computers.OperatingSystem;
 import onet.grupa.isrentalapplication.repository.computers.OperatingSystemRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
-import org.junit.jupiter.api.*;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-class OperatingSystemServiceTest {
+public class OperatingSystemServiceTest {
 
     @Autowired
     OperatingSystemService operatingSystemService;
@@ -25,7 +25,7 @@ class OperatingSystemServiceTest {
     OperatingSystemRepository operatingSystemRepository;
 
     @Test
-    void getOSFromDBTest(){
+    public void getOSFromDBTest(){
         OperatingSystem os1 = new OperatingSystem("Windows 7");
         os1.setId(1L);
         operatingSystemRepository.save(os1);
@@ -42,7 +42,7 @@ class OperatingSystemServiceTest {
     }
 
     @Test
-    void addOSToDBTest(){
+    public void addOSToDBTest(){
         OperatingSystem os1 = new OperatingSystem("Windows 7");
         os1.setId(1L);
         operatingSystemRepository.save(os1);
