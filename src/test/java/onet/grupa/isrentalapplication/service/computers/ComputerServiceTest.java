@@ -64,12 +64,14 @@ public class ComputerServiceTest {
         computer.setOperatingSystem(operatingSystemRepository.findByOperatingSystem("Windows 7"));
         computer.setDiskType(diskTypeRepository.findByDiskType("SSD"));
         computer.setComputerModel(computerModelRepository.findByModel("E6440"));
+        computer.setComputerStatus(status1);
         computerRepository.save(computer);
 
     }
 
     @After
     public void tearDown(){
+        computerRepository.deleteAll();
         diskTypeRepository.deleteAll();
         computerModelRepository.deleteAll();
         computerProducerRepository.deleteAll();

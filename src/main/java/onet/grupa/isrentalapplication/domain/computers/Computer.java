@@ -26,22 +26,22 @@ public class Computer implements Serializable {
     private String serialNumber;
 
     @NotNull
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "os_id")
     private OperatingSystem operatingSystem;
 
     @NotNull
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "disk_id")
     private DiskType diskType;
 
     @NotNull
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "model_id")
     private ComputerModel computerModel;
 
     @NotNull
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "status_id")
     private ComputerStatus computerStatus;
 
