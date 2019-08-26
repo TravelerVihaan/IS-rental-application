@@ -30,10 +30,10 @@ public class ComputerProducerService {
     /**
      * Return simple response with list of all found Computer Producers in database.
      *
-     * @return Optional with list
+     * @return List with computer producers
      */
-    public Optional<List<ComputerProducer>> getAllComputerProducers(){
-        return Optional.ofNullable(computerProducerRepository.findAll());
+    public List<ComputerProducer> getAllComputerProducers(){
+        return computerProducerRepository.findAll();
     }
 
     /**
