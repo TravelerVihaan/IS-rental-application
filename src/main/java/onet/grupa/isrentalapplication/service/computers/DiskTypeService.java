@@ -33,10 +33,10 @@ public class DiskTypeService {
     /**
      * Return simple response with list of all found DiskType in database.
      *
-     * @return Optional with list of disks
+     * @return list of disks
      */
-    public Optional<List<DiskType>> getAllDisks(){
-        return Optional.ofNullable(diskTypeRepository.findAll());
+    public List<DiskType> getAllDisks(){
+        return diskTypeRepository.findAll();
     }
 
     /**

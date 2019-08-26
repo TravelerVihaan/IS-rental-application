@@ -38,9 +38,9 @@ public class ComputerModelController {
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ComputerModelDTO> getComputerModel(@PathVariable long id){
-        ComputerModelDTO computerModelDTO = modelMapper
-                .map(computerModelService.getComputerModel(id).orElseThrow(),ComputerModelDTO.class);
-        return ResponseEntity.of(Optional.ofNullable(computerModelDTO));
+        Optional<ComputerModelDTO> computerModelDTO = Optional.ofNullable(modelMapper
+                .map(computerModelService.getComputerModel(id).orElseThrow(),ComputerModelDTO.class));
+        return ResponseEntity.of(computerModelDTO);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
