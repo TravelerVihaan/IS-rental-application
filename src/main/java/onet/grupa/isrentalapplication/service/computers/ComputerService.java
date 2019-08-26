@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Validator;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,19 +15,39 @@ import java.util.Optional;
 public class ComputerService {
 
     private ComputerRepository computerRepository;
+    private Validator validator;
 
     @Autowired
-    public ComputerService(ComputerRepository computerRepository){
+    public ComputerService(ComputerRepository computerRepository, Validator validator){
         this.computerRepository = computerRepository;
+        this.validator = validator;
     }
 
-    public ResponseEntity<Computer> getResponseWithComputer(long id){
-        return ResponseEntity.of(getComputer(id));
+    /*
+   Public methods
+    */
+
+    /**
+     * Return simple response with list of all found Computer in database.
+     *
+     * @return List of Computers
+     */
+    public List<Computer> getAllComputers(){
+        return computerRepository.findAll();
     }
 
-    public ResponseEntity<List<Computer>> getResponseWithAllComputers(){
-        return ResponseEntity.of(getAllComputers());
+    /**
+     * Return Optional with found Computer in database.
+     *
+     * @param id id of Computer entity
+     *
+     * @return Optional with Computer
+     */
+    public Optional<Computer> getComputer(long id){
+        return computerRepository.findById(id);
     }
+
+
 
     public ResponseEntity<?> changeComputerStatus(String status, Long id){
         if(getComputer(id).isPresent()) {
@@ -44,9 +65,4 @@ public class ComputerService {
         computerRepository.save(computer);
     }
 
-    private Optional<Computer> getComputer(long id){ return computerRepository.findById(id);}
-
-    private Optional<List<Computer>> getAllComputers(){
-        return Optional.ofNullable(computerRepository.findAll());
-    }
 }

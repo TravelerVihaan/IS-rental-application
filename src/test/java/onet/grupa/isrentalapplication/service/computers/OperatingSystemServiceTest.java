@@ -3,6 +3,8 @@ package onet.grupa.isrentalapplication.service.computers;
 import onet.grupa.isrentalapplication.domain.computers.OperatingSystem;
 import onet.grupa.isrentalapplication.repository.computers.OperatingSystemRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @ActiveProfiles("test")
 public class OperatingSystemServiceTest {
 
@@ -24,31 +26,31 @@ public class OperatingSystemServiceTest {
     @Autowired
     OperatingSystemRepository operatingSystemRepository;
 
-    @Test
-    public void getOSFromDBTest(){
+    @Before
+    public void setUp() {
         OperatingSystem os1 = new OperatingSystem("Windows 7");
         os1.setId(1L);
         operatingSystemRepository.save(os1);
         OperatingSystem os2 = new OperatingSystem("Windows 10");
         os2.setId(2L);
         operatingSystemRepository.save(os2);
+    }
+
+    @Test
+    public void getOSFromDBTest(){
 
         assertTrue(operatingSystemService.getOperatingSystemById(1L).isPresent());
         assertFalse(operatingSystemService.getOperatingSystemById(3L).isPresent());
-        assertEquals(2, operatingSystemService.getAllOperatingSystems().get().size());
+        assertEquals(2, operatingSystemService.getAllOperatingSystems().size());
+    }
 
+    @After
+    public void tearDown(){
         operatingSystemRepository.deleteAll();
-
     }
 
     @Test
     public void addOSToDBTest(){
-        OperatingSystem os1 = new OperatingSystem("Windows 7");
-        os1.setId(1L);
-        operatingSystemRepository.save(os1);
-        OperatingSystem os2 = new OperatingSystem("Windows 10");
-        os2.setId(2L);
-        operatingSystemRepository.save(os2);
 
         OperatingSystem testOS = new OperatingSystem("Linux");
         testOS.setId(3L);
@@ -62,7 +64,5 @@ public class OperatingSystemServiceTest {
         assertEquals(HttpStatusEnum.CREATED, operatingSystemService.addNewOperatingSystem(testOS));
         assertEquals(HttpStatusEnum.CONFLICT, operatingSystemService.addNewOperatingSystem(testOS2));
         assertEquals(HttpStatusEnum.BADREQUEST, operatingSystemService.addNewOperatingSystem(testOS3));
-
-        operatingSystemRepository.deleteAll();
     }
 }

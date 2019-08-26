@@ -1,6 +1,7 @@
 package onet.grupa.isrentalapplication.controller.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.Computer;
+import onet.grupa.isrentalapplication.dto.ComputerDTO;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/computers/computers")
@@ -30,8 +33,12 @@ public class ComputerController {
     Get all computers from database
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Computer>> getComputers(){
-        return computerService.getResponseWithAllComputers();
+    public ResponseEntity<List<ComputerDTO>> getComputers(){
+        return ResponseEntity.ok(computerService
+                .getAllComputers()
+                .stream()
+                .map(computer -> modelMapper.map(computer, ComputerDTO.class))
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -39,8 +46,10 @@ public class ComputerController {
     @param id - id of computer from database
      */
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Computer> getComputer(@PathVariable long id){
-        return computerService.getResponseWithComputer(id);
+    public ResponseEntity<ComputerDTO> getComputer(@PathVariable long id){
+        Optional<ComputerDTO> computerDTO = Optional.ofNullable(modelMapper
+                .map(computerService.getComputer(id).orElseThrow(),ComputerDTO.class));
+        return ResponseEntity.of(computerDTO);
     }
 
     @PatchMapping("/{id}/status")

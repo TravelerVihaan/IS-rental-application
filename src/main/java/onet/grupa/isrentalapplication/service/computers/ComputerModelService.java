@@ -38,7 +38,7 @@ public class ComputerModelService {
     }
 
     /**
-     * Return simple response with found Computer Model in database.
+     * Return Optional with found Computer Model in database.
      *
      * @param id id of ComputerModel entity
      *

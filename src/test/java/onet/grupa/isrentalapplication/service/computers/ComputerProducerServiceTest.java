@@ -3,14 +3,14 @@ package onet.grupa.isrentalapplication.service.computers;
 import onet.grupa.isrentalapplication.domain.computers.ComputerProducer;
 import onet.grupa.isrentalapplication.repository.computers.ComputerProducerRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -25,37 +25,30 @@ public class ComputerProducerServiceTest {
     @Autowired
     ComputerProducerRepository computerProducerRepository;
 
-    @Test
-    public void getProducersFromDBTest(){
-        computerProducerRepository.deleteAll();
-
+    @Before
+    public void setUp(){
         ComputerProducer producer1 = new ComputerProducer("DELL");
         producer1.setId(1L);
         computerProducerRepository.save(producer1);
         ComputerProducer producer2 = new ComputerProducer("Apple");
         producer2.setId(2L);
         computerProducerRepository.save(producer2);
+    }
 
-        assertTrue(computerProducerService.getComputerProducerByName("DELL").isPresent());
-        assertFalse(computerProducerService.getComputerProducerById(3L).isPresent());
-        assertEquals(
-                2,
-                computerProducerService.getAllComputerProducers().orElse(new ArrayList<>()).size());
-
+    @After
+    public void tearDown() {
         computerProducerRepository.deleteAll();
     }
 
     @Test
+    public void getProducersFromDBTest(){
+        assertTrue(computerProducerService.getComputerProducerByName("DELL").isPresent());
+        assertFalse(computerProducerService.getComputerProducerById(3L).isPresent());
+        assertEquals(2, computerProducerService.getAllComputerProducers().size());
+    }
+
+    @Test
     public void addProducersToDBTest(){
-        computerProducerRepository.deleteAll();
-
-        ComputerProducer producer1 = new ComputerProducer("DELL");
-        producer1.setId(1L);
-        computerProducerRepository.save(producer1);
-        ComputerProducer producer2 = new ComputerProducer("Apple");
-        producer2.setId(2L);
-        computerProducerRepository.save(producer2);
-
         ComputerProducer testProducer1 = new ComputerProducer("HP");
         testProducer1.setId(3L);
 
@@ -68,8 +61,6 @@ public class ComputerProducerServiceTest {
         assertEquals(HttpStatusEnum.CREATED, computerProducerService.addNewComputerProducer(testProducer1));
         assertEquals(HttpStatusEnum.CONFLICT, computerProducerService.addNewComputerProducer(testProducer2));
         assertEquals(HttpStatusEnum.BADREQUEST, computerProducerService.addNewComputerProducer(testProducer3));
-
-        computerProducerRepository.deleteAll();
     }
 
 }
