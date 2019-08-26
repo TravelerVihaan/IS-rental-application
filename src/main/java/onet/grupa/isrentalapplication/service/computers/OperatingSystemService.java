@@ -30,10 +30,10 @@ public class OperatingSystemService {
     /**
      * Return simple response with list of all found OperatingSystems in database.
      *
-     * @return Optional with list
+     * @return List with Operating Systems
      */
-    public Optional<List<OperatingSystem>> getAllOperatingSystems(){
-        return Optional.ofNullable(operatingSystemRepository.findAll());
+    public List<OperatingSystem> getAllOperatingSystems(){
+        return operatingSystemRepository.findAll();
     }
 
     /**
