@@ -86,8 +86,8 @@ public class ComputerServiceTest {
 
     @Test
     public void getComputer() {
-        assertTrue(computerService.getComputer(1L).isPresent());
-        assertFalse(computerService.getComputer(2L).isPresent());
+        assertTrue(computerService.getComputerByOT("11/11/2019/IT/RASP").isPresent());
+        assertFalse(computerService.getComputerByOT("wrongOT").isPresent());
         assertNotNull(computerRepository.findByOtnumber("11/11/2019/IT/RASP"));
     }
 

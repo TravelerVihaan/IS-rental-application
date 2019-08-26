@@ -19,7 +19,8 @@ public class ComputerModel implements Serializable {
     private String model;
 
     @NotNull
-    @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    //@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "producer_id")
     private ComputerProducer computerProducer;
 

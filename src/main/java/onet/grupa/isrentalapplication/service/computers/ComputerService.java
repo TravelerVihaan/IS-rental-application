@@ -66,7 +66,7 @@ public class ComputerService {
             return HttpStatusEnum.CONFLICT;
 
         computerRepository.save(computer);
-        return HttpStatusEnum.OK;
+        return HttpStatusEnum.CREATED;
     }
 
     public ResponseEntity<?> changeComputerStatus(String status, Long id){
@@ -83,7 +83,7 @@ public class ComputerService {
      * @param OT OT number which is unique for every computer
      * @return Optional with null or found computer
      */
-    private Optional<Computer> getComputerByOT(String OT){
+    public Optional<Computer> getComputerByOT(String OT){
         return Optional.ofNullable(computerRepository.findByOtnumber(OT));
     }
 

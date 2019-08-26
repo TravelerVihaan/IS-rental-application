@@ -46,8 +46,8 @@ public class DiskTypeServiceTest {
     @Test
     public void getOSFromDBTest(){
 
-        assertTrue(diskTypeService.getDiskTypeById(1L).isPresent());
-        assertFalse(diskTypeService.getDiskTypeById(3L).isPresent());
+        assertTrue(diskTypeService.getDiskTypeByName("SSD").isPresent());
+        assertFalse(diskTypeService.getDiskTypeByName("Discette").isPresent());
         assertEquals(2, diskTypeRepository.findAll().size());
     }
 

@@ -36,14 +36,14 @@ public class OperatingSystemServiceTest {
 
     @Test
     public void checkIfIdIsNotNull(){
-        assertNotNull(operatingSystemService.getOperatingSystemById(1L).orElseThrow().getId());
+        assertNotNull(operatingSystemService.getOperatingSystemByName("Windows 7").orElseThrow().getId());
     }
 
     @Test
     public void getOSFromDBTest(){
 
-        assertTrue(operatingSystemService.getOperatingSystemById(1L).isPresent());
-        assertFalse(operatingSystemService.getOperatingSystemById(3L).isPresent());
+        assertTrue(operatingSystemService.getOperatingSystemByName("Windows 7").isPresent());
+        assertFalse(operatingSystemService.getOperatingSystemByName("Windows XP").isPresent());
         assertEquals(2, operatingSystemService.getAllOperatingSystems().size());
     }
 

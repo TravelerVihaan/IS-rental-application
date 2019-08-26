@@ -35,12 +35,12 @@ public class ComputerModelServiceTest {
         ComputerProducer producer1 = new ComputerProducer("DELL");
         computerProducerRepository.save(producer1);
 
-        ComputerModel model1 = new ComputerModel("E6440", producer1);
+        ComputerModel model1 = new ComputerModel("E6440",computerProducerRepository.findByProducerName("DELL").orElseGet(ComputerProducer::new));
         computerModelRepository.save(model1);
 
         ComputerModel model2 = new ComputerModel();
         model2.setModel("E7450");
-        model2.setComputerProducer(computerProducerRepository.findById(1L).orElse(new ComputerProducer()));
+        model2.setComputerProducer(computerProducerRepository.findByProducerName("DELL").orElseGet(ComputerProducer::new));
         computerModelRepository.save(model2);
     }
 
@@ -60,10 +60,9 @@ public class ComputerModelServiceTest {
 
     @Test
     public void getComputerModelTest(){
-        assertTrue(computerModelService.getComputerModel(2L).isPresent());
+        assertTrue(computerModelService.getComputerModelByName("E7450").isPresent());
         assertTrue(computerModelService.getComputerModelByName("E6440").isPresent());
         assertFalse(computerModelService.getComputerModelByName("5480").isPresent());
-        assertEquals("E7450",computerModelService.getComputerModel(2L).orElse(new ComputerModel()).getComputerProducer().getProducerName());
         assertEquals(2, computerModelService.getAllComputerModels().size());
     }
 
@@ -73,13 +72,13 @@ public class ComputerModelServiceTest {
         ComputerProducer producer2 = new ComputerProducer("Apple");
         computerProducerRepository.save(producer2);
         ComputerModel testModel1 = new ComputerModel("MacBook Pro");
-        testModel1.setComputerProducer(computerProducerRepository.findByProducerName("Apple").orElse(new ComputerProducer()));
+        testModel1.setComputerProducer(computerProducerRepository.findByProducerName("Apple").orElseGet(ComputerProducer::new));
 
         ComputerModel testModel2 = new ComputerModel("MacBook Pro");
-        testModel2.setComputerProducer(computerProducerRepository.findByProducerName("Apple").orElse(new ComputerProducer()));
+        testModel2.setComputerProducer(computerProducerRepository.findByProducerName("Apple").orElseGet(ComputerProducer::new));
 
         ComputerModel testModel3 = new ComputerModel("");
-        testModel3.setComputerProducer(computerProducerRepository.findByProducerName("Apple").orElse(new ComputerProducer()));
+        testModel3.setComputerProducer(computerProducerRepository.findByProducerName("Apple").orElseGet(ComputerProducer::new));
 
         ComputerModel testModel4 = new ComputerModel("5490");
 

@@ -73,7 +73,7 @@ public class OperatingSystemService {
     /*
     Private methods
      */
-    private Optional<OperatingSystem> getOperatingSystemByName(String operatingSystem){
+    public Optional<OperatingSystem> getOperatingSystemByName(String operatingSystem){
         return Optional.ofNullable(operatingSystemRepository.findByOperatingSystem(operatingSystem));
     }
 }
