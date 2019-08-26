@@ -109,7 +109,21 @@ public class ComputerServiceTest {
         assertEquals(1,operatingSystemRepository.findAll().size());
         assertEquals(1,computerProducerRepository.findAll().size());
         assertEquals(1,computerStatusRepository.findAll().size());
+    }
 
+    @Test
+    public void changePropertyComputerTest(){
+        //given
+        Computer computer = computerRepository.findByOtnumber("11/11/2019/IT/RASP");
+        DiskType diskType = new DiskType("HDD");
+        diskTypeRepository.save(diskType);
+
+        //when
+        computer.setDiskType(diskTypeRepository.findByDiskType("HDD"));
+        computerRepository.save(computer);
+
+        //then
+        assertEquals("HDD",computerRepository.findByOtnumber("11/11/2019/IT/RASP").getDiskType().getDiskType());
     }
 
 }
