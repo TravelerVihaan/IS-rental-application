@@ -1,6 +1,7 @@
 package onet.grupa.isrentalapplication.domain.computers;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class ComputerStatus implements Serializable {
     @Column(name = "id_computer_status")
     private Long id;
 
+    @NotEmpty
+    @Column(unique = true, nullable = false)
     private String status;
 
     @OneToMany(mappedBy = "computerStatus")

@@ -2,14 +2,17 @@ package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.Computer;
 import onet.grupa.isrentalapplication.repository.computers.ComputerRepository;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ComputerService {
@@ -47,7 +50,24 @@ public class ComputerService {
         return computerRepository.findById(id);
     }
 
+    /**
+     * Method saving computer object to database after validate all properties
+     * @param computer is an object which will be converted to db entity
+     * @return HttpStatusEnum with status depending on result of insert entity to DB,
+     *      can return BAD_REQUEST if result has errors
+     *      CONFLICT if entity has already exists
+     *      CREATED if entity was saved in DB
+     */
+    public HttpStatusEnum addNewComputer(Computer computer){
+        Set<ConstraintViolation<Computer>> validationErrors = validator.validate(computer);
+        if(!validationErrors.isEmpty())
+            return HttpStatusEnum.BADREQUEST;
+        if(getComputerByOT(computer.getOTNumber()).isPresent())
+            return HttpStatusEnum.CONFLICT;
 
+        computerRepository.save(computer);
+        return HttpStatusEnum.OK;
+    }
 
     public ResponseEntity<?> changeComputerStatus(String status, Long id){
         if(getComputer(id).isPresent()) {
@@ -55,6 +75,16 @@ public class ComputerService {
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     *  Private method returning optional with computer.
+     *  It exists to check duplicated gear in magazine
+     * @param OT OT number which is unique for every computer
+     * @return Optional with null or found computer
+     */
+    private Optional<Computer> getComputerByOT(String OT){
+        return computerRepository.findByOTNumber(OT);
     }
 
     /*

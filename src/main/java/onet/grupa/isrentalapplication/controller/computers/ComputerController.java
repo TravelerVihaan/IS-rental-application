@@ -2,16 +2,14 @@ package onet.grupa.isrentalapplication.controller.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.Computer;
 import onet.grupa.isrentalapplication.dto.ComputerDTO;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,11 +58,11 @@ public class ComputerController {
     /**
     Update existing computer from database
      */
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> addComputer(@PathVariable("id") Long id, @RequestBody @Valid Computer computer, BindingResult result){
-        if (result.hasErrors())
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addComputer(@RequestBody ComputerDTO computerDTO){
+        Computer computer = modelMapper.map(computerDTO, Computer.class);
+        HttpStatusEnum status = computerService.addNewComputer(computer);
+        return HttpStatusEnum.isHttpStatusEquals(status);
 
 
     }
