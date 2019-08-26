@@ -28,16 +28,19 @@ public class DiskTypeServiceTest {
     @Before
     public void setUp(){
         DiskType disk1 = new DiskType("SSD");
-        disk1.setId(1L);
         diskTypeRepository.save(disk1);
         DiskType disk2 = new DiskType("HDD");
-        disk1.setId(2L);
         diskTypeRepository.save(disk2);
     }
 
     @After
     public void tearDown(){
         diskTypeRepository.deleteAll();
+    }
+
+    @Test
+    public void checkIfIdIsNotNull(){
+        assertNotNull(diskTypeService.getDiskTypeByName("SSD").orElseThrow().getId());
     }
 
     @Test
@@ -52,13 +55,8 @@ public class DiskTypeServiceTest {
     public void addDiskTypeToDBTest() {
 
         DiskType testDisk = new DiskType("FLASH");
-        testDisk.setId(3L);
-
         DiskType testDisk2 = new DiskType("SSD");
-        testDisk.setId(4L);
-
         DiskType testDisk3 = new DiskType("");
-        testDisk.setId(5L);
 
         assertEquals(HttpStatusEnum.CREATED, diskTypeService.addNewDiskType(testDisk));
         assertEquals(HttpStatusEnum.CONFLICT, diskTypeService.addNewDiskType(testDisk2));

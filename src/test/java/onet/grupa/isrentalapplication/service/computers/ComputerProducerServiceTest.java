@@ -28,16 +28,19 @@ public class ComputerProducerServiceTest {
     @Before
     public void setUp(){
         ComputerProducer producer1 = new ComputerProducer("DELL");
-        producer1.setId(1L);
         computerProducerRepository.save(producer1);
         ComputerProducer producer2 = new ComputerProducer("Apple");
-        producer2.setId(2L);
         computerProducerRepository.save(producer2);
     }
 
     @After
     public void tearDown() {
         computerProducerRepository.deleteAll();
+    }
+
+    @Test
+    public void checkIfIdIsNotNull(){
+        assertNotNull(computerProducerService.getComputerProducerByName("DELL").orElseThrow().getId());
     }
 
     @Test
@@ -50,13 +53,8 @@ public class ComputerProducerServiceTest {
     @Test
     public void addProducersToDBTest(){
         ComputerProducer testProducer1 = new ComputerProducer("HP");
-        testProducer1.setId(3L);
-
         ComputerProducer testProducer2 = new ComputerProducer("Apple");
-        testProducer2.setId(4L);
-
         ComputerProducer testProducer3 = new ComputerProducer("");
-        testProducer3.setId(5L);
 
         assertEquals(HttpStatusEnum.CREATED, computerProducerService.addNewComputerProducer(testProducer1));
         assertEquals(HttpStatusEnum.CONFLICT, computerProducerService.addNewComputerProducer(testProducer2));

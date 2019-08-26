@@ -72,10 +72,14 @@ public class DiskTypeService {
         return HttpStatusEnum.CREATED;
     }
 
-    /*
-    Private methods
+    /**
+     * Return simple response with found DiskType in database.
+     *
+     * @param diskType name of DiskType entity
+     *
+     * @return Optional with DiskType
      */
-    private Optional<DiskType> getDiskTypeByName(String diskType){
+    public Optional<DiskType> getDiskTypeByName(String diskType){
         return Optional.ofNullable(diskTypeRepository.findByDiskType(diskType));
     }
 

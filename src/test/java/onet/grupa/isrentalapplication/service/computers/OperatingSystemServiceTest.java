@@ -29,11 +29,14 @@ public class OperatingSystemServiceTest {
     @Before
     public void setUp() {
         OperatingSystem os1 = new OperatingSystem("Windows 7");
-        os1.setId(1L);
         operatingSystemRepository.save(os1);
         OperatingSystem os2 = new OperatingSystem("Windows 10");
-        os2.setId(2L);
         operatingSystemRepository.save(os2);
+    }
+
+    @Test
+    public void checkIfIdIsNotNull(){
+        assertNotNull(operatingSystemService.getOperatingSystemById(1L).orElseThrow().getId());
     }
 
     @Test
@@ -53,13 +56,8 @@ public class OperatingSystemServiceTest {
     public void addOSToDBTest(){
 
         OperatingSystem testOS = new OperatingSystem("Linux");
-        testOS.setId(3L);
-
         OperatingSystem testOS2 = new OperatingSystem("Windows 10");
-        testOS2.setId(4L);
-
         OperatingSystem testOS3 = new OperatingSystem("");
-        testOS3.setId(5L);
 
         assertEquals(HttpStatusEnum.CREATED, operatingSystemService.addNewOperatingSystem(testOS));
         assertEquals(HttpStatusEnum.CONFLICT, operatingSystemService.addNewOperatingSystem(testOS2));

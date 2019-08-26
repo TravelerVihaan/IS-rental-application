@@ -62,7 +62,7 @@ public class ComputerService {
         Set<ConstraintViolation<Computer>> validationErrors = validator.validate(computer);
         if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;
-        if(getComputerByOT(computer.getOTNumber()).isPresent())
+        if(getComputerByOT(computer.getOtnumber()).isPresent())
             return HttpStatusEnum.CONFLICT;
 
         computerRepository.save(computer);
@@ -84,7 +84,7 @@ public class ComputerService {
      * @return Optional with null or found computer
      */
     private Optional<Computer> getComputerByOT(String OT){
-        return computerRepository.findByOTNumber(OT);
+        return Optional.ofNullable(computerRepository.findByOtnumber(OT));
     }
 
     /*

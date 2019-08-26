@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.*;
 import onet.grupa.isrentalapplication.repository.computers.*;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,24 +43,29 @@ public class ComputerServiceTest {
     @Before
     public void setUp(){
         DiskType disk1 = new DiskType("SSD");
-        disk1.setId(1L);
         diskTypeRepository.save(disk1);
 
         OperatingSystem os1 = new OperatingSystem("Windows 7");
-        os1.setId(1L);
         operatingSystemRepository.save(os1);
 
         ComputerProducer producer1 = new ComputerProducer("DELL");
-        producer1.setId(1L);
         computerProducerRepository.save(producer1);
 
-        ComputerModel model1 = new ComputerModel("E6440", producer1);
-        model1.setId(1L);
+        ComputerModel model1 = new ComputerModel("E6440", computerProducerRepository
+                .findByProducerName("DELL").orElseGet(ComputerProducer::new));
         computerModelRepository.save(model1);
 
         ComputerStatus status1 = new ComputerStatus("waiting");
-        status1.setId(1L);
         computerStatusRepository.save(status1);
+
+        Computer computer = new Computer();
+        computer.setOtnumber("11/11/2019/IT/RASP");
+        computer.setSerialNumber("1234567A");
+        computer.setOperatingSystem(operatingSystemRepository.findByOperatingSystem("Windows 7"));
+        computer.setDiskType(diskTypeRepository.findByDiskType("SSD"));
+        computer.setComputerModel(computerModelRepository.findByModel("E6440"));
+        computerRepository.save(computer);
+
     }
 
     @After
@@ -73,14 +79,22 @@ public class ComputerServiceTest {
 
     @Test
     public void getAllComputers() {
+        assertEquals(1,computerService.getAllComputers().size());
     }
 
     @Test
     public void getComputer() {
+        assertTrue(computerService.getComputer(1L).isPresent());
+        assertFalse(computerService.getComputer(2L).isPresent());
+        assertNotNull(computerRepository.findByOtnumber("11/11/2019/IT/RASP"));
     }
 
     @Test
     public void addNewComputer() {
+        Computer computer = computerRepository.findByOtnumber("11/11/2019/IT/RASP");
+        computer.setOtnumber("22/22/2019/IT/RASP");
+        computer.setSerialNumber("222222A");
+        assertEquals(HttpStatusEnum.CREATED, computerService.addNewComputer(computer));
     }
 
 }

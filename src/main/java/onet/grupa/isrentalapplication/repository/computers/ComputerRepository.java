@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, Long> {
 
-    Optional<Computer> findByOTNumber(String OT);
+    Computer findByOtnumber(String OTNumber);
 }

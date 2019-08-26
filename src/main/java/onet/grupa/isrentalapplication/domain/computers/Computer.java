@@ -19,7 +19,7 @@ public class Computer implements Serializable {
 
     @NotEmpty
     @Column(name = "OT_number", nullable = false, unique = true)
-    private String OTNumber;
+    private String otnumber;
 
     @NotEmpty
     @Column(name = "serial_number", nullable = false, unique = true)
@@ -49,12 +49,12 @@ public class Computer implements Serializable {
     private List<ComputerRental> computerRentals;
 
     public Computer(){}
-    public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber){
-        this.OTNumber = OTNumber;
+    public Computer(@NotEmpty String otnumber, @NotEmpty String serialNumber){
+        this.otnumber = otnumber;
         this.serialNumber = serialNumber;
     }
-    public Computer(@NotEmpty String OTNumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull DiskType diskType, @NotNull ComputerModel computerModel, @NotNull ComputerStatus computerStatus) {
-        this.OTNumber = OTNumber;
+    public Computer(@NotEmpty String otnumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull DiskType diskType, @NotNull ComputerModel computerModel, @NotNull ComputerStatus computerStatus) {
+        this.otnumber = otnumber;
         this.serialNumber = serialNumber;
         this.operatingSystem = operatingSystem;
         this.diskType = diskType;
@@ -70,12 +70,12 @@ public class Computer implements Serializable {
         this.id = id;
     }
 
-    public String getOTNumber() {
-        return OTNumber;
+    public String getOtnumber() {
+        return otnumber;
     }
 
-    public void setOTNumber(String OTNumber) {
-        this.OTNumber = OTNumber;
+    public void setOtnumber(String otnumber) {
+        this.otnumber = otnumber;
     }
 
     public String getSerialNumber() {
@@ -130,7 +130,7 @@ public class Computer implements Serializable {
     public String toString() {
         return "Computer{" +
                 "id=" + id +
-                ", OTNumber='" + OTNumber + '\'' +
+                ", OTNumber='" + otnumber + '\'' +
                 ", serialNumber='" + serialNumber + '\'' +
                 ", operatingSystem=" + operatingSystem +
                 ", diskType=" + diskType +
