@@ -23,7 +23,7 @@ public class RentStatusController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RentStatus>> getAllStatuses(){
-        return ResponseEntity.of(rentStatusService.getAllStatuses());
+        return ResponseEntity.ok(rentStatusService.getAllStatuses());
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

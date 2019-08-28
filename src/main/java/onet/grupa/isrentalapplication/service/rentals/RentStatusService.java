@@ -24,8 +24,8 @@ public class RentStatusService {
         this.validator = validator;
     }
 
-    public Optional<List<RentStatus>> getAllStatuses(){
-        return Optional.ofNullable(rentStatusRepository.findAll());
+    public List<RentStatus> getAllStatuses(){
+        return rentStatusRepository.findAll();
     }
 
     public Optional<RentStatus> getStatus(long id){
