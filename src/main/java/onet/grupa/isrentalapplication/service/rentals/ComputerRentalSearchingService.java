@@ -14,10 +14,13 @@ import java.util.Set;
 public class ComputerRentalSearchingService {
 
     private ComputerRentalRepository computerRentalRepository;
+    private ComputerRentalsOrderingService computerRentalsOrderingService;
 
     @Autowired
-    public ComputerRentalSearchingService(ComputerRentalRepository computerRentalRepository){
+    public ComputerRentalSearchingService(ComputerRentalRepository computerRentalRepository,
+                                          ComputerRentalsOrderingService computerRentalsOrderingService){
         this.computerRentalRepository = computerRentalRepository;
+        this.computerRentalsOrderingService = computerRentalsOrderingService;
     }
 
     /**
@@ -30,10 +33,14 @@ public class ComputerRentalSearchingService {
      */
     List<ComputerRental> getComputerRentalsWithSearchingAndOrder(String searchPhrase, String orderBy) {
         Set<ComputerRental> foundRentals = getComputerRentalsWithSearching(searchPhrase);
-        //TODO ORDER
-        return new ArrayList<>(foundRentals);
+        return computerRentalsOrderingService.sortRentalsOrderingBy(foundRentals, orderBy);
     }
 
+    /**
+     * Taking Set of unique Computer Rentals objects from db, searching by pattern
+     * @param searchPhrase search pattern using to find data in db
+     * @return HashSet of found records
+     */
     private Set<ComputerRental> getComputerRentalsWithSearching(String searchPhrase){
         Set<ComputerRental> foundRentals = new HashSet<>();
         foundRentals.addAll(computerRentalRepository.findAllByRentingPersonemailContaining(searchPhrase));
