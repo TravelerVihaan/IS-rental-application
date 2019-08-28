@@ -21,9 +21,9 @@ public class ComputerRentalController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ComputerRental>> getRentals(@RequestParam(required = false) String searchPhrase){
+    public ResponseEntity<List<ComputerRental>> getRentals(@RequestParam(required = false) String searchPhrase, @RequestParam(required = false) String orderBy){
         if(searchPhrase != null && !searchPhrase.isEmpty())
-            return ResponseEntity.ok(computerRentalService.getComputerRentalsWithSearching(searchPhrase));
+            return ResponseEntity.ok(computerRentalService.getComputerRentalsWithSearchingAndOrder(searchPhrase,orderBy));
 
         return ResponseEntity.ok(computerRentalService.getAllComputerRentals());
     }

@@ -5,8 +5,8 @@ import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ComputerRentalService {
@@ -35,12 +35,19 @@ public class ComputerRentalService {
      * @param searchPhrase pattern using to search in DB
      * @return Optional with List with ComputerRentals found in DB
      */
-    public List<ComputerRental> getComputerRentalsWithSearching(String searchPhrase) {
-        List<ComputerRental> foundRentalsList = computerRentalRepository.findAllByRentingPersonemailContaining(searchPhrase);
-        foundRentalsList.addAll(computerRentalRepository.findAllByRentingPersonNameContaining(searchPhrase));
-        foundRentalsList.addAll(getRentalsByProducer(searchPhrase));
-        foundRentalsList.addAll(getRentalsByModel(searchPhrase));
-        return foundRentalsList;
+    public List<ComputerRental> getComputerRentalsWithSearchingAndOrder(String searchPhrase, String orderBy) {
+        Set<ComputerRental> foundRentals = getComputerRentalsWithSearching(searchPhrase);
+        //TODO order and set to list
+        return new ArrayList<>();
+    }
+
+    private Set<ComputerRental> getComputerRentalsWithSearching(String searchPhrase){
+        Set<ComputerRental> foundRentals = new HashSet<>();
+        foundRentals.addAll(computerRentalRepository.findAllByRentingPersonemailContaining(searchPhrase));
+        foundRentals.addAll(computerRentalRepository.findAllByRentingPersonNameContaining(searchPhrase));
+        foundRentals.addAll(getRentalsByProducer(searchPhrase));
+        foundRentals.addAll(getRentalsByModel(searchPhrase));
+        return foundRentals;
     }
 
         /**
