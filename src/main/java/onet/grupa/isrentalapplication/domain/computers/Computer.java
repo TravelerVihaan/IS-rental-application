@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "computers")
@@ -124,6 +125,21 @@ public class Computer implements Serializable {
 
     public void setComputerStatus(ComputerStatus computerStatus) {
         this.computerStatus = computerStatus;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Computer computer = (Computer) o;
+        return Objects.equals(id, computer.id) &&
+                Objects.equals(otnumber, computer.otnumber) &&
+                Objects.equals(serialNumber, computer.serialNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, otnumber, serialNumber);
     }
 
     @Override
