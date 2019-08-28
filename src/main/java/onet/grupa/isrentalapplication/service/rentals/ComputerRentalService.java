@@ -21,10 +21,10 @@ public class ComputerRentalService {
     /**
      * Return simple response with list of all found ComputerRentals in database.
      *
-     * @return Optional with list
+     * @return List with rentals
      */
-    public Optional<List<ComputerRental>> getAllComputerRentals() {
-        return Optional.ofNullable(computerRentalRepository.findAll());
+    public List<ComputerRental> getAllComputerRentals() {
+        return computerRentalRepository.findAll();
     }
 
     /**
@@ -35,12 +35,12 @@ public class ComputerRentalService {
      * @param searchPhrase pattern using to search in DB
      * @return Optional with List with ComputerRentals found in DB
      */
-    public Optional<List<ComputerRental>> getComputerRentalsWithSearching(String searchPhrase) {
+    public List<ComputerRental> getComputerRentalsWithSearching(String searchPhrase) {
         List<ComputerRental> foundRentalsList = computerRentalRepository.findAllByRentingPersonemailContaining(searchPhrase);
         foundRentalsList.addAll(computerRentalRepository.findAllByRentingPersonNameContaining(searchPhrase));
         foundRentalsList.addAll(getRentalsByProducer(searchPhrase));
         foundRentalsList.addAll(getRentalsByModel(searchPhrase));
-        return Optional.of(foundRentalsList);
+        return foundRentalsList;
     }
 
         /**

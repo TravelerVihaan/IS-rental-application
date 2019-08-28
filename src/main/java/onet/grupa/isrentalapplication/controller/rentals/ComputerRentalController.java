@@ -23,9 +23,9 @@ public class ComputerRentalController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ComputerRental>> getRentals(@RequestParam(required = false) String searchPhrase){
         if(searchPhrase != null && !searchPhrase.isEmpty())
-            return ResponseEntity.of(computerRentalService.getComputerRentalsWithSearching(searchPhrase));
+            return ResponseEntity.ok(computerRentalService.getComputerRentalsWithSearching(searchPhrase));
 
-        return ResponseEntity.of(computerRentalService.getAllComputerRentals());
+        return ResponseEntity.ok(computerRentalService.getAllComputerRentals());
     }
 
     @GetMapping(path = "rentals/computers/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
