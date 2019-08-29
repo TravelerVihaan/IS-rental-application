@@ -2,6 +2,8 @@ package onet.grupa.isrentalapplication.service.rentals;
 
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
+import onet.grupa.isrentalapplication.service.IOrdering;
+import onet.grupa.isrentalapplication.service.ISearching;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class ComputerRentalSearchingService {
+public class ComputerRentalSearchingService implements ISearching<ComputerRental> {
 
     private ComputerRentalRepository computerRentalRepository;
-    private ComputerRentalsOrderingService computerRentalsOrderingService;
+    private IOrdering<ComputerRental> computerRentalsOrderingService;
 
     @Autowired
     public ComputerRentalSearchingService(ComputerRentalRepository computerRentalRepository,
@@ -30,9 +32,9 @@ public class ComputerRentalSearchingService {
      * @param searchPhrase pattern using to search in DB
      * @return Optional with List with ComputerRentals found in DB
      */
-    List<ComputerRental> getComputerRentalsWithSearchingAndOrder(String searchPhrase, String orderBy) {
+    public List<ComputerRental> getWithSearchingAndOrder(String searchPhrase, String orderBy) {
         Set<ComputerRental> foundRentals = getComputerRentalsWithSearching(searchPhrase);
-        return computerRentalsOrderingService.sortRentalsOrderingBy(foundRentals, orderBy);
+        return computerRentalsOrderingService.sortOrderingBy(foundRentals, orderBy);
     }
 
     /**

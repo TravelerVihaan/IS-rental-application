@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.service.rentals;
 
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
+import onet.grupa.isrentalapplication.service.ISearching;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class ComputerRentalService {
 
     private ComputerRentalRepository computerRentalRepository;
-    private ComputerRentalSearchingService computerRentalSearchingService;
+    private ISearching<ComputerRental> computerRentalSearchingService;
 
     @Autowired
     public ComputerRentalService(ComputerRentalRepository computerRentalRepository,ComputerRentalSearchingService computerRentalSearchingService) {
@@ -20,7 +21,7 @@ public class ComputerRentalService {
     }
 
     public List<ComputerRental> getSpecificComputerRentals(String searchPattern, String orderBy){
-        return computerRentalSearchingService.getComputerRentalsWithSearchingAndOrder(searchPattern,orderBy);
+        return computerRentalSearchingService.getWithSearchingAndOrder(searchPattern,orderBy);
     }
 
     /**

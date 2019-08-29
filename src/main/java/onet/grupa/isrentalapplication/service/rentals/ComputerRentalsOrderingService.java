@@ -1,15 +1,16 @@
 package onet.grupa.isrentalapplication.service.rentals;
 
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
+import onet.grupa.isrentalapplication.service.IOrdering;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class ComputerRentalsOrderingService {
+public class ComputerRentalsOrderingService implements IOrdering<ComputerRental> {
 
-    List<ComputerRental> sortRentalsOrderingBy(Set<ComputerRental> computerRentalsSet, String orderBy){
-        List<ComputerRental> orderedComputerRentals = new ArrayList<>(computerRentalsSet);
+    public List<ComputerRental> sortOrderingBy(Set<ComputerRental> inputSet, String orderBy){
+        List<ComputerRental> orderedComputerRentals = new ArrayList<>(inputSet);
         Comparator<ComputerRental> rentalComparator = comparatorFactoryMethod(orderBy);
         orderedComputerRentals.sort(rentalComparator);
         return orderedComputerRentals;
