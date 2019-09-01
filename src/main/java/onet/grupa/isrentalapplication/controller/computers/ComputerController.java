@@ -63,7 +63,11 @@ public class ComputerController {
         Computer computer = modelMapper.map(computerDTO, Computer.class);
         HttpStatusEnum status = computerService.addNewComputer(computer);
         return HttpStatusEnum.isHttpStatusEquals(status);
+    }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteComputer(@PathVariable Long id){
+        HttpStatusEnum status = computerService.deleteComputer(id);
+        return HttpStatusEnum.isHttpStatusEquals(status);
     }
 }

@@ -95,4 +95,12 @@ public class ComputerService {
         computerRepository.save(computer);
     }
 
+    public HttpStatusEnum deleteComputer(Long id){
+        if(computerRepository.findById(id).isPresent()){
+            computerRepository.deleteById(id);
+            return HttpStatusEnum.OK;
+        }
+        return HttpStatusEnum.NOTFOUND;
+    }
+
 }
