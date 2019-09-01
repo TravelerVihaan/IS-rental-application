@@ -44,9 +44,15 @@ public class ComputerModelController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addComputerProducer(@RequestBody ComputerModelDTO computerModelDTO){
+    public ResponseEntity<?> addComputerModel(@RequestBody ComputerModelDTO computerModelDTO){
         ComputerModel computerModel = modelMapper.map(computerModelDTO, ComputerModel.class);
         HttpStatusEnum status = computerModelService.addNewComputerModel(computerModel);
+        return HttpStatusEnum.isHttpStatusEquals(status);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteComputerModel(@PathVariable Long id){
+        HttpStatusEnum status = computerModelService.deleteComputerModel(id);
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
 }

@@ -49,4 +49,10 @@ public class ComputerProducerController {
         HttpStatusEnum status = computerProducerService.addNewComputerProducer(computerProducer);
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteComputerProducer(@PathVariable Long id){
+        HttpStatusEnum status = computerProducerService.deleteComputerProducer(id);
+        return HttpStatusEnum.isHttpStatusEquals(status);
+    }
 }

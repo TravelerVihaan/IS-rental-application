@@ -49,4 +49,10 @@ public class OperatingSystemController {
         HttpStatusEnum status = operatingSystemService.addNewOperatingSystem(operatingSystem);
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteOperatingSystem(@PathVariable Long id){
+        HttpStatusEnum status = operatingSystemService.deleteOperatingSystem(id);
+        return HttpStatusEnum.isHttpStatusEquals(status);
+    }
 }

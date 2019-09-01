@@ -70,6 +70,14 @@ public class OperatingSystemService {
         return HttpStatusEnum.CREATED;
     }
 
+    public HttpStatusEnum deleteOperatingSystem(Long id){
+        if(operatingSystemRepository.findById(id).isPresent()){
+            operatingSystemRepository.deleteById(id);
+            return HttpStatusEnum.OK;
+        }
+        return HttpStatusEnum.BADREQUEST;
+    }
+
     /*
     Private methods
      */

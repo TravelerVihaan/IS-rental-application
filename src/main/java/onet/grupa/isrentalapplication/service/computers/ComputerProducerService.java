@@ -80,7 +80,11 @@ public class ComputerProducerService {
         return HttpStatusEnum.CREATED;
     }
 
-    /*
-    Private methods
-     */
+    public HttpStatusEnum deleteComputerProducer(Long id){
+        if(computerProducerRepository.findById(id).isPresent()){
+            computerProducerRepository.deleteById(id);
+            return HttpStatusEnum.OK;
+        }
+        return HttpStatusEnum.BADREQUEST;
+    }
 }

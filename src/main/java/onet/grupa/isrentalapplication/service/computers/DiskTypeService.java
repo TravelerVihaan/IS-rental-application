@@ -83,4 +83,12 @@ public class DiskTypeService {
         return Optional.ofNullable(diskTypeRepository.findByDiskType(diskType));
     }
 
+    public HttpStatusEnum deleteDiskType(Long id){
+        if(diskTypeRepository.findById(id).isPresent()){
+            diskTypeRepository.deleteById(id);
+            return HttpStatusEnum.OK;
+        }
+        return HttpStatusEnum.BADREQUEST;
+    }
+
 }

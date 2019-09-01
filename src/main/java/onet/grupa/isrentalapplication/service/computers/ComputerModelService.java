@@ -81,8 +81,12 @@ public class ComputerModelService {
         return HttpStatusEnum.CREATED;
     }
 
-    /*
-    Private methods
-     */
+    public HttpStatusEnum deleteComputerModel(Long id){
+        if(computerModelRepository.findById(id).isPresent()){
+            computerModelRepository.deleteById(id);
+            return HttpStatusEnum.OK;
+        }
+        return HttpStatusEnum.BADREQUEST;
+    }
 
 }

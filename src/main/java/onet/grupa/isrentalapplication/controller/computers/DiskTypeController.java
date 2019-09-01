@@ -49,4 +49,10 @@ public class DiskTypeController {
         HttpStatusEnum status = diskTypeService.addNewDiskType(diskType);
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDiskType(@PathVariable Long id){
+        HttpStatusEnum status = diskTypeService.deleteDiskType(id);
+        return HttpStatusEnum.isHttpStatusEquals(status);
+    }
 }
