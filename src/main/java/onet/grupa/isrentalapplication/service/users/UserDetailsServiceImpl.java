@@ -1,6 +1,6 @@
 package onet.grupa.isrentalapplication.service.users;
 
-import onet.grupa.isrentalapplication.domain.Role;
+import onet.grupa.isrentalapplication.domain.users.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        onet.grupa.isrentalapplication.domain.User user = userService
+        onet.grupa.isrentalapplication.domain.users.User user = userService
                 .getUserByUsername(s).orElseThrow(UserNotFoundException::new);
 
         return new User(

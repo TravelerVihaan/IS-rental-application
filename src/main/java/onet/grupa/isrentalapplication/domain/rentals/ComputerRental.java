@@ -1,6 +1,6 @@
 package onet.grupa.isrentalapplication.domain.rentals;
 
-import onet.grupa.isrentalapplication.domain.User;
+import onet.grupa.isrentalapplication.domain.users.User;
 import onet.grupa.isrentalapplication.domain.computers.Computer;
 
 import javax.persistence.*;

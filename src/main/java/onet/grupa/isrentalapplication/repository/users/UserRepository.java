@@ -1,6 +1,6 @@
-package onet.grupa.isrentalapplication.repository;
+package onet.grupa.isrentalapplication.repository.users;
 
-import onet.grupa.isrentalapplication.domain.User;
+import onet.grupa.isrentalapplication.domain.users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

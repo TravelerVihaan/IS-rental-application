@@ -1,4 +1,4 @@
-package onet.grupa.isrentalapplication.domain;
+package onet.grupa.isrentalapplication.domain.users;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
