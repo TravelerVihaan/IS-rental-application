@@ -2,7 +2,7 @@ package onet.grupa.isrentalapplication.dto;
 
 public class ComputerDTO {
 
-    private String OTNumber;
+    private String otnumber;
     private String serialNumber;
     private String operatingSystem;
     private String diskType;
@@ -10,12 +10,12 @@ public class ComputerDTO {
     private String computerModel;
     private String computerStatus;
 
-    public String getOTNumber() {
-        return OTNumber;
+    public String getOtnumber() {
+        return otnumber;
     }
 
-    public void setOTNumber(String OTNumber) {
-        this.OTNumber = OTNumber;
+    public void setOtnumber(String otnumber) {
+        this.otnumber = otnumber;
     }
 
     public String getSerialNumber() {
