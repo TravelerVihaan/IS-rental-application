@@ -29,9 +29,6 @@ public class ComputerController {
         this.modelMapper = modelMapper;
     }
 
-    /**
-    Get all computers from database
-     */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ComputerDTO>> getComputers(@RequestParam(required = false) String searchPhrase, @RequestParam(required = false) String orderBy){
         List<Computer> computers;
@@ -45,10 +42,6 @@ public class ComputerController {
                 .collect(Collectors.toList()));
     }
 
-    /**
-    Get specified computer from database by id
-    @param id - id of computer from database
-     */
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ComputerDTO> getComputer(@PathVariable long id){
         Optional<ComputerDTO> computerDTO = Optional.ofNullable(modelMapper
@@ -68,9 +61,6 @@ public class ComputerController {
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
 
-    /**
-    Update existing computer from database
-     */
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addComputer(@RequestBody ComputerDTO computerDTO){
         Computer computer = modelMapper.map(computerDTO, Computer.class);

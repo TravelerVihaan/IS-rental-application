@@ -7,12 +7,9 @@ import onet.grupa.isrentalapplication.service.ISearching;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class ComputerService {
@@ -63,11 +60,7 @@ public class ComputerService {
     }
 
     public HttpStatusEnum changeComputerStatus(String status, Long id){
-        if(getComputer(id).isPresent()) {
-            getComputer(id).ifPresent(computer -> updateComputerStatus(computer, status));
-            return HttpStatusEnum.OK;
-        }
-        return HttpStatusEnum.NOTFOUND;
+        return computerUpdateService.changeComputerStatus(status, id);
     }
 
     public HttpStatusEnum updateComputer(Long id, Map<String,String> updates){
@@ -84,13 +77,5 @@ public class ComputerService {
             return HttpStatusEnum.OK;
         }
         return HttpStatusEnum.NOTFOUND;
-    }
-
-    /*
-    Private methods to get computers from repo
-     */
-    private void updateComputerStatus(Computer computer, String status){
-        computer.getComputerStatus().setStatus(status);
-        computerRepository.save(computer);
     }
 }

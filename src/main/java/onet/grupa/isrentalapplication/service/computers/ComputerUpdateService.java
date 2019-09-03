@@ -35,6 +35,19 @@ public class ComputerUpdateService {
         return HttpStatusEnum.OK;
     }
 
+    public HttpStatusEnum changeComputerStatus(String status, Long id){
+        if(computerRepository.findById(id).isPresent()) {
+            computerRepository.findById(id).ifPresent(computer -> updateComputerStatus(computer, status));
+            return HttpStatusEnum.OK;
+        }
+        return HttpStatusEnum.NOTFOUND;
+    }
+
+    private void updateComputerStatus(Computer computer, String status){
+        computer.getComputerStatus().setStatus(status);
+        computerRepository.save(computer);
+    }
+
     private Computer executeUpdates(Computer computer, Map<String, String> updates){
         if(updates.containsKey("operatingSystem"))
             computer.getOperatingSystem().setOperatingSystem(updates.get("operatingSystem"));
