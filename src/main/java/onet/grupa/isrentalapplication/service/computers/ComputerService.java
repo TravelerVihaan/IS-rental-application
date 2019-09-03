@@ -77,12 +77,12 @@ public class ComputerService {
         return HttpStatusEnum.CREATED;
     }
 
-    public ResponseEntity<?> changeComputerStatus(String status, Long id){
+    public HttpStatusEnum changeComputerStatus(String status, Long id){
         if(getComputer(id).isPresent()) {
             getComputer(id).ifPresent(computer -> updateComputerStatus(computer, status));
-            return new ResponseEntity(HttpStatus.OK);
+            return HttpStatusEnum.OK;
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return HttpStatusEnum.NOTFOUND;
     }
 
     /**
