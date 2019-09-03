@@ -51,12 +51,12 @@ public class ComputerRentalSearchingService implements ISearching<ComputerRental
         return foundRentals;
     }
 
-    private List<ComputerRental> getRentalsByProducer (String searchPhrase){
+    private List<ComputerRental> getRentalsByProducer(String searchPhrase){
         return computerRentalRepository
                 .findAllByRentedComputer_ComputerModel_ComputerProducer_ProducerNameContaining(searchPhrase);
     }
 
-    private List<ComputerRental> getRentalsByModel (String searchPhrase){
+    private List<ComputerRental> getRentalsByModel(String searchPhrase){
         return computerRentalRepository
                 .findAllByRentedComputer_ComputerModel_ModelContaining(searchPhrase);
     }
