@@ -39,7 +39,7 @@ public class ComputerRentalController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping(path = "rentals/computers/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ComputerRental>> getRentalsWithStatus(@PathVariable String status){
         return ResponseEntity.ok(computerRentalService.getAllComputerRentalsWithStatus(status));
     }

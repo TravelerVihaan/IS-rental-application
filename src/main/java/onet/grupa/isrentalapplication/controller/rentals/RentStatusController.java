@@ -1,7 +1,6 @@
 package onet.grupa.isrentalapplication.controller.rentals;
 
 import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
-import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.rentals.RentStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
