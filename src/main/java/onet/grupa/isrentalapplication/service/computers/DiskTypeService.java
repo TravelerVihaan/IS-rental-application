@@ -18,34 +18,16 @@ public class DiskTypeService {
     private DiskTypeRepository diskTypeRepository;
     private Validator validator;
 
-    /*
-    Constructor with Autowired DiskTypeRepo
-     */
     @Autowired
     public DiskTypeService(DiskTypeRepository diskTypeRepository, Validator validator){
         this.diskTypeRepository = diskTypeRepository;
         this.validator = validator;
     }
 
-    /*
-    Public methods
-     */
-    /**
-     * Return simple response with list of all found DiskType in database.
-     *
-     * @return list of disks
-     */
     public List<DiskType> getAllDisks(){
         return diskTypeRepository.findAll();
     }
 
-    /**
-     * Return simple response with found DiskType in database.
-     *
-     * @param id id of DiskType entity
-     *
-     * @return Optional with DiskType
-     */
     public Optional<DiskType> getDiskTypeById(long id){
         return diskTypeRepository.findById(id);
     }
@@ -61,7 +43,6 @@ public class DiskTypeService {
      *            CREATED if entity was saved in DB
      *
      */
-
     public HttpStatusEnum addNewDiskType(DiskType diskType){
         Set<ConstraintViolation<DiskType>> validationErrors = validator.validate(diskType);
         if(!validationErrors.isEmpty())
@@ -72,13 +53,6 @@ public class DiskTypeService {
         return HttpStatusEnum.CREATED;
     }
 
-    /**
-     * Return simple response with found DiskType in database.
-     *
-     * @param diskType name of DiskType entity
-     *
-     * @return Optional with DiskType
-     */
     public Optional<DiskType> getDiskTypeByName(String diskType){
         return Optional.ofNullable(diskTypeRepository.findByDiskType(diskType));
     }

@@ -26,11 +26,7 @@ public class RentStatusService {
         return rentStatusRepository.findById(id);
     }
 
-    /*
-    * Private methods
-     */
-
     private Optional<RentStatus> getStatusByName(String status){
-        return Optional.ofNullable(rentStatusRepository.findByStatus(status));
+        return rentStatusRepository.findByStatus(status);
     }
 }

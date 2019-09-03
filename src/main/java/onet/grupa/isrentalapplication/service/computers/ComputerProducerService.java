@@ -24,36 +24,14 @@ public class ComputerProducerService {
         this.validator = validator;
     }
 
-    /*
-    Public methods
-     */
-    /**
-     * Return simple response with list of all found Computer Producers in database.
-     *
-     * @return List with computer producers
-     */
     public List<ComputerProducer> getAllComputerProducers(){
         return computerProducerRepository.findAll();
     }
 
-    /**
-     * Return simple response with found Computer Producer in database.
-     *
-     * @param id id of ComputerProducer entity
-     *
-     * @return Optional with ComputerProducer
-     */
     public Optional<ComputerProducer> getComputerProducerById(long id){
         return computerProducerRepository.findById(id);
     }
 
-    /**
-     * Return simple response with found Computer Producer in database.
-     *
-     * @param computerProducerName name of computer producer
-     *
-     * @return Optional with ComputerProducer
-     */
     Optional<ComputerProducer> getComputerProducerByName(String computerProducerName){
         return computerProducerRepository.findByProducerName(computerProducerName);
     }

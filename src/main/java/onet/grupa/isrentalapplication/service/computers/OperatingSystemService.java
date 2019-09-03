@@ -24,29 +24,17 @@ public class OperatingSystemService {
         this.validator = validator;
     }
 
-    /*
-    Public methods
-     */
-    /**
-     * Return simple response with list of all found OperatingSystems in database.
-     *
-     * @return List with Operating Systems
-     */
     public List<OperatingSystem> getAllOperatingSystems(){
         return operatingSystemRepository.findAll();
     }
 
-    /**
-     * Return simple response with found OperatingSystem in database.
-     *
-     * @param id id of OperatingSystem entity
-     *
-     * @return Optional with OS
-     */
     public Optional<OperatingSystem> getOperatingSystemById(long id){
         return operatingSystemRepository.findById(id);
     }
 
+    public Optional<OperatingSystem> getOperatingSystemByName(String operatingSystem){
+        return Optional.ofNullable(operatingSystemRepository.findByOperatingSystem(operatingSystem));
+    }
 
     /**
      * Add new OperatingSystem entity to database
@@ -76,12 +64,5 @@ public class OperatingSystemService {
             return HttpStatusEnum.OK;
         }
         return HttpStatusEnum.BADREQUEST;
-    }
-
-    /*
-    Private methods
-     */
-    public Optional<OperatingSystem> getOperatingSystemByName(String operatingSystem){
-        return Optional.ofNullable(operatingSystemRepository.findByOperatingSystem(operatingSystem));
     }
 }

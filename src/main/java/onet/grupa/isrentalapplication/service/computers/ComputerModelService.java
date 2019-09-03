@@ -24,37 +24,14 @@ public class ComputerModelService {
         this.validator = validator;
     }
 
-    /*
-   Public methods
-    */
-
-    /**
-     * Return simple response with list of all found Computer Models in database.
-     *
-     * @return List of Computer Models
-     */
     public List<ComputerModel> getAllComputerModels(){
         return computerModelRepository.findAll();
     }
 
-    /**
-     * Return Optional with found Computer Model in database.
-     *
-     * @param id id of ComputerModel entity
-     *
-     * @return Optional with Computer Model and status (OK, or BAD_REQUEST)
-     */
     public Optional<ComputerModel> getComputerModel(long id){
         return computerModelRepository.findById(id);
     }
 
-    /**
-     * Return simple response with found Computer Model in database.
-     *
-     * @param modelName computer model name
-     *
-     * @return Optional with Computer Model and status (OK, or BAD_REQUEST)
-     */
     Optional<ComputerModel> getComputerModelByName(String modelName){
         return Optional.ofNullable(computerModelRepository.findByModel(modelName));
     }
@@ -82,11 +59,10 @@ public class ComputerModelService {
     }
 
     public HttpStatusEnum deleteComputerModel(Long id){
-        if(computerModelRepository.findById(id).isPresent()){
+        if(getComputerModel(id).isPresent()){
             computerModelRepository.deleteById(id);
             return HttpStatusEnum.OK;
         }
         return HttpStatusEnum.BADREQUEST;
     }
-
 }
