@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -31,6 +32,13 @@ public class User implements Serializable {
     @NotEmpty
     @Column(nullable = false)
     private String surname;
+
+    @JoinTable(name = "user_role",
+            joinColumns = {@JoinColumn(name = "user_id",
+                    referencedColumnName = "id_user")},
+            inverseJoinColumns = {@JoinColumn(name="role_id",
+                    referencedColumnName = "id_role")})
+    private Set<Role> roles;
 
     @OneToMany(mappedBy = "whoSetStatus")
     private List<ComputerRental> computerRentals;
@@ -69,6 +77,14 @@ public class User implements Serializable {
 
     public void setComputerRentals(List<ComputerRental> computerRentals) {
         this.computerRentals = computerRentals;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
