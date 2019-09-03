@@ -31,10 +31,4 @@ public class RentStatusController {
         return ResponseEntity.of(rentStatusService.getStatus(id));
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addNewStatus(@RequestBody RentStatus rentStatus){
-        HttpStatusEnum status = rentStatusService.addNewRentStatus(rentStatus);
-
-        return HttpStatusEnum.isHttpStatusEquals(status);
-    }
 }

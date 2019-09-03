@@ -16,12 +16,10 @@ import java.util.Set;
 public class RentStatusService {
 
     private RentStatusRepository rentStatusRepository;
-    private Validator validator;
 
     @Autowired
-    public RentStatusService(RentStatusRepository rentStatusRepository, Validator validator){
+    public RentStatusService(RentStatusRepository rentStatusRepository){
         this.rentStatusRepository = rentStatusRepository;
-        this.validator = validator;
     }
 
     public List<RentStatus> getAllStatuses(){
@@ -30,28 +28,6 @@ public class RentStatusService {
 
     public Optional<RentStatus> getStatus(long id){
         return rentStatusRepository.findById(id);
-    }
-
-    /**
-     * Add new RentStatus entity to database
-     *
-     * @param rentStatus Object of computer model generated from JSON incoming from front-end
-     *
-     * @return HttpStatusEnum with status depending on result of insert entity to DB,
-     * can return BADREQUEST if result has errors
-     *            CONFLICT if entity has already exists
-     *            CREATED if entity was saved in DB
-     *
-     */
-    public HttpStatusEnum addNewRentStatus(RentStatus rentStatus){
-        Set<ConstraintViolation<RentStatus>> validationErrors = validator.validate(rentStatus);
-        if(!validationErrors.isEmpty())
-            return HttpStatusEnum.BADREQUEST;
-        if(getStatusByName(rentStatus.getStatus()).isPresent())
-            return HttpStatusEnum.CONFLICT;
-
-        rentStatusRepository.save(rentStatus);
-        return HttpStatusEnum.CREATED;
     }
 
     /*
