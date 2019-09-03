@@ -30,23 +30,20 @@ public class ComputerController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ComputerDTO>> getComputers(@RequestParam(required = false) String searchPhrase, @RequestParam(required = false) String orderBy){
-        List<Computer> computers;
-        if(searchPhrase != null && !searchPhrase.isEmpty())
-            computers = computerService.getAllComputers();
-        else
-            computers = computerService.getSpecificComputers(searchPhrase, orderBy);
-
-        return ResponseEntity.ok(computers.stream()
-                .map(computer -> modelMapper.map(computer, ComputerDTO.class))
-                .collect(Collectors.toList()));
+    public ResponseEntity<List<ComputerDTO>> getComputers(@RequestParam(required = false) String searchPhrase,
+                                                          @RequestParam(required = false) String orderBy){
+        List<ComputerDTO> computers = computerService.getComputers(searchPhrase, orderBy)
+                .stream().map(computer -> modelMapper.map(computer, ComputerDTO.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(computers);
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ComputerDTO> getComputer(@PathVariable long id){
-        Optional<ComputerDTO> computerDTO = Optional.ofNullable(modelMapper
-                .map(computerService.getComputer(id).orElseThrow(),ComputerDTO.class));
-        return ResponseEntity.of(computerDTO);
+        Optional<Computer> computer = computerService.getComputer(id);
+        if(computer.isEmpty())
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(modelMapper.map(computer, ComputerDTO.class));
     }
 
     @PatchMapping("/{id}/status")

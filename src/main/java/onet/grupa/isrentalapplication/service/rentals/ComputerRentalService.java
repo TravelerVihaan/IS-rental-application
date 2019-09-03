@@ -21,26 +21,22 @@ public class ComputerRentalService {
         this.computerRentalSearchingService = computerRentalSearchingService;
     }
 
-    public List<ComputerRental> getSpecificComputerRentals(String searchPattern, String orderBy){
+    public List<ComputerRental> getComputerRentals(String searchPattern, String orderBy){
+        if(searchPattern != null && !searchPattern.isEmpty())
+            return getAllComputerRentals();
+        else
+            return getSpecificComputerRentals(searchPattern, orderBy);
+
+    }
+
+    private List<ComputerRental> getSpecificComputerRentals(String searchPattern, String orderBy){
         return computerRentalSearchingService.getWithSearchingAndOrder(searchPattern,orderBy);
     }
 
-    /**
-     * Return simple response with list of all found ComputerRentals in database.
-     *
-     * @return List with rentals
-     */
-    public List<ComputerRental> getAllComputerRentals(){
+    private List<ComputerRental> getAllComputerRentals(){
         return computerRentalRepository.findAll();
     }
 
-    /**
-     * Return response with found ComputerRental by status.
-     *
-     * @param status status of computer rental ( approved or rejected).
-     *
-     * @return Optional with list of Computer Rentals
-    */
     public List<ComputerRental> getAllComputerRentalsWithStatus (String status){
             return computerRentalRepository.findAllByRentStatus_Status(status);
         }

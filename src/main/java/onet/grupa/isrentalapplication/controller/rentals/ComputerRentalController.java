@@ -1,6 +1,5 @@
 package onet.grupa.isrentalapplication.controller.rentals;
 
-import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.dto.ComputerRentalDTO;
 import onet.grupa.isrentalapplication.service.rentals.ComputerRentalService;
 import org.modelmapper.ModelMapper;
@@ -27,21 +26,24 @@ public class ComputerRentalController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ComputerRentalDTO>> getRentals(@RequestParam(required = false) String searchPhrase, @RequestParam(required = false) String orderBy){
-        List<ComputerRental> computerRentals;
-        if(searchPhrase != null && !searchPhrase.isEmpty())
-            computerRentals = computerRentalService.getAllComputerRentals();
-        else
-            computerRentals = computerRentalService.getSpecificComputerRentals(searchPhrase,orderBy);
+    public ResponseEntity<List<ComputerRentalDTO>> getRentals(@RequestParam(required = false) String searchPhrase,
+                                                              @RequestParam(required = false) String orderBy){
+        List<ComputerRentalDTO> computerRentals =
+                computerRentalService.getComputerRentals(searchPhrase, orderBy).stream()
+                        .map(computerRental -> modelMapper.map(computerRental, ComputerRentalDTO.class))
+                        .collect(Collectors.toList());
 
-        return ResponseEntity.ok(computerRentals.stream()
-                .map(computerRental -> modelMapper.map(computerRental, ComputerRentalDTO.class))
-                .collect(Collectors.toList()));
+        return ResponseEntity.ok(computerRentals);
+
     }
 
     @GetMapping(path = "/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ComputerRental>> getRentalsWithStatus(@PathVariable String status){
-        return ResponseEntity.ok(computerRentalService.getAllComputerRentalsWithStatus(status));
+    public ResponseEntity<List<ComputerRentalDTO>> getRentalsWithStatus(@PathVariable String status){
+        List<ComputerRentalDTO> computerRentals =
+                computerRentalService.getAllComputerRentalsWithStatus(status).stream()
+                .map(computerRental -> modelMapper.map(computerRental, ComputerRentalDTO.class))
+                        .collect(Collectors.toList());
+        return ResponseEntity.ok(computerRentals);
     }
 
 }

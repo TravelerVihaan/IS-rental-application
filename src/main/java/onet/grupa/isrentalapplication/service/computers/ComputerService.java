@@ -30,30 +30,20 @@ public class ComputerService {
         this.computerAddService = computerAddService;
     }
 
-    /**
-     * Return simple response with list of all found Computer in database.
-     *
-     * @return List of Computers
-     */
-    public List<Computer> getAllComputers(){
-        return computerRepository.findAll();
+    public List<Computer> getComputers(String searchPattern, String orderBy){
+        if(searchPattern == null || searchPattern.isEmpty())
+            return computerRepository.findAll();
+        else
+            return getSpecificComputers(searchPattern, orderBy);
     }
 
-    public List<Computer> getSpecificComputers(String searchPattern, String orderBy){
+    private List<Computer> getSpecificComputers(String searchPattern, String orderBy){
         return computerSearchingService.getWithSearchingAndOrder(searchPattern, orderBy);
     }
 
-    /**
-     * Return Optional with found Computer in database.
-     *
-     * @param id id of Computer entity
-     *
-     * @return Optional with Computer
-     */
     public Optional<Computer> getComputer(long id){
         return computerRepository.findById(id);
     }
-
 
     public HttpStatusEnum addNewComputer(Computer computer){
         return computerAddService.addNewComputer(computer);
