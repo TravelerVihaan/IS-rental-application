@@ -1,6 +1,8 @@
 package onet.grupa.isrentalapplication.controller.rentals;
 
+import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.dto.ComputerRentalDTO;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.rentals.ComputerRentalService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/rentals/computers/")
+@RequestMapping("/rentals/computers")
 public class ComputerRentalController {
 
     private ComputerRentalService computerRentalService;
@@ -44,6 +46,13 @@ public class ComputerRentalController {
                 .map(computerRental -> modelMapper.map(computerRental, ComputerRentalDTO.class))
                         .collect(Collectors.toList());
         return ResponseEntity.ok(computerRentals);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addNewComputerRental(@RequestBody ComputerRentalDTO computerRentalDTO){
+        HttpStatusEnum status = computerRentalService
+                .addNewComputerRental(modelMapper.map(computerRentalDTO, ComputerRental.class));
+        return HttpStatusEnum.isHttpStatusEquals(status);
     }
 
 }

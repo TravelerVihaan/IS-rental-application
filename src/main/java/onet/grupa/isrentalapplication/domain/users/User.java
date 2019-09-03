@@ -34,6 +34,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String surname;
 
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id",
                     referencedColumnName = "id_user")},
@@ -95,6 +96,7 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

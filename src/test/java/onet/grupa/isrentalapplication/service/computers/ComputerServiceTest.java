@@ -81,7 +81,7 @@ public class ComputerServiceTest {
 
     @Test
     public void getAllComputers() {
-        assertEquals(1,computerService.getAllComputers().size());
+        assertEquals(1,computerService.getComputers(null,null).size());
     }
 
     @Test

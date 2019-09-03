@@ -4,6 +4,7 @@ import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -18,5 +19,7 @@ public interface ComputerRentalRepository extends JpaRepository<ComputerRental, 
     List<ComputerRental> findAllByRentedComputer_ComputerModel_ComputerProducer_ProducerNameContaining(String pattern);
 
     List<ComputerRental> findAllByRentStatus_Status(String status);
+
+    List<ComputerRental> findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(String otNumber, LocalDate date);
 
 }

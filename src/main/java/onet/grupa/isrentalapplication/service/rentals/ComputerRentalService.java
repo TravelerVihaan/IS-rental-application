@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.service.rentals;
 
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.ISearching;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +13,16 @@ import java.util.List;
 public class ComputerRentalService {
 
     private ComputerRentalRepository computerRentalRepository;
+    private NewComputerRentalService newComputerRentalService;
     private ISearching<ComputerRental> computerRentalSearchingService;
 
     @Autowired
     public ComputerRentalService(ComputerRentalRepository computerRentalRepository,
-                                 ComputerRentalSearchingService computerRentalSearchingService) {
+                                 ComputerRentalSearchingService computerRentalSearchingService,
+                                 NewComputerRentalService newComputerRentalService) {
         this.computerRentalRepository = computerRentalRepository;
         this.computerRentalSearchingService = computerRentalSearchingService;
+        this.newComputerRentalService = newComputerRentalService;
     }
 
     public List<ComputerRental> getComputerRentals(String searchPattern, String orderBy){
@@ -29,6 +33,14 @@ public class ComputerRentalService {
 
     }
 
+    public HttpStatusEnum addNewComputerRental(ComputerRental computerRental){
+        return newComputerRentalService.addNewComputerRental(computerRental);
+    }
+
+    public List<ComputerRental> getAllComputerRentalsWithStatus (String status){
+        return computerRentalRepository.findAllByRentStatus_Status(status);
+    }
+
     private List<ComputerRental> getSpecificComputerRentals(String searchPattern, String orderBy){
         return computerRentalSearchingService.getWithSearchingAndOrder(searchPattern,orderBy);
     }
@@ -36,9 +48,5 @@ public class ComputerRentalService {
     private List<ComputerRental> getAllComputerRentals(){
         return computerRentalRepository.findAll();
     }
-
-    public List<ComputerRental> getAllComputerRentalsWithStatus (String status){
-            return computerRentalRepository.findAllByRentStatus_Status(status);
-        }
 }
 
