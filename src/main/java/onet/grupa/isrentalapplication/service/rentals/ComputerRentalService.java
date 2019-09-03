@@ -15,7 +15,8 @@ public class ComputerRentalService {
     private ISearching<ComputerRental> computerRentalSearchingService;
 
     @Autowired
-    public ComputerRentalService(ComputerRentalRepository computerRentalRepository,ComputerRentalSearchingService computerRentalSearchingService) {
+    public ComputerRentalService(ComputerRentalRepository computerRentalRepository,
+                                 ComputerRentalSearchingService computerRentalSearchingService) {
         this.computerRentalRepository = computerRentalRepository;
         this.computerRentalSearchingService = computerRentalSearchingService;
     }

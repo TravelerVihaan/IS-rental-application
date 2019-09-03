@@ -3,6 +3,7 @@ package onet.grupa.isrentalapplication.service.computers;
 import onet.grupa.isrentalapplication.domain.computers.Computer;
 import onet.grupa.isrentalapplication.repository.computers.ComputerRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
+import onet.grupa.isrentalapplication.service.ISearching;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,15 @@ import java.util.Set;
 public class ComputerService {
 
     private ComputerRepository computerRepository;
+    private ISearching<Computer> computerSearchingService;
     private Validator validator;
 
     @Autowired
-    public ComputerService(ComputerRepository computerRepository, Validator validator){
+    public ComputerService(ComputerRepository computerRepository,
+                           ComputerSearchingService computerSearchingService,
+                           Validator validator){
         this.computerRepository = computerRepository;
+        this.computerSearchingService = computerSearchingService;
         this.validator = validator;
     }
 
@@ -39,6 +44,9 @@ public class ComputerService {
         return computerRepository.findAll();
     }
 
+    public List<Computer> getSpecificComputers(String searchPattern, String orderBy){
+        return computerSearchingService.getWithSearchingAndOrder(searchPattern, orderBy);
+    }
     /**
      * Return Optional with found Computer in database.
      *
