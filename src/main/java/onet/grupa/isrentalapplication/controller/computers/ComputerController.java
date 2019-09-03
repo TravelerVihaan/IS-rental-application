@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,10 +32,14 @@ public class ComputerController {
     Get all computers from database
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ComputerDTO>> getComputers(){
-        return ResponseEntity.ok(computerService
-                .getAllComputers()
-                .stream()
+    public ResponseEntity<List<ComputerDTO>> getComputers(@RequestParam(required = false) String searchPhrase, @RequestParam(required = false) String orderBy){
+        List<Computer> computers = new ArrayList<>();
+        if(searchPhrase != null && !searchPhrase.isEmpty())
+            computers = computerService.getAllComputers();
+        else
+            computers = computerService.getSpecificComputers(searchPhrase, orderBy);
+
+        return ResponseEntity.ok(computers.stream()
                 .map(computer -> modelMapper.map(computer, ComputerDTO.class))
                 .collect(Collectors.toList()));
     }
@@ -52,7 +57,8 @@ public class ComputerController {
 
     @PatchMapping("/{id}/status")
     public ResponseEntity<?> changeComputerStatus(@PathVariable Long id, @RequestParam String status){
-        return computerService.changeComputerStatus(status, id);
+        HttpStatusEnum statusEnum = computerService.changeComputerStatus(status, id);
+        return HttpStatusEnum.isHttpStatusEquals(statusEnum);
     }
 
     /**
