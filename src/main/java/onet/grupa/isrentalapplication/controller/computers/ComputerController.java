@@ -23,7 +23,8 @@ public class ComputerController {
     private ModelMapper modelMapper;
 
     @Autowired
-    public ComputerController(ComputerService computerService, ModelMapper modelMapper){
+    public ComputerController(ComputerService computerService,
+                              ModelMapper modelMapper){
         this.computerService = computerService;
         this.modelMapper = modelMapper;
     }
@@ -33,7 +34,7 @@ public class ComputerController {
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ComputerDTO>> getComputers(@RequestParam(required = false) String searchPhrase, @RequestParam(required = false) String orderBy){
-        List<Computer> computers = new ArrayList<>();
+        List<Computer> computers;
         if(searchPhrase != null && !searchPhrase.isEmpty())
             computers = computerService.getAllComputers();
         else
