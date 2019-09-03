@@ -18,4 +18,75 @@ public class ComputerRentalDTO {
     private String computerProducer;
     private String computerModel;
 
+    public LocalDate getStartRentalDate() {
+        return startRentalDate;
+    }
+
+    public void setStartRentalDate(LocalDate startRentalDate) {
+        this.startRentalDate = startRentalDate;
+    }
+
+    public LocalDate getEndRentalDate() {
+        return endRentalDate;
+    }
+
+    public void setEndRentalDate(LocalDate endRentalDate) {
+        this.endRentalDate = endRentalDate;
+    }
+
+    public String getRentingPersonemail() {
+        return rentingPersonemail;
+    }
+
+    public void setRentingPersonemail(String rentingPersonemail) {
+        this.rentingPersonemail = rentingPersonemail;
+    }
+
+    public String getRentingPersonName() {
+        return rentingPersonName;
+    }
+
+    public void setRentingPersonName(String rentingPersonName) {
+        this.rentingPersonName = rentingPersonName;
+    }
+
+    public RentStatus getRentStatus() {
+        return rentStatus;
+    }
+
+    public void setRentStatus(RentStatus rentStatus) {
+        this.rentStatus = rentStatus;
+    }
+
+    public String getOTNumber() {
+        return OTNumber;
+    }
+
+    public void setOTNumber(String OTNumber) {
+        this.OTNumber = OTNumber;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getComputerProducer() {
+        return computerProducer;
+    }
+
+    public void setComputerProducer(String computerProducer) {
+        this.computerProducer = computerProducer;
+    }
+
+    public String getComputerModel() {
+        return computerModel;
+    }
+
+    public void setComputerModel(String computerModel) {
+        this.computerModel = computerModel;
+    }
 }

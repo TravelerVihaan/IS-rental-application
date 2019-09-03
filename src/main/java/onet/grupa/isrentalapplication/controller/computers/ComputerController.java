@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,12 @@ public class ComputerController {
     public ResponseEntity<?> changeComputerStatus(@PathVariable Long id, @RequestParam String status){
         HttpStatusEnum statusEnum = computerService.changeComputerStatus(status, id);
         return HttpStatusEnum.isHttpStatusEquals(statusEnum);
+    }
+
+    @PatchMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateComputer(@RequestBody Map<String, String> updates, @PathVariable Long id){
+        HttpStatusEnum status = computerService.updateComputer(id, updates);
+        return HttpStatusEnum.isHttpStatusEquals(status);
     }
 
     /**

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,20 +19,19 @@ public class ComputerService {
 
     private ComputerRepository computerRepository;
     private ISearching<Computer> computerSearchingService;
-    private Validator validator;
+    private ComputerUpdateService computerUpdateService;
+    private ComputerAddService computerAddService;
 
     @Autowired
     public ComputerService(ComputerRepository computerRepository,
                            ComputerSearchingService computerSearchingService,
-                           Validator validator){
+                           ComputerUpdateService computerUpdateService,
+                           ComputerAddService computerAddService){
         this.computerRepository = computerRepository;
         this.computerSearchingService = computerSearchingService;
-        this.validator = validator;
+        this.computerUpdateService = computerUpdateService;
+        this.computerAddService = computerAddService;
     }
-
-    /*
-   Public methods
-    */
 
     /**
      * Return simple response with list of all found Computer in database.
@@ -45,6 +45,7 @@ public class ComputerService {
     public List<Computer> getSpecificComputers(String searchPattern, String orderBy){
         return computerSearchingService.getWithSearchingAndOrder(searchPattern, orderBy);
     }
+
     /**
      * Return Optional with found Computer in database.
      *
@@ -56,23 +57,9 @@ public class ComputerService {
         return computerRepository.findById(id);
     }
 
-    /**
-     * Method saving computer object to database after validate all properties
-     * @param computer is an object which will be converted to db entity
-     * @return HttpStatusEnum with status depending on result of insert entity to DB,
-     *      can return BAD_REQUEST if result has errors
-     *      CONFLICT if entity has already exists
-     *      CREATED if entity was saved in DB
-     */
-    public HttpStatusEnum addNewComputer(Computer computer){
-        Set<ConstraintViolation<Computer>> validationErrors = validator.validate(computer);
-        if(!validationErrors.isEmpty())
-            return HttpStatusEnum.BADREQUEST;
-        if(getComputerByOT(computer.getOtnumber()).isPresent())
-            return HttpStatusEnum.CONFLICT;
 
-        computerRepository.save(computer);
-        return HttpStatusEnum.CREATED;
+    public HttpStatusEnum addNewComputer(Computer computer){
+        return computerAddService.addNewComputer(computer);
     }
 
     public HttpStatusEnum changeComputerStatus(String status, Long id){
@@ -83,22 +70,12 @@ public class ComputerService {
         return HttpStatusEnum.NOTFOUND;
     }
 
-    /**
-     *  Private method returning optional with computer.
-     *  It exists to check duplicated gear in magazine
-     * @param OT OT number which is unique for every computer
-     * @return Optional with null or found computer
-     */
-    public Optional<Computer> getComputerByOT(String OT){
-        return Optional.ofNullable(computerRepository.findByOtnumber(OT));
+    public HttpStatusEnum updateComputer(Long id, Map<String,String> updates){
+        return computerUpdateService.updateComputer(id, updates);
     }
 
-    /*
-    Private methods to get computers from repo
-     */
-    private void updateComputerStatus(Computer computer, String status){
-        computer.getComputerStatus().setStatus(status);
-        computerRepository.save(computer);
+    public Optional<Computer> getComputerByOT(String OT){
+        return Optional.ofNullable(computerRepository.findByOtnumber(OT));
     }
 
     public HttpStatusEnum deleteComputer(Long id){
@@ -109,4 +86,11 @@ public class ComputerService {
         return HttpStatusEnum.NOTFOUND;
     }
 
+    /*
+    Private methods to get computers from repo
+     */
+    private void updateComputerStatus(Computer computer, String status){
+        computer.getComputerStatus().setStatus(status);
+        computerRepository.save(computer);
+    }
 }
