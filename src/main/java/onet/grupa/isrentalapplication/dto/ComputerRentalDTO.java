@@ -15,7 +15,7 @@ public class ComputerRentalDTO {
     //Computer
     private String OTNumber;
     private String serialNumber;
-    private String computerProducer;
+    private String producerName;
     private String computerModel;
 
     public LocalDate getStartRentalDate() {
@@ -74,12 +74,12 @@ public class ComputerRentalDTO {
         this.serialNumber = serialNumber;
     }
 
-    public String getComputerProducer() {
-        return computerProducer;
+    public String getProducerName() {
+        return producerName;
     }
 
-    public void setComputerProducer(String computerProducer) {
-        this.computerProducer = computerProducer;
+    public void setProducerName(String producerName) {
+        this.producerName = producerName;
     }
 
     public String getComputerModel() {
