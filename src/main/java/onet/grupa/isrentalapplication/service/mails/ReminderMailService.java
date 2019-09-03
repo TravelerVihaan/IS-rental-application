@@ -65,8 +65,7 @@ public class ReminderMailService {
      * This method get all active rentals
      */
     private void getCurrentMailsList(){
-        computerRentalService.getAllComputerRentalsWithStatus("active")
-                .ifPresent(this::addCurrentMailsToList);
+        addCurrentMailsToList(computerRentalService.getAllComputerRentalsWithStatus("active"));
     }
 
 
@@ -79,6 +78,7 @@ public class ReminderMailService {
                 .stream()
                 .filter(rental -> rental.getEndRentalDate()
                         .isBefore(LocalDate.now()))
-                .forEach(rental -> mailsList.add(rental.getRentingPersonemail()));
+                .forEach(rental -> mailsList
+                        .add(rental.getRentingPersonemail()));
     }
 }
