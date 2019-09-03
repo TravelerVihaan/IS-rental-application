@@ -6,7 +6,7 @@ public class ComputerDTO {
     private String serialNumber;
     private String operatingSystem;
     private String diskType;
-    private String computerProducer;
+    private String producerName;
     private String computerModel;
     private String computerStatus;
 
@@ -42,12 +42,12 @@ public class ComputerDTO {
         this.diskType = diskType;
     }
 
-    public String getComputerProducer() {
-        return computerProducer;
+    public String getProducerName() {
+        return producerName;
     }
 
-    public void setComputerProducer(String computerProducer) {
-        this.computerProducer = computerProducer;
+    public void setProducerName(String producerName) {
+        this.producerName = producerName;
     }
 
     public String getComputerModel() {
