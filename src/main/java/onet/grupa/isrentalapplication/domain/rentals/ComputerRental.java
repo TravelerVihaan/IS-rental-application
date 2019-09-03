@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "computer_rentals")
@@ -59,6 +60,26 @@ public class ComputerRental implements Serializable {
         this.rentingPersonName = rentingPersonName;
         this.rentedComputer = rentedComputer;
         this.rentStatus = rentStatus;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ComputerRental that = (ComputerRental) o;
+        return id.equals(that.id) &&
+                startRentalDate.equals(that.startRentalDate) &&
+                endRentalDate.equals(that.endRentalDate) &&
+                rentingPersonemail.equals(that.rentingPersonemail) &&
+                rentingPersonName.equals(that.rentingPersonName) &&
+                Objects.equals(rentedComputer, that.rentedComputer) &&
+                Objects.equals(rentStatus, that.rentStatus) &&
+                Objects.equals(whoSetStatus, that.whoSetStatus);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, startRentalDate, endRentalDate, rentingPersonemail, rentingPersonName, rentedComputer, rentStatus, whoSetStatus);
     }
 
     public Long getId() { return id; }
