@@ -3,6 +3,7 @@ package onet.grupa.isrentalapplication.dtomapper;
 import onet.grupa.isrentalapplication.domain.computers.*;
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
+import onet.grupa.isrentalapplication.domain.users.User;
 import onet.grupa.isrentalapplication.dto.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -102,6 +103,17 @@ public class DTOTests {
         assertEquals("XYZABCD1312",computerRentalDTO.getComputerSerialNumber());
         assertEquals("Apple",computerRentalDTO.getComputerProducerName());
         assertEquals("MacBook",computerRentalDTO.getComputerModel());
+    }
+
+    public void UserDTO_Test(){
+        //given
+        User user = new User("username","password","name","surname");
+        //when
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        //then
+        assertEquals("username",userDTO.getUsername());
+        assertEquals("name",userDTO.getName());
+        assertEquals("surname",userDTO.getSurname());
     }
 
     private ComputerModel prepareComputerModelToTests(){
