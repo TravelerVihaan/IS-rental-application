@@ -40,6 +40,16 @@ public class ComputerAddServiceTest {
     }
 
     @Test
-    public void addNewComputer() {
+    public void shouldAddComputerAndReturnCREATED() {
+    }
+
+    @Test
+    public void shouldReturnBADREQUESTEnum(){
+
+    }
+
+    @Test
+    public void shouldRejectAddingNewComputerAndReturnCONFLICT(){
+
     }
 }
