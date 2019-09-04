@@ -1,7 +1,5 @@
 package onet.grupa.isrentalapplication.dto;
 
-import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
-
 import java.time.LocalDate;
 
 public class ComputerRentalDTO {
@@ -13,9 +11,9 @@ public class ComputerRentalDTO {
     private String rentStatus;
 
     //Computer
-    private String OTNumber;
-    private String serialNumber;
-    private String producerName;
+    private String computerOtnumber;
+    private String computerSerialNumber;
+    private String computerProducerName;
     private String computerModel;
 
     public LocalDate getStartRentalDate() {
@@ -58,28 +56,28 @@ public class ComputerRentalDTO {
         this.rentStatus = rentStatus;
     }
 
-    public String getOTNumber() {
-        return OTNumber;
+    public String getComputerOtnumber() {
+        return computerOtnumber;
     }
 
-    public void setOTNumber(String OTNumber) {
-        this.OTNumber = OTNumber;
+    public void setComputerOtnumber(String computerOtnumber) {
+        this.computerOtnumber = computerOtnumber;
     }
 
-    public String getSerialNumber() {
-        return serialNumber;
+    public String getComputerSerialNumber() {
+        return computerSerialNumber;
     }
 
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setComputerSerialNumber(String computerSerialNumber) {
+        this.computerSerialNumber = computerSerialNumber;
     }
 
-    public String getProducerName() {
-        return producerName;
+    public String getComputerProducerName() {
+        return computerProducerName;
     }
 
-    public void setProducerName(String producerName) {
-        this.producerName = producerName;
+    public void setComputerProducerName(String computerProducerName) {
+        this.computerProducerName = computerProducerName;
     }
 
     public String getComputerModel() {

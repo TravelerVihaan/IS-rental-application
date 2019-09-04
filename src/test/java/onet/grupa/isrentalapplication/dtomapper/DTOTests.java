@@ -96,11 +96,11 @@ public class DTOTests {
         assertEquals(LocalDate.now(),computerRentalDTO.getEndRentalDate());
         assertEquals("test@test",computerRentalDTO.getRentingPersonEmail());
         assertEquals("Name",computerRentalDTO.getRentingPersonName());
-        assertEquals("rented",computerRentalDTO.getRentStatus());
+        assertEquals("accepted",computerRentalDTO.getRentStatus());
 
-        assertEquals("1234/56/7890/IT/KR",computerRentalDTO.getOTNumber());
-        assertEquals("XYZABCD1312",computerRentalDTO.getSerialNumber());
-        assertEquals("Apple",computerRentalDTO.getProducerName());
+        assertEquals("1234/56/7890/IT/KR",computerRentalDTO.getComputerOtnumber());
+        assertEquals("XYZABCD1312",computerRentalDTO.getComputerSerialNumber());
+        assertEquals("Apple",computerRentalDTO.getComputerProducerName());
         assertEquals("MacBook",computerRentalDTO.getComputerModel());
     }
 
