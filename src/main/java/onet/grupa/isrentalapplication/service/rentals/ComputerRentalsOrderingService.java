@@ -38,7 +38,7 @@ public class ComputerRentalsOrderingService implements IOrdering<ComputerRental>
         }
         if("email".equalsIgnoreCase(orderBy)){
             rentalComparator = Comparator
-                    .comparing(ComputerRental::getRentingPersonemail);
+                    .comparing(ComputerRental::getRentingPersonEmail);
         }
         if("startDate".equalsIgnoreCase(orderBy)) {
             rentalComparator = Comparator

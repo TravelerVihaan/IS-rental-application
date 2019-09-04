@@ -79,6 +79,6 @@ public class ReminderMailService {
                 .filter(rental -> rental.getEndRentalDate()
                         .isBefore(LocalDate.now()))
                 .forEach(rental -> mailsList
-                        .add(rental.getRentingPersonemail()));
+                        .add(rental.getRentingPersonEmail()));
     }
 }

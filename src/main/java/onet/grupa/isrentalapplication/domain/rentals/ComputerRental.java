@@ -31,7 +31,7 @@ public class ComputerRental implements Serializable {
     @Email
     @NotEmpty
     @Column(name = "email", nullable = false)
-    private String rentingPersonemail;
+    private String rentingPersonEmail;
 
     @NotEmpty
     @Column(name = "who_rent", nullable = false)
@@ -53,10 +53,10 @@ public class ComputerRental implements Serializable {
 
     public ComputerRental(){}
 
-    public ComputerRental(@NotNull LocalDate startRentalDate, @NotNull LocalDate endRentalDate, @Email @NotEmpty String rentingPersonemail, @NotEmpty String rentingPersonName, @NotNull Computer rentedComputer, @NotNull RentStatus rentStatus) {
+    public ComputerRental(@NotNull LocalDate startRentalDate, @NotNull LocalDate endRentalDate, @Email @NotEmpty String rentingPersonEmail, @NotEmpty String rentingPersonName, @NotNull Computer rentedComputer, @NotNull RentStatus rentStatus) {
         this.startRentalDate = startRentalDate;
         this.endRentalDate = endRentalDate;
-        this.rentingPersonemail = rentingPersonemail;
+        this.rentingPersonEmail = rentingPersonEmail;
         this.rentingPersonName = rentingPersonName;
         this.rentedComputer = rentedComputer;
         this.rentStatus = rentStatus;
@@ -70,7 +70,7 @@ public class ComputerRental implements Serializable {
         return id.equals(that.id) &&
                 startRentalDate.equals(that.startRentalDate) &&
                 endRentalDate.equals(that.endRentalDate) &&
-                rentingPersonemail.equals(that.rentingPersonemail) &&
+                rentingPersonEmail.equals(that.rentingPersonEmail) &&
                 rentingPersonName.equals(that.rentingPersonName) &&
                 Objects.equals(rentedComputer, that.rentedComputer) &&
                 Objects.equals(rentStatus, that.rentStatus) &&
@@ -79,7 +79,7 @@ public class ComputerRental implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startRentalDate, endRentalDate, rentingPersonemail, rentingPersonName, rentedComputer, rentStatus, whoSetStatus);
+        return Objects.hash(id, startRentalDate, endRentalDate, rentingPersonEmail, rentingPersonName, rentedComputer, rentStatus, whoSetStatus);
     }
 
     public Long getId() { return id; }
@@ -102,12 +102,12 @@ public class ComputerRental implements Serializable {
         this.endRentalDate = endRentalDate;
     }
 
-    public String getRentingPersonemail() {
-        return rentingPersonemail;
+    public String getRentingPersonEmail() {
+        return rentingPersonEmail;
     }
 
-    public void setRentingPersonemail(String rentingPersonemail) {
-        this.rentingPersonemail = rentingPersonemail;
+    public void setRentingPersonEmail(String rentingPersonEmail) {
+        this.rentingPersonEmail = rentingPersonEmail;
     }
 
     public String getRentingPersonName() {
@@ -148,7 +148,7 @@ public class ComputerRental implements Serializable {
                 "id=" + id +
                 ", startRentalDate=" + startRentalDate +
                 ", endRentalDate=" + endRentalDate +
-                ", rentingPersonemail='" + rentingPersonemail + '\'' +
+                ", rentingPersonemail='" + rentingPersonEmail + '\'' +
                 ", rentingPersonName='" + rentingPersonName + '\'' +
                 ", rentedComputer=" + rentedComputer +
                 ", rentStatus=" + rentStatus +

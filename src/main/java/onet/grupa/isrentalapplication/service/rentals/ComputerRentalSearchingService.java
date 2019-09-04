@@ -44,7 +44,7 @@ public class ComputerRentalSearchingService implements ISearching<ComputerRental
      */
     private Set<ComputerRental> getComputerRentalsWithSearching(String searchPhrase){
         Set<ComputerRental> foundRentals = new HashSet<>();
-        foundRentals.addAll(computerRentalRepository.findAllByRentingPersonemailContaining(searchPhrase));
+        foundRentals.addAll(computerRentalRepository.findAllByRentingPersonEmailContaining(searchPhrase));
         foundRentals.addAll(computerRentalRepository.findAllByRentingPersonNameContaining(searchPhrase));
         foundRentals.addAll(getRentalsByProducer(searchPhrase));
         foundRentals.addAll(getRentalsByModel(searchPhrase));

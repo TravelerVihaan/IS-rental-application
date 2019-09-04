@@ -1,6 +1,7 @@
 package onet.grupa.isrentalapplication.dtomapper;
 
 import onet.grupa.isrentalapplication.domain.computers.*;
+import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
 import onet.grupa.isrentalapplication.dto.*;
 import org.junit.Test;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
@@ -44,11 +47,11 @@ public class DTOTests {
     @Test
     public void Computer_Producer_Model_DTOTest(){
         //given
-        ComputerProducer computerProducer = new ComputerProducer("Apple");
-        ComputerModel computerModel = new ComputerModel("MacBook",computerProducer);
+        ComputerModel computerModel = prepareComputerModelToTests();
+        ComputerProducer computerProducer = computerModel.getComputerProducer();
         //when
-        ComputerProducerDTO computerProducerDTO =
-                modelMapper.map(computerProducer, ComputerProducerDTO.class);
+        ComputerProducerDTO computerProducerDTO = modelMapper
+                .map(computerProducer, ComputerProducerDTO.class);
         ComputerModelDTO computerModelDTO =
                 modelMapper.map(computerModel, ComputerModelDTO.class);
         //then
@@ -60,8 +63,54 @@ public class DTOTests {
     @Test
     public void ComputerDTO_Test(){
         //given
+        Computer computer = prepareComputerToTests();
+        //when
+        ComputerDTO computerDTO = modelMapper.map(computer, ComputerDTO.class);
+        //then
+        assertEquals(computerDTO.getOtnumber(),"1234/56/7890/IT/KR");
+        assertEquals(computerDTO.getSerialNumber(),"XYZABCD1312");
+        assertEquals(computerDTO.getOperatingSystem(),"Windows 10");
+        assertEquals(computerDTO.getDiskType(),"SSD");
+        assertEquals(computerDTO.getComputerModelProducerName(),"Apple");
+        assertEquals(computerDTO.getModel(),"MacBook");
+        assertEquals(computerDTO.getComputerStatus(),"rented");
+    }
+
+    @Test
+    public void ComputerRentalDTO_Test(){
+        //given
+        Computer computer = prepareComputerToTests();
+        RentStatus rentStatus = new RentStatus("accepted");
+        ComputerRental computerRental = new ComputerRental();
+        computerRental.setStartRentalDate(LocalDate.now());
+        computerRental.setEndRentalDate(LocalDate.now());
+        computerRental.setRentingPersonEmail("test@test");
+        computerRental.setRentingPersonName("Name");
+        computerRental.setRentedComputer(computer);
+        computerRental.setRentStatus(rentStatus);
+        //when
+        ComputerRentalDTO computerRentalDTO = modelMapper
+                .map(computerRental, ComputerRentalDTO.class);
+        //then
+        assertEquals(LocalDate.now(),computerRentalDTO.getStartRentalDate());
+        assertEquals(LocalDate.now(),computerRentalDTO.getEndRentalDate());
+        assertEquals("test@test",computerRentalDTO.getRentingPersonEmail());
+        assertEquals("Name",computerRentalDTO.getRentingPersonName());
+        assertEquals("rented",computerRentalDTO.getRentStatus());
+
+        assertEquals("1234/56/7890/IT/KR",computerRentalDTO.getOTNumber());
+        assertEquals("XYZABCD1312",computerRentalDTO.getSerialNumber());
+        assertEquals("Apple",computerRentalDTO.getProducerName());
+        assertEquals("MacBook",computerRentalDTO.getComputerModel());
+    }
+
+    private ComputerModel prepareComputerModelToTests(){
         ComputerProducer computerProducer = new ComputerProducer("Apple");
-        ComputerModel computerModel = new ComputerModel("MacBook",computerProducer);
+        return new ComputerModel("MacBook",computerProducer);
+    }
+
+    private Computer prepareComputerToTests(){
+        ComputerModel computerModel = prepareComputerModelToTests();
         ComputerStatus computerStatus = new ComputerStatus("rented");
         DiskType diskType = new DiskType("SSD");
         OperatingSystem os = new OperatingSystem("Windows 10");
@@ -73,17 +122,6 @@ public class DTOTests {
         computer.setDiskType(diskType);
         computer.setComputerModel(computerModel);
         computer.setComputerStatus(computerStatus);
-
-        //when
-        ComputerDTO computerDTO = modelMapper.map(computer, ComputerDTO.class);
-
-        //then
-        assertEquals(computerDTO.getOtnumber(),"1234/56/7890/IT/KR");
-        assertEquals(computerDTO.getSerialNumber(),"XYZABCD1312");
-        assertEquals(computerDTO.getOperatingSystem(),"Windows 10");
-        assertEquals(computerDTO.getDiskType(),"SSD");
-        assertEquals(computerDTO.getComputerModelProducerName(),"Apple");
-        assertEquals(computerDTO.getModel(),"MacBook");
-        assertEquals(computerDTO.getComputerStatus(),"rented");
+        return computer;
     }
 }

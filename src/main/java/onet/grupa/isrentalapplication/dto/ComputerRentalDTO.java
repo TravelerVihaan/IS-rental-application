@@ -8,9 +8,9 @@ public class ComputerRentalDTO {
 
     private LocalDate startRentalDate;
     private LocalDate endRentalDate;
-    private String rentingPersonemail;
+    private String rentingPersonEmail;
     private String rentingPersonName;
-    private RentStatus rentStatus;
+    private String rentStatus;
 
     //Computer
     private String OTNumber;
@@ -34,12 +34,12 @@ public class ComputerRentalDTO {
         this.endRentalDate = endRentalDate;
     }
 
-    public String getRentingPersonemail() {
-        return rentingPersonemail;
+    public String getRentingPersonEmail() {
+        return rentingPersonEmail;
     }
 
-    public void setRentingPersonemail(String rentingPersonemail) {
-        this.rentingPersonemail = rentingPersonemail;
+    public void setRentingPersonEmail(String rentingPersonEmail) {
+        this.rentingPersonEmail = rentingPersonEmail;
     }
 
     public String getRentingPersonName() {
@@ -50,11 +50,11 @@ public class ComputerRentalDTO {
         this.rentingPersonName = rentingPersonName;
     }
 
-    public RentStatus getRentStatus() {
+    public String getRentStatus() {
         return rentStatus;
     }
 
-    public void setRentStatus(RentStatus rentStatus) {
+    public void setRentStatus(String rentStatus) {
         this.rentStatus = rentStatus;
     }
 

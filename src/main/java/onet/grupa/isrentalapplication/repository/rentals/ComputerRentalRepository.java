@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ComputerRentalRepository extends JpaRepository<ComputerRental, Long> {
 
-    List<ComputerRental> findAllByRentingPersonemailContaining(String pattern);
+    List<ComputerRental> findAllByRentingPersonEmailContaining(String pattern);
 
     List<ComputerRental> findAllByRentingPersonNameContaining(String pattern);
 
