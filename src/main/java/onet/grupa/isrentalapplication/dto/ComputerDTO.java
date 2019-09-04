@@ -6,8 +6,8 @@ public class ComputerDTO {
     private String serialNumber;
     private String operatingSystem;
     private String diskType;
-    private String producerName;
-    private String computerModel;
+    private String computerModelProducerName;
+    private String model;
     private String computerStatus;
 
     public String getOtnumber() {
@@ -42,20 +42,20 @@ public class ComputerDTO {
         this.diskType = diskType;
     }
 
-    public String getProducerName() {
-        return producerName;
+    public String getComputerModelProducerName() {
+        return computerModelProducerName;
     }
 
-    public void setProducerName(String producerName) {
-        this.producerName = producerName;
+    public void setComputerModelProducerName(String computerModelProducerName) {
+        this.computerModelProducerName = computerModelProducerName;
     }
 
-    public String getComputerModel() {
-        return computerModel;
+    public String getModel() {
+        return model;
     }
 
-    public void setComputerModel(String computerModel) {
-        this.computerModel = computerModel;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getComputerStatus() {

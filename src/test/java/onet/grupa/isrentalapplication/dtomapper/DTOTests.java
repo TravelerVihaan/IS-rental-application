@@ -81,10 +81,9 @@ public class DTOTests {
         assertEquals(computerDTO.getOtnumber(),"1234/56/7890/IT/KR");
         assertEquals(computerDTO.getSerialNumber(),"XYZABCD1312");
         assertEquals(computerDTO.getOperatingSystem(),"Windows 10");
-
         assertEquals(computerDTO.getDiskType(),"SSD");
-        assertEquals(computerDTO.getProducerName(),"Apple");
-        assertEquals(computerDTO.getComputerModel(),"MacBook");
+        assertEquals(computerDTO.getComputerModelProducerName(),"Apple");
+        assertEquals(computerDTO.getModel(),"MacBook");
         assertEquals(computerDTO.getComputerStatus(),"rented");
     }
 }
