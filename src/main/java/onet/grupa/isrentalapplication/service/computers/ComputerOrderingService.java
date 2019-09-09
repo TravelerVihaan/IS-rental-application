@@ -12,7 +12,6 @@ import java.util.Set;
 @Service
 public class ComputerOrderingService implements IOrdering<Computer> {
 
-
     @Override
     public List<Computer> sortOrderingBy(Set<Computer> inputSet, String orderBy) {
         List<Computer> orderedComputers = new ArrayList<>(inputSet);
