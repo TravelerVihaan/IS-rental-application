@@ -15,8 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.validation.Validator;
-
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -28,9 +26,6 @@ public class ComputerAddServiceTest {
 
     @Mock
     private ComputerRepository computerRepository;
-
-    @Mock
-    private Validator validator;
 
     @InjectMocks
     private ComputerAddService computerAddService;
@@ -68,8 +63,10 @@ public class ComputerAddServiceTest {
 
     @Test
     public void shouldReturnBADREQUESTEnum(){
-        computer.setOtnumber(null);
+        computer.setSerialNumber(null);
         assertEquals(HttpStatusEnum.BADREQUEST,computerAddService.addNewComputer(computer));
+        assertNotEquals(HttpStatusEnum.CONFLICT,computerAddService.addNewComputer(computer));
+        assertNotEquals(HttpStatusEnum.CREATED,computerAddService.addNewComputer(computer));
     }
 
     @Test

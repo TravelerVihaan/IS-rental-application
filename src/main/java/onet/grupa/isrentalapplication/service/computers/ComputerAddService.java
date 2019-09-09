@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
 
@@ -14,13 +15,10 @@ import java.util.Set;
 public class ComputerAddService {
 
     private ComputerRepository computerRepository;
-    private Validator validator;
 
     @Autowired
-    public ComputerAddService(ComputerRepository computerRepository,
-                              Validator validator) {
+    public ComputerAddService(ComputerRepository computerRepository) {
         this.computerRepository = computerRepository;
-        this.validator = validator;
     }
 
     /**
@@ -31,7 +29,8 @@ public class ComputerAddService {
      *      CONFLICT if entity has already exists
      *      CREATED if entity was saved in DB
      */
-    public HttpStatusEnum addNewComputer(Computer computer){
+    HttpStatusEnum addNewComputer(Computer computer){
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<Computer>> validationErrors = validator.validate(computer);
         if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;
