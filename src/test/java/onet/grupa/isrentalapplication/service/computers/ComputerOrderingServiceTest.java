@@ -1,6 +1,7 @@
 package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.*;
+import onet.grupa.isrentalapplication.service.IOrdering;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,8 +9,11 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
@@ -19,13 +23,14 @@ public class ComputerOrderingServiceTest {
 
     private Set<Computer> inputSet = new HashSet<>();
 
-    private ComputerOrderingService computerOrderingService;
+    private IOrdering<Computer> computerOrderingService;
 
     @Before
     public void setUp(){
         inputSet.add(getComputer1());
         inputSet.add(getComputer2());
         inputSet.add(getComputer3());
+        computerOrderingService = new ComputerOrderingService();
     }
 
     @After
@@ -35,12 +40,27 @@ public class ComputerOrderingServiceTest {
 
     @Test
     public void shouldReturnSortedListByProducer(){
-
+        assertEquals(listSortedByProducer(),computerOrderingService.sortOrderingBy(inputSet,"producer"));
     }
 
     @Test
     public void shouldReturnSortedListByModel(){
+        assertEquals(listSortedByModel(),computerOrderingService.sortOrderingBy(inputSet,"model"));
+    }
 
+    private List<Computer> listSortedByProducer(){
+        List<Computer> list = new ArrayList<>();
+        list.add(getComputer1());
+        list.add(getComputer2());
+        list.add(getComputer3());
+        return list;
+    }
+    private List<Computer> listSortedByModel(){
+        List<Computer> list = new ArrayList<>();
+        list.add(getComputer2());
+        list.add(getComputer3());
+        list.add(getComputer1());
+        return list;
     }
 
 
@@ -51,7 +71,7 @@ public class ComputerOrderingServiceTest {
         DiskType diskType = new DiskType("SSD");
         OperatingSystem os = new OperatingSystem("Windows 10");
         Computer computer = new Computer();
-        computer.setOtnumber("1234/56/7890/IT/KR");
+        computer.setOtnumber("0000/56/7890/IT/KR");
         computer.setSerialNumber("XYZABCD1312");
         computer.setOperatingSystem(os);
         computer.setDiskType(diskType);
@@ -67,7 +87,7 @@ public class ComputerOrderingServiceTest {
         DiskType diskType = new DiskType("SSD");
         OperatingSystem os = new OperatingSystem("Windows 10");
         Computer computer = new Computer();
-        computer.setOtnumber("1234/56/7890/IT/KR");
+        computer.setOtnumber("1111/56/7890/IT/KR");
         computer.setSerialNumber("XYZABCD1312");
         computer.setOperatingSystem(os);
         computer.setDiskType(diskType);
@@ -77,13 +97,13 @@ public class ComputerOrderingServiceTest {
     }
 
     private Computer getComputer3(){
-        ComputerProducer apple = new ComputerProducer("DELL");
+        ComputerProducer apple = new ComputerProducer("Lenovo");
         ComputerModel macBook = new ComputerModel("E7440",apple);
         ComputerStatus computerStatus = new ComputerStatus("rented");
         DiskType diskType = new DiskType("SSD");
         OperatingSystem os = new OperatingSystem("Windows 10");
         Computer computer = new Computer();
-        computer.setOtnumber("1234/56/7890/IT/KR");
+        computer.setOtnumber("2222/56/7890/IT/KR");
         computer.setSerialNumber("XYZABCD1312");
         computer.setOperatingSystem(os);
         computer.setDiskType(diskType);
