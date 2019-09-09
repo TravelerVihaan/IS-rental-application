@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -23,15 +24,12 @@ public class NewComputerRentalService {
 
     private ComputerRentalRepository computerRentalRepository;
     private ComputerService computerService;
-    private Validator validator;
 
     @Autowired
     public NewComputerRentalService(ComputerRentalRepository computerRentalRepository,
-                                    ComputerService computerService,
-                                    Validator validator){
+                                    ComputerService computerService){
         this.computerRentalRepository = computerRentalRepository;
         this.computerService = computerService;
-        this.validator = validator;
     }
 
     HttpStatusEnum addNewComputerRental(ComputerRental computerRental){
@@ -55,6 +53,7 @@ public class NewComputerRentalService {
             return false;
         if(cr.getStartRentalDate().isBefore(LocalDate.now()))
             return false;
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<ComputerRental>> validationErrors = validator.validate(cr);
         return validationErrors.isEmpty();
     }

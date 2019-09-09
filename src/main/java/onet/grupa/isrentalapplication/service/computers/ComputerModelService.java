@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.List;
 import java.util.Optional;
@@ -16,12 +17,10 @@ import java.util.Set;
 public class ComputerModelService {
 
     private ComputerModelRepository computerModelRepository;
-    private Validator validator;
 
     @Autowired
-    public ComputerModelService(ComputerModelRepository computerModelRepository, Validator validator){
+    public ComputerModelService(ComputerModelRepository computerModelRepository){
         this.computerModelRepository = computerModelRepository;
-        this.validator = validator;
     }
 
     public List<ComputerModel> getAllComputerModels(){
@@ -48,6 +47,7 @@ public class ComputerModelService {
      *
      */
     public HttpStatusEnum addNewComputerModel(ComputerModel computerModel){
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<ComputerModel>> validationErrors = validator.validate(computerModel);
         if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;

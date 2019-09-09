@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.List;
 import java.util.Optional;
@@ -16,12 +17,10 @@ import java.util.Set;
 public class DiskTypeService {
 
     private DiskTypeRepository diskTypeRepository;
-    private Validator validator;
 
     @Autowired
-    public DiskTypeService(DiskTypeRepository diskTypeRepository, Validator validator){
+    public DiskTypeService(DiskTypeRepository diskTypeRepository){
         this.diskTypeRepository = diskTypeRepository;
-        this.validator = validator;
     }
 
     public List<DiskType> getAllDisks(){
@@ -44,6 +43,7 @@ public class DiskTypeService {
      *
      */
     public HttpStatusEnum addNewDiskType(DiskType diskType){
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<DiskType>> validationErrors = validator.validate(diskType);
         if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;
@@ -53,7 +53,7 @@ public class DiskTypeService {
         return HttpStatusEnum.CREATED;
     }
 
-    public Optional<DiskType> getDiskTypeByName(String diskType){
+    Optional<DiskType> getDiskTypeByName(String diskType){
         return Optional.ofNullable(diskTypeRepository.findByDiskType(diskType));
     }
 

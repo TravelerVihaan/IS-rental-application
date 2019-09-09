@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.List;
 import java.util.Optional;
@@ -16,12 +17,10 @@ import java.util.Set;
 public class OperatingSystemService {
 
     private OperatingSystemRepository operatingSystemRepository;
-    private Validator validator;
 
     @Autowired
-    public OperatingSystemService(OperatingSystemRepository operatingSystemRepository, Validator validator){
+    public OperatingSystemService(OperatingSystemRepository operatingSystemRepository){
         this.operatingSystemRepository = operatingSystemRepository;
-        this.validator = validator;
     }
 
     public List<OperatingSystem> getAllOperatingSystems(){
@@ -32,7 +31,7 @@ public class OperatingSystemService {
         return operatingSystemRepository.findById(id);
     }
 
-    public Optional<OperatingSystem> getOperatingSystemByName(String operatingSystem){
+    Optional<OperatingSystem> getOperatingSystemByName(String operatingSystem){
         return Optional.ofNullable(operatingSystemRepository.findByOperatingSystem(operatingSystem));
     }
 
@@ -48,6 +47,7 @@ public class OperatingSystemService {
      *
      */
     public HttpStatusEnum addNewOperatingSystem(OperatingSystem operatingSystem){
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<OperatingSystem>> validationErrors = validator.validate(operatingSystem);
         if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;

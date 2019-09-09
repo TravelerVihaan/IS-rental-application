@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Map;
 import java.util.Set;
@@ -16,26 +17,24 @@ import java.util.Set;
 public class ComputerUpdateService {
 
     private ComputerRepository computerRepository;
-    private Validator validator;
 
     @Autowired
-    public ComputerUpdateService(ComputerRepository computerRepository,
-                                 Validator validator){
+    public ComputerUpdateService(ComputerRepository computerRepository){
         this.computerRepository = computerRepository;
-        this.validator = validator;
     }
 
-    public HttpStatusEnum updateComputer(Long id, Map<String, String> updates){
+    HttpStatusEnum updateComputer(Long id, Map<String, String> updates){
         if(computerRepository.findById(id).isEmpty())
             return HttpStatusEnum.NOTFOUND;
         Computer computer = executeUpdates(computerRepository.findById(id).orElseThrow(), updates);
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<Computer>> validationErrors = validator.validate(computer);
         if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;
         return HttpStatusEnum.OK;
     }
 
-    public HttpStatusEnum changeComputerStatus(String status, Long id){
+    HttpStatusEnum changeComputerStatus(String status, Long id){
         if(computerRepository.findById(id).isPresent()) {
             computerRepository.findById(id).ifPresent(computer -> updateComputerStatus(computer, status));
             return HttpStatusEnum.OK;
