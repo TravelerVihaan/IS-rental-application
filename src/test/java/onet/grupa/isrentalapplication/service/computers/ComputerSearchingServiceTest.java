@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.repository.computers.ComputerRepository;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.Computer;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -26,6 +27,11 @@ public class ComputerSearchingServiceTest {
     @Before
     public void setUp(){
         computerSearchingService = new ComputerSearchingService(computerRepository,computerOrderingService);
+    }
+
+    @Test
+    public void getSearchedComputersTest(){
+
     }
 
 }
