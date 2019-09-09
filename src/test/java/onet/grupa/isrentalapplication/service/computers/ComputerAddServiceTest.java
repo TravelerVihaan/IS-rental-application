@@ -1,13 +1,21 @@
 package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.*;
+import onet.grupa.isrentalapplication.repository.computers.ComputerRepository;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.validation.Validator;
 
 import static org.junit.Assert.*;
 
@@ -18,8 +26,17 @@ public class ComputerAddServiceTest {
 
     private Computer computer;
 
+    @Mock
+    private ComputerRepository computerRepository;
+
+    @Mock
+    private Validator validator;
+
+    @InjectMocks
+    private ComputerAddService computerAddService;
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
         ComputerProducer computerProducer = new ComputerProducer("Apple");
         ComputerModel computerModel = new ComputerModel("MacBook",computerProducer);
         ComputerStatus computerStatus = new ComputerStatus("rented");
@@ -32,24 +49,34 @@ public class ComputerAddServiceTest {
         computer.setDiskType(diskType);
         computer.setComputerModel(computerModel);
         computer.setComputerStatus(computerStatus);
+
+        MockitoAnnotations.initMocks(this);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         computer = null;
     }
 
     @Test
     public void shouldAddComputerAndReturnCREATED() {
+        Mockito.when(computerRepository.findByOtnumber(computer.getOtnumber())).thenReturn(null);
+        assertEquals(HttpStatusEnum.CREATED, computerAddService.addNewComputer(computer));
+        assertNotEquals(HttpStatusEnum.BADREQUEST,computerAddService.addNewComputer(computer));
+        assertNotEquals(HttpStatusEnum.CONFLICT,computerAddService.addNewComputer(computer));
     }
 
     @Test
     public void shouldReturnBADREQUESTEnum(){
-
+        computer.setOtnumber(null);
+        assertEquals(HttpStatusEnum.BADREQUEST,computerAddService.addNewComputer(computer));
     }
 
     @Test
     public void shouldRejectAddingNewComputerAndReturnCONFLICT(){
-
+        Mockito.when(computerRepository.findByOtnumber(computer.getOtnumber())).thenReturn(computer);
+        assertEquals(HttpStatusEnum.CONFLICT, computerAddService.addNewComputer(computer));
+        assertNotEquals(HttpStatusEnum.BADREQUEST,computerAddService.addNewComputer(computer));
+        assertNotEquals(HttpStatusEnum.CREATED, computerAddService.addNewComputer(computer));
     }
 }
