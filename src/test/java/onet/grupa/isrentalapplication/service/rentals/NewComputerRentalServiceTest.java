@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.service.rentals;
 
 import onet.grupa.isrentalapplication.domain.computers.*;
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
+import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
 import org.junit.Before;
@@ -11,6 +12,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
@@ -36,7 +39,11 @@ public class NewComputerRentalServiceTest {
     private ComputerRental initializeRental(){
         ComputerRental rental = new ComputerRental();
         rental.setRentedComputer(initializeComputer());
-
+        rental.setRentingPersonEmail("test@test");
+        rental.setRentingPersonName("test");
+        rental.setRentStatus(new RentStatus("available"));
+        rental.setStartRentalDate(LocalDate.now().minusDays(1));
+        rental.setStartRentalDate(LocalDate.now().plusDays(1));
         return rental;
     }
 
