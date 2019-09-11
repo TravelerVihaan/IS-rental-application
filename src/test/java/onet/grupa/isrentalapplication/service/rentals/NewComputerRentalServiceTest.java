@@ -47,6 +47,23 @@ public class NewComputerRentalServiceTest {
     public void shouldReturnBadRequestBecauseOfComputerNotExist(){
         Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.empty());
         assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+    }
+
+    @Test
+    public void shouldReturnBadRequestBecauseWrongDates(){
+        Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.of(initializeComputer()));
+
+        computerRental.setStartRentalDate(LocalDate.now().plusDays(3));
+        computerRental.setEndRentalDate(LocalDate.now().plusDays(2));
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+
+        computerRental.setStartRentalDate(LocalDate.now().minusDays(3));
+        computerRental.setEndRentalDate(LocalDate.now().minusDays(2));
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+    }
+
+    @Test
+    public void shouldReturnBadRequestBecauseWrongRentalProperties(){
 
     }
 
