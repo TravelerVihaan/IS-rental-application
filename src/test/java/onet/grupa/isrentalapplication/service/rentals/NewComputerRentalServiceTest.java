@@ -5,19 +5,23 @@ import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
 import onet.grupa.isrentalapplication.domain.users.User;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,15 +40,19 @@ public class NewComputerRentalServiceTest {
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         newComputerRentalService = new NewComputerRentalService(computerRentalRepository,computerService);
+        computerRental = initializeRental();
     }
 
     @Test
     public void shouldReturnBadRequestBecauseOfComputerNotExist(){
+        Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.empty());
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
 
     }
 
     private ComputerRental initializeRental(){
         ComputerRental rental = new ComputerRental();
+        rental.setRentedComputer(initializeComputer());
         rental.setRentingPersonEmail("test@test");
         rental.setRentingPersonName("test");
         rental.setRentStatus(new RentStatus("available"));
