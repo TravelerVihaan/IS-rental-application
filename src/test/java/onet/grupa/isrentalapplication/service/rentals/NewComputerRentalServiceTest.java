@@ -18,9 +18,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
@@ -83,6 +84,13 @@ public class NewComputerRentalServiceTest {
         computerRental = initializeRental();
     }
 
+    public void shouldReturnConflictBecauseOfExistingRental(){
+        Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.of(initializeComputer()));
+        Mockito.when(computerRentalRepository
+                .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(any(String.class),any(LocalDate.class)))
+                .thenReturn(initializeRentalsList());
+    }
+
     private ComputerRental initializeRental(){
         ComputerRental rental = new ComputerRental();
         rental.setRentedComputer(initializeComputer());
@@ -112,4 +120,13 @@ public class NewComputerRentalServiceTest {
         return computer;
     }
 
+    private List<ComputerRental> initializeRentalsList(){
+        ComputerRental rental = initializeRental();
+        rental.setStartRentalDate(LocalDate.now().minusDays(3));
+        rental.setEndRentalDate(LocalDate.now().minusDays(1));
+        ComputerRental rental2 = initializeRental();
+        rental.setStartRentalDate(LocalDate.now().plusDays(3));
+        rental.setEndRentalDate(LocalDate.now().plusDays(5));
+        return List.of(rental,rental2);
+    }
 }
