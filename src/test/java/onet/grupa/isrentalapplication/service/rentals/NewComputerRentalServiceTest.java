@@ -64,7 +64,23 @@ public class NewComputerRentalServiceTest {
 
     @Test
     public void shouldReturnBadRequestBecauseWrongRentalProperties(){
+        Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.of(initializeComputer()));
 
+        computerRental.setEndRentalDate(null);
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+        computerRental = initializeRental();
+
+        computerRental.setStartRentalDate(null);
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+        computerRental = initializeRental();
+
+        computerRental.setRentedComputer(null);
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+        computerRental = initializeRental();
+
+        computerRental.setRentingPersonEmail("wrongemail");
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+        computerRental = initializeRental();
     }
 
     private ComputerRental initializeRental(){
@@ -95,4 +111,5 @@ public class NewComputerRentalServiceTest {
         computer.setComputerStatus(computerStatus);
         return computer;
     }
+
 }

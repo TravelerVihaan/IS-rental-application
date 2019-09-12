@@ -36,7 +36,7 @@ public class NewComputerRentalService {
         try{
             computerRental.
                     setRentedComputer(setCorrectComputer(computerRental));
-        }catch(NoSuchFieldException e){
+        }catch(NullPointerException e){
             return HttpStatusEnum.BADREQUEST;
         }
 
@@ -49,13 +49,13 @@ public class NewComputerRentalService {
     }
 
     private boolean isComputerRentalCorrect(ComputerRental cr){
-        if(cr.getStartRentalDate().isAfter(cr.getEndRentalDate()))
-            return false;
-        if(cr.getStartRentalDate().isBefore(LocalDate.now()))
-            return false;
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<ComputerRental>> validationErrors = validator.validate(cr);
-        return validationErrors.isEmpty();
+        if(!validationErrors.isEmpty())
+            return false;
+        if(cr.getStartRentalDate().isAfter(cr.getEndRentalDate()))
+            return false;
+        return !cr.getStartRentalDate().isBefore(LocalDate.now());
     }
 
     private boolean isComputerRentAvailable(ComputerRental crent){
@@ -76,8 +76,8 @@ public class NewComputerRentalService {
                 .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(OT,date));
     }
 
-    private Computer setCorrectComputer(ComputerRental cr) throws NoSuchFieldException{
+    private Computer setCorrectComputer(ComputerRental cr) throws NullPointerException{
         return computerService.getComputerByOT(cr.getRentedComputer().getOtnumber())
-                        .orElseThrow(NoSuchFieldException::new);
+                        .orElseThrow();
     }
 }
