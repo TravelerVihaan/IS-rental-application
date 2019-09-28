@@ -84,11 +84,15 @@ public class NewComputerRentalServiceTest {
         computerRental = initializeRental();
     }
 
+    @Test
     public void shouldReturnConflictBecauseOfExistingRental(){
         Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.of(initializeComputer()));
         Mockito.when(computerRentalRepository
                 .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(any(String.class),any(LocalDate.class)))
                 .thenReturn(initializeRentalsList());
+        computerRental.setStartRentalDate(LocalDate.now().plusDays(1));
+        computerRental.setEndRentalDate(LocalDate.now().plusDays(4));
+        assertEquals(HttpStatusEnum.CONFLICT,newComputerRentalService.addNewComputerRental(computerRental));
     }
 
     private ComputerRental initializeRental(){

@@ -35,8 +35,9 @@ public class NewComputerRentalService {
     HttpStatusEnum addNewComputerRental(ComputerRental computerRental){
         try{
             computerRental.
-                    setRentedComputer(setCorrectComputer(computerRental));
+                    setRentedComputer(getCorrectComputer(computerRental));
         }catch(NullPointerException e){
+            System.err.println("This computer does not exist");
             return HttpStatusEnum.BADREQUEST;
         }
 
@@ -45,6 +46,7 @@ public class NewComputerRentalService {
         if(!isComputerRentAvailable(computerRental))
             return HttpStatusEnum.CONFLICT;
         computerRentalRepository.save(computerRental);
+
         return HttpStatusEnum.CREATED;
     }
 
@@ -76,7 +78,11 @@ public class NewComputerRentalService {
                 .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(OT,date));
     }
 
-    private Computer setCorrectComputer(ComputerRental cr) throws NullPointerException{
+    private void changeComputerRentStatus(Computer computer){
+
+    }
+
+    private Computer getCorrectComputer(ComputerRental cr) throws NullPointerException{
         return computerService.getComputerByOT(cr.getRentedComputer().getOtnumber())
                         .orElseThrow();
     }
