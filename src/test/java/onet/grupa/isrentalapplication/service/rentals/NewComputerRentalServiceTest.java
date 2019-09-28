@@ -4,6 +4,7 @@ import onet.grupa.isrentalapplication.domain.computers.*;
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
 import onet.grupa.isrentalapplication.domain.users.User;
+import onet.grupa.isrentalapplication.repository.computers.ComputerStatusRepository;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
@@ -33,6 +34,8 @@ public class NewComputerRentalServiceTest {
     private ComputerRentalRepository computerRentalRepository;
     @Mock
     private ComputerService computerService;
+    @Mock
+    private ComputerStatusRepository computerStatusRepository;
 
     private NewComputerRentalService newComputerRentalService;
     private ComputerRental computerRental;
@@ -40,7 +43,7 @@ public class NewComputerRentalServiceTest {
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        newComputerRentalService = new NewComputerRentalService(computerRentalRepository,computerService);
+        newComputerRentalService = new NewComputerRentalService(computerRentalRepository,computerService,computerStatusRepository);
         computerRental = initializeRental();
     }
 
