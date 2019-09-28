@@ -39,6 +39,13 @@ public class ComputerRentalController {
 
     }
 
+    @PostMapping(path = "/finalize", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> finalizeComputerRental(@RequestBody ComputerRentalDTO computerRentalDTO){
+        HttpStatusEnum status = computerRentalService
+                .finalizeComputerRental(modelMapper.map(computerRentalDTO, ComputerRental.class));
+        return HttpStatusEnum.isHttpStatusEquals(status);
+    }
+
     @GetMapping(path = "/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ComputerRentalDTO>> getRentalsWithStatus(@PathVariable String status){
         List<ComputerRentalDTO> computerRentals =

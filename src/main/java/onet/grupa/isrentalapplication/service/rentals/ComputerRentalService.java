@@ -15,14 +15,17 @@ public class ComputerRentalService {
     private ComputerRentalRepository computerRentalRepository;
     private NewComputerRentalService newComputerRentalService;
     private ISearching<ComputerRental> computerRentalSearchingService;
+    private FinalizeComputerRentalService finalizeComputerRentalService;
 
     @Autowired
     public ComputerRentalService(ComputerRentalRepository computerRentalRepository,
                                  ComputerRentalSearchingService computerRentalSearchingService,
-                                 NewComputerRentalService newComputerRentalService) {
+                                 NewComputerRentalService newComputerRentalService,
+                                 FinalizeComputerRentalService finalizeComputerRentalService) {
         this.computerRentalRepository = computerRentalRepository;
         this.computerRentalSearchingService = computerRentalSearchingService;
         this.newComputerRentalService = newComputerRentalService;
+        this.finalizeComputerRentalService = finalizeComputerRentalService;
     }
 
     public List<ComputerRental> getComputerRentals(String searchPattern, String orderBy){
@@ -39,6 +42,11 @@ public class ComputerRentalService {
 
     public List<ComputerRental> getAllComputerRentalsWithStatus (String status){
         return computerRentalRepository.findAllByRentStatus_Status(status);
+    }
+
+    public HttpStatusEnum finalizeComputerRental(ComputerRental cr){
+        finalizeComputerRentalService.finalizeRental(cr);
+        return HttpStatusEnum.OK;
     }
 
     private List<ComputerRental> getSpecificComputerRentals(String searchPattern, String orderBy){
