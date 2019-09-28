@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.service.rentals;
 
 import onet.grupa.isrentalapplication.domain.computers.Computer;
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
+import onet.grupa.isrentalapplication.repository.computers.ComputerStatusRepository;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
@@ -24,12 +25,15 @@ public class NewComputerRentalService {
 
     private ComputerRentalRepository computerRentalRepository;
     private ComputerService computerService;
+    private ComputerStatusRepository computerStatusRepository;
 
     @Autowired
     public NewComputerRentalService(ComputerRentalRepository computerRentalRepository,
-                                    ComputerService computerService){
+                                    ComputerService computerService,
+                                    ComputerStatusRepository computerStatusRepository){
         this.computerRentalRepository = computerRentalRepository;
         this.computerService = computerService;
+        this.computerStatusRepository = computerStatusRepository;
     }
 
     HttpStatusEnum addNewComputerRental(ComputerRental computerRental){
@@ -46,7 +50,7 @@ public class NewComputerRentalService {
         if(!isComputerRentAvailable(computerRental))
             return HttpStatusEnum.CONFLICT;
         computerRentalRepository.save(computerRental);
-
+        changeComputerRentStatus(getCorrectComputer(computerRental));
         return HttpStatusEnum.CREATED;
     }
 
@@ -79,7 +83,8 @@ public class NewComputerRentalService {
     }
 
     private void changeComputerRentStatus(Computer computer){
-
+        computer.setComputerStatus(computerStatusRepository.findByStatus("rented"));
+        computerService.saveComputerToDB(computer);
     }
 
     private Computer getCorrectComputer(ComputerRental cr) throws NullPointerException{

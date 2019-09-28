@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComputerStatusRepository extends JpaRepository<ComputerStatus, Long> {
+
+    ComputerStatus findByStatus(String status);
 }

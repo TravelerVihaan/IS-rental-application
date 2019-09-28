@@ -61,6 +61,10 @@ public class ComputerService {
         return Optional.ofNullable(computerRepository.findByOtnumber(OT));
     }
 
+    public void saveComputerToDB(Computer computer){
+        computerRepository.save(computer);
+    }
+
     public HttpStatusEnum deleteComputer(Long id){
         if(computerRepository.findById(id).isPresent()){
             computerRepository.deleteById(id);
