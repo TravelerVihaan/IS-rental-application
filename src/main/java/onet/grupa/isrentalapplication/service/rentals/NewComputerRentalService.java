@@ -44,7 +44,6 @@ public class NewComputerRentalService {
             System.err.println("This computer does not exist");
             return HttpStatusEnum.BADREQUEST;
         }
-
         if(!isComputerRentalCorrect(computerRental))
             return HttpStatusEnum.BADREQUEST;
         if(!isComputerRentAvailable(computerRental))
@@ -79,7 +78,7 @@ public class NewComputerRentalService {
 
     private Set<ComputerRental> getRentalsOfComputer(String OT, LocalDate date){
         return new HashSet<>(computerRentalRepository
-                .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(OT,date));
+                .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(OT,date,"accepted"));
     }
 
     private Computer changeComputerRentStatus(Computer computer){

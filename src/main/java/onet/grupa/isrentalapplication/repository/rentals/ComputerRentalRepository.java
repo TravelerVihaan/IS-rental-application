@@ -20,6 +20,6 @@ public interface ComputerRentalRepository extends JpaRepository<ComputerRental, 
 
     List<ComputerRental> findAllByRentStatus_Status(String status);
 
-    List<ComputerRental> findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(String otNumber, LocalDate date);
+    List<ComputerRental> findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(String otNumber, LocalDate date, String status);
 
 }
