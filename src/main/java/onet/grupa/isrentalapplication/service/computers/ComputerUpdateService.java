@@ -1,7 +1,12 @@
 package onet.grupa.isrentalapplication.service.computers;
 
 import onet.grupa.isrentalapplication.domain.computers.Computer;
+import onet.grupa.isrentalapplication.domain.computers.ComputerStatus;
+import onet.grupa.isrentalapplication.domain.computers.DiskType;
+import onet.grupa.isrentalapplication.domain.computers.OperatingSystem;
+import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
 import onet.grupa.isrentalapplication.repository.computers.ComputerRepository;
+import onet.grupa.isrentalapplication.repository.computers.OperatingSystemRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +22,16 @@ import java.util.Set;
 public class ComputerUpdateService {
 
     private ComputerRepository computerRepository;
+    private OperatingSystemService operatingSystemService;
+    private DiskTypeService diskTypeService;
 
     @Autowired
-    public ComputerUpdateService(ComputerRepository computerRepository){
+    public ComputerUpdateService(ComputerRepository computerRepository,
+                                 OperatingSystemService operatingSystemService,
+                                 DiskTypeService diskTypeService){
         this.computerRepository = computerRepository;
+        this.operatingSystemService = operatingSystemService;
+        this.diskTypeService = diskTypeService;
     }
 
     HttpStatusEnum updateComputer(Long id, Map<String, String> updates){
@@ -49,9 +60,21 @@ public class ComputerUpdateService {
 
     private Computer executeUpdates(Computer computer, Map<String, String> updates){
         if(updates.containsKey("operatingSystem"))
-            computer.getOperatingSystem().setOperatingSystem(updates.get("operatingSystem"));
+            computer = updateOperatingSystem(computer, updates.get("operatingSystem"));
         if(updates.containsKey("diskType"))
-            computer.getOperatingSystem().setOperatingSystem(updates.get("diskType"));
+            computer = updateDiskType(computer, updates.get("diskType"));
+        return computer;
+    }
+
+    private Computer updateOperatingSystem(Computer computer, String os){
+        computer.setOperatingSystem(operatingSystemService
+                .getOperatingSystemByName(os).orElseGet(computer::getOperatingSystem));
+        return computer;
+    }
+
+    private Computer updateDiskType(Computer computer, String disk){
+        computer.setDiskType(diskTypeService
+                .getDiskTypeByName(disk).orElseGet(computer::getDiskType));
         return computer;
     }
 }
