@@ -19,6 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,6 +97,18 @@ public class NewComputerRentalServiceTest {
         computerRental.setStartRentalDate(LocalDate.now().plusDays(1));
         computerRental.setEndRentalDate(LocalDate.now().plusDays(4));
         assertEquals(HttpStatusEnum.CONFLICT,newComputerRentalService.addNewComputerRental(computerRental));
+    }
+
+    @Test
+    public void shouldCreateNewComputerRental(){
+        Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.of(initializeComputer()));
+        Mockito.when(computerRentalRepository
+                .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(any(String.class),any(LocalDate.class)))
+                .thenReturn(new ArrayList<>());
+        computerRental.setStartRentalDate(LocalDate.now().plusDays(1));
+        computerRental.setEndRentalDate(LocalDate.now().plusDays(4));
+
+        assertEquals(HttpStatusEnum.CREATED,newComputerRentalService.addNewComputerRental(computerRental));
     }
 
     private ComputerRental initializeRental(){

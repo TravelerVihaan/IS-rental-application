@@ -49,8 +49,8 @@ public class NewComputerRentalService {
             return HttpStatusEnum.BADREQUEST;
         if(!isComputerRentAvailable(computerRental))
             return HttpStatusEnum.CONFLICT;
+        computerRental.setRentedComputer(changeComputerRentStatus(getCorrectComputer(computerRental)));
         computerRentalRepository.save(computerRental);
-        changeComputerRentStatus(getCorrectComputer(computerRental));
         return HttpStatusEnum.CREATED;
     }
 
@@ -82,9 +82,10 @@ public class NewComputerRentalService {
                 .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(OT,date));
     }
 
-    private void changeComputerRentStatus(Computer computer){
+    private Computer changeComputerRentStatus(Computer computer){
         computer.setComputerStatus(computerStatusRepository.findByStatus("rented"));
         computerService.saveComputerToDB(computer);
+        return computer;
     }
 
     private Computer getCorrectComputer(ComputerRental cr) throws NullPointerException{
