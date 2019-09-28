@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 public class ComputerRentalDTO {
 
+    private Long id;
+
     private LocalDate startRentalDate;
     private LocalDate endRentalDate;
     private String rentingPersonEmail;
@@ -15,6 +17,10 @@ public class ComputerRentalDTO {
     private String computerSerialNumber;
     private String computerProducerName;
     private String computerModel;
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public LocalDate getStartRentalDate() {
         return startRentalDate;

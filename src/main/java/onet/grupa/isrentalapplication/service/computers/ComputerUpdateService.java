@@ -6,6 +6,7 @@ import onet.grupa.isrentalapplication.domain.computers.DiskType;
 import onet.grupa.isrentalapplication.domain.computers.OperatingSystem;
 import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
 import onet.grupa.isrentalapplication.repository.computers.ComputerRepository;
+import onet.grupa.isrentalapplication.repository.computers.ComputerStatusRepository;
 import onet.grupa.isrentalapplication.repository.computers.OperatingSystemRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,17 @@ public class ComputerUpdateService {
     private ComputerRepository computerRepository;
     private OperatingSystemService operatingSystemService;
     private DiskTypeService diskTypeService;
+    private ComputerStatusRepository computerStatusRepository;
 
     @Autowired
     public ComputerUpdateService(ComputerRepository computerRepository,
                                  OperatingSystemService operatingSystemService,
-                                 DiskTypeService diskTypeService){
+                                 DiskTypeService diskTypeService,
+                                 ComputerStatusRepository computerStatusRepository){
         this.computerRepository = computerRepository;
         this.operatingSystemService = operatingSystemService;
         this.diskTypeService = diskTypeService;
+        this.computerStatusRepository = computerStatusRepository;
     }
 
     HttpStatusEnum updateComputer(Long id, Map<String, String> updates){
@@ -54,7 +58,8 @@ public class ComputerUpdateService {
     }
 
     private void updateComputerStatus(Computer computer, String status){
-        computer.getComputerStatus().setStatus(status);
+        ComputerStatus computerStatus = computerStatusRepository.findByStatus(status);
+        computer.setComputerStatus(computerStatus);
         computerRepository.save(computer);
     }
 

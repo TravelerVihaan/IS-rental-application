@@ -26,7 +26,7 @@ public class RentStatusService {
         return rentStatusRepository.findById(id);
     }
 
-    private Optional<RentStatus> getStatusByName(String status){
+    Optional<RentStatus> getStatusByName(String status){
         return rentStatusRepository.findByStatus(status);
     }
 }
