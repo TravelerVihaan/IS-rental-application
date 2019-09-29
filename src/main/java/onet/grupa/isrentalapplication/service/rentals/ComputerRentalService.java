@@ -44,13 +44,8 @@ public class ComputerRentalService {
         return computerRentalRepository.findAllByRentStatus_Status(status);
     }
 
-    public HttpStatusEnum finalizeComputerRental(Long id){
-        computerRentalStatusModifyService.finalizeRental(id);
-        return HttpStatusEnum.OK;
-    }
-
-    public HttpStatusEnum rejectComputerRental(Long id){
-        computerRentalStatusModifyService.rejectRental(id);
+    public HttpStatusEnum changeRentalStatus(Long id, String status){
+        computerRentalStatusModifyService.changeRentalStatus(id, status);
         return HttpStatusEnum.OK;
     }
 

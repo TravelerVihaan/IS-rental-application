@@ -34,20 +34,12 @@ public class ComputerRentalController {
                 computerRentalService.getComputerRentals(searchPhrase, orderBy).stream()
                         .map(computerRental -> modelMapper.map(computerRental, ComputerRentalDTO.class))
                         .collect(Collectors.toList());
-
         return ResponseEntity.ok(computerRentals);
-
     }
 
-    @PostMapping(path = "{id}/finalize", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> finalizeComputerRental(@PathVariable Long id){
-        HttpStatusEnum status = computerRentalService.finalizeComputerRental(id);
-        return HttpStatusEnum.isHttpStatusEquals(status);
-    }
-
-    @PostMapping(path = "{id}/reject", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> rejectComputerRental(@PathVariable Long id){
-        HttpStatusEnum status = computerRentalService.finalizeComputerRental(id);
+    @PostMapping(path = "{id}/{rentStatus}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> changeRentalStatus(@PathVariable Long id, @PathVariable String rentStatus){
+        HttpStatusEnum status = computerRentalService.changeRentalStatus(id, rentStatus);
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
 

@@ -1,5 +1,6 @@
 package onet.grupa.isrentalapplication.service.rentals;
 
+import onet.grupa.isrentalapplication.domain.computers.Computer;
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
@@ -22,16 +23,17 @@ public class ComputerRentalStatusModifyService {
         this.rentStatusService = rentStatusService;
     }
 
-    void finalizeRental(long id){
+    void changeRentalStatus(long id, String status){
         ComputerRental computerRental = computerRentalRepository.findById(id).orElseThrow();
-        computerService.changeComputerStatus("available",computerRental.getRentedComputer().getId());
-        computerRental.setRentStatus(rentStatusService.getStatusByName("finalized").orElseThrow());
+        changeComputerStatus(computerRental, status);
+        computerRental.setRentStatus(rentStatusService.getStatusByName(status).orElseThrow());
         computerRentalRepository.save(computerRental);
     }
 
-    void rejectRental(long id){
-        ComputerRental computerRental = computerRentalRepository.findById(id).orElseThrow();
-        computerRental.setRentStatus(rentStatusService.getStatusByName("rejected").orElseThrow());
-        computerRentalRepository.save(computerRental);
+    private void changeComputerStatus(ComputerRental cr, String status){
+        if("finalize".equalsIgnoreCase(status))
+            computerService.changeComputerStatus("available",cr.getRentedComputer().getId());
+        else if("accept".equalsIgnoreCase(status))
+            computerService.changeComputerStatus("rented",cr.getRentedComputer().getId());
     }
 }
