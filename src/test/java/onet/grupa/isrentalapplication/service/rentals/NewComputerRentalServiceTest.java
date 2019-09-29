@@ -92,7 +92,7 @@ public class NewComputerRentalServiceTest {
     public void shouldReturnConflictBecauseOfExistingRental(){
         Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.of(initializeComputer()));
         Mockito.when(computerRentalRepository
-                .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(any(String.class),any(LocalDate.class)))
+                .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(any(String.class),any(LocalDate.class),any(String.class)))
                 .thenReturn(initializeRentalsList());
         computerRental.setStartRentalDate(LocalDate.now().plusDays(1));
         computerRental.setEndRentalDate(LocalDate.now().plusDays(4));
@@ -103,7 +103,7 @@ public class NewComputerRentalServiceTest {
     public void shouldCreateNewComputerRental(){
         Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.of(initializeComputer()));
         Mockito.when(computerRentalRepository
-                .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfter(any(String.class),any(LocalDate.class)))
+                .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(any(String.class),any(LocalDate.class),any(String.class)))
                 .thenReturn(new ArrayList<>());
         computerRental.setStartRentalDate(LocalDate.now().plusDays(1));
         computerRental.setEndRentalDate(LocalDate.now().plusDays(4));
