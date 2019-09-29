@@ -15,17 +15,17 @@ public class ComputerRentalService {
     private ComputerRentalRepository computerRentalRepository;
     private NewComputerRentalService newComputerRentalService;
     private ISearching<ComputerRental> computerRentalSearchingService;
-    private FinalizeComputerRentalService finalizeComputerRentalService;
+    private ComputerRentalStatusModifyService computerRentalStatusModifyService;
 
     @Autowired
     public ComputerRentalService(ComputerRentalRepository computerRentalRepository,
                                  ComputerRentalSearchingService computerRentalSearchingService,
                                  NewComputerRentalService newComputerRentalService,
-                                 FinalizeComputerRentalService finalizeComputerRentalService) {
+                                 ComputerRentalStatusModifyService computerRentalStatusModifyService) {
         this.computerRentalRepository = computerRentalRepository;
         this.computerRentalSearchingService = computerRentalSearchingService;
         this.newComputerRentalService = newComputerRentalService;
-        this.finalizeComputerRentalService = finalizeComputerRentalService;
+        this.computerRentalStatusModifyService = computerRentalStatusModifyService;
     }
 
     public List<ComputerRental> getComputerRentals(String searchPattern, String orderBy){
@@ -44,8 +44,13 @@ public class ComputerRentalService {
         return computerRentalRepository.findAllByRentStatus_Status(status);
     }
 
-    public HttpStatusEnum finalizeComputerRental(ComputerRental cr){
-        finalizeComputerRentalService.finalizeRental(cr);
+    public HttpStatusEnum finalizeComputerRental(Long id){
+        computerRentalStatusModifyService.finalizeRental(id);
+        return HttpStatusEnum.OK;
+    }
+
+    public HttpStatusEnum rejectComputerRental(Long id){
+        computerRentalStatusModifyService.rejectRental(id);
         return HttpStatusEnum.OK;
     }
 

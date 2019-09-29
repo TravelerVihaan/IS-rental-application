@@ -39,10 +39,15 @@ public class ComputerRentalController {
 
     }
 
-    @PostMapping(path = "/finalize", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> finalizeComputerRental(@RequestBody ComputerRentalDTO computerRentalDTO){
-        HttpStatusEnum status = computerRentalService
-                .finalizeComputerRental(modelMapper.map(computerRentalDTO, ComputerRental.class));
+    @PostMapping(path = "{id}/finalize", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> finalizeComputerRental(@PathVariable Long id){
+        HttpStatusEnum status = computerRentalService.finalizeComputerRental(id);
+        return HttpStatusEnum.isHttpStatusEquals(status);
+    }
+
+    @PostMapping(path = "{id}/reject", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> rejectComputerRental(@PathVariable Long id){
+        HttpStatusEnum status = computerRentalService.finalizeComputerRental(id);
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
 

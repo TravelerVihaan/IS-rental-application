@@ -7,25 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FinalizeComputerRentalService {
+public class ComputerRentalStatusModifyService {
 
     private ComputerRentalRepository computerRentalRepository;
     private ComputerService computerService;
     private RentStatusService rentStatusService;
 
     @Autowired
-    public FinalizeComputerRentalService(ComputerRentalRepository computerRentalRepository,
-                                         ComputerService computerService,
-                                         RentStatusService rentStatusService){
+    public ComputerRentalStatusModifyService(ComputerRentalRepository computerRentalRepository,
+                                             ComputerService computerService,
+                                             RentStatusService rentStatusService){
         this.computerRentalRepository = computerRentalRepository;
         this.computerService = computerService;
         this.rentStatusService = rentStatusService;
     }
 
-    public void finalizeRental(ComputerRental cr){
-        computerService.changeComputerStatus("available",cr.getRentedComputer().getId());
-        ComputerRental computerRental = computerRentalRepository.findById(cr.getId()).orElseThrow();
+    void finalizeRental(long id){
+        ComputerRental computerRental = computerRentalRepository.findById(id).orElseThrow();
+        computerService.changeComputerStatus("available",computerRental.getRentedComputer().getId());
         computerRental.setRentStatus(rentStatusService.getStatusByName("finalized").orElseThrow());
+        computerRentalRepository.save(computerRental);
+    }
+
+    void rejectRental(long id){
+        ComputerRental computerRental = computerRentalRepository.findById(id).orElseThrow();
+        computerRental.setRentStatus(rentStatusService.getStatusByName("rejected").orElseThrow());
         computerRentalRepository.save(computerRental);
     }
 }
