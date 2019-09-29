@@ -7,16 +7,20 @@ import onet.grupa.isrentalapplication.domain.users.User;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,6 +41,14 @@ public class ComputerRentalStatusModifyServiceTest {
         MockitoAnnotations.initMocks(this);
         computerRentalStatusModifyService = new ComputerRentalStatusModifyService(
                 computerRentalRepository, computerService, rentStatusService);
+    }
+
+    @Test(expected = Exception.class)
+    public void shouldThrowExceptionBecauseOfWrongStatusName(){
+        Mockito.when(computerRentalRepository.findById(any(Long.class))).thenReturn(Optional.of(initializeRental()));
+        computerRentalStatusModifyService.changeRentalStatus(1,"wrong");
+
+
     }
 
 
