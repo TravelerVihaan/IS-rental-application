@@ -64,10 +64,12 @@ public class ComputerUpdateService {
     }
 
     private Computer executeUpdates(Computer computer, Map<String, String> updates){
-        if(updates.containsKey("operatingSystem"))
-            computer = updateOperatingSystem(computer, updates.get("operatingSystem"));
-        if(updates.containsKey("diskType"))
-            computer = updateDiskType(computer, updates.get("diskType"));
+        if(updates.containsKey("operatingSystem")) {
+            updateOperatingSystem(computer, updates.get("operatingSystem"));
+        }
+        if(updates.containsKey("diskType")) {
+            updateDiskType(computer, updates.get("diskType"));
+        }
         return computer;
     }
 

@@ -2,6 +2,7 @@ package onet.grupa.isrentalapplication.service.rentals;
 
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
+import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,17 +23,22 @@ public class ComputerRentalStatusModifyService {
         this.rentStatusService = rentStatusService;
     }
 
-    void changeRentalStatus(long id, String status){
+    HttpStatusEnum changeRentalStatus(long id, String status){
         ComputerRental computerRental = computerRentalRepository.findById(id).orElseThrow();
-        changeComputerStatus(computerRental, status);
-        computerRental.setRentStatus(rentStatusService.getStatusByName(status).orElseThrow());
-        computerRentalRepository.save(computerRental);
+        HttpStatusEnum httpStatus = changeComputerStatus(computerRental, status);
+        if(httpStatus.equals(HttpStatusEnum.OK)) {
+            computerRental.setRentStatus(rentStatusService.getStatusByName(status).orElseThrow());
+            computerRentalRepository.save(computerRental);
+        }
+        return httpStatus;
     }
 
-    private void changeComputerStatus(ComputerRental cr, String status){
+    private HttpStatusEnum changeComputerStatus(ComputerRental cr, String status){
+        HttpStatusEnum httpStatus = HttpStatusEnum.NOTFOUND;
         if("finalize".equalsIgnoreCase(status))
-            computerService.changeComputerStatus("available",cr.getRentedComputer().getId());
+            httpStatus = computerService.changeComputerStatus("available",cr.getRentedComputer().getId());
         else if("accept".equalsIgnoreCase(status))
-            computerService.changeComputerStatus("rented",cr.getRentedComputer().getId());
+            httpStatus = computerService.changeComputerStatus("rented",cr.getRentedComputer().getId());
+        return httpStatus;
     }
 }

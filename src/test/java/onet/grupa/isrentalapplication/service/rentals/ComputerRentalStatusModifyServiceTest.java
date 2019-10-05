@@ -54,10 +54,11 @@ public class ComputerRentalStatusModifyServiceTest {
     @Test
     public void shouldCallSaveMethodOnce(){
         Mockito.when(computerRentalRepository.findById(any(Long.class))).thenReturn(Optional.of(initializeRental()));
-        Mockito.doNothing().when(computerRentalRepository).save(any(ComputerRental.class));
+        Mockito.doNothing().doThrow(new RuntimeException()).when(computerRentalRepository).save(any(ComputerRental.class));
+        Mockito.doNothing().doThrow(new RuntimeException()).when(computerService).changeComputerStatus(any(String.class),any(Long.class));
 
         computerRentalStatusModifyService.changeRentalStatus(1,"available");
-        verify(computerRentalRepository.save(any(ComputerRental.class)), times(1));
+        verify(computerRentalRepository,times(1)).save(any(ComputerRental.class));
     }
 
 
