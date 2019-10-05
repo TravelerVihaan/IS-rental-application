@@ -21,6 +21,8 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -47,8 +49,15 @@ public class ComputerRentalStatusModifyServiceTest {
     public void shouldThrowExceptionBecauseOfWrongStatusName(){
         Mockito.when(computerRentalRepository.findById(any(Long.class))).thenReturn(Optional.of(initializeRental()));
         computerRentalStatusModifyService.changeRentalStatus(1,"wrong");
+    }
 
+    @Test
+    public void shouldCallSaveMethodOnce(){
+        Mockito.when(computerRentalRepository.findById(any(Long.class))).thenReturn(Optional.of(initializeRental()));
+        Mockito.doNothing().when(computerRentalRepository).save(any(ComputerRental.class));
 
+        computerRentalStatusModifyService.changeRentalStatus(1,"available");
+        verify(computerRentalRepository.save(any(ComputerRental.class)), times(1));
     }
 
 

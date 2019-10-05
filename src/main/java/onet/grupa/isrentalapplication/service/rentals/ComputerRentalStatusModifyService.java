@@ -1,6 +1,5 @@
 package onet.grupa.isrentalapplication.service.rentals;
 
-import onet.grupa.isrentalapplication.domain.computers.Computer;
 import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
 import onet.grupa.isrentalapplication.repository.rentals.ComputerRentalRepository;
 import onet.grupa.isrentalapplication.service.computers.ComputerService;
