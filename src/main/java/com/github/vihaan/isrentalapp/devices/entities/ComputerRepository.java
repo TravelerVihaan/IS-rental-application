@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ComputerRepository extends JpaRepository<Computer, Long> {
+interface ComputerRepository extends JpaRepository<Computer, Long> {
 
     Computer findByOtnumber(String OTNumber);
 

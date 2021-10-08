@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.controller.computers;
 
-import com.github.vihaan.isrentalapp.devices.DiskTypeDTO;
+import com.github.vihaan.isrentalapp.devices.dto.DiskTypeDTO;
 import com.github.vihaan.isrentalapp.devices.entities.DiskType;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import com.github.vihaan.isrentalapp.devices.DiskTypeService;

@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.controller.computers;
 
-import com.github.vihaan.isrentalapp.devices.OperatingSystemDTO;
+import com.github.vihaan.isrentalapp.devices.dto.OperatingSystemDTO;
 import com.github.vihaan.isrentalapp.devices.entities.OperatingSystem;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import com.github.vihaan.isrentalapp.devices.OperatingSystemService;

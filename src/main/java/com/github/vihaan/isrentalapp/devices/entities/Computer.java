@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "computers")
-public class Computer implements Serializable {
+class Computer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

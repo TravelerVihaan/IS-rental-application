@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.controller.computers;
 
-import com.github.vihaan.isrentalapp.devices.ComputerDTO;
+import com.github.vihaan.isrentalapp.devices.dto.ComputerDTO;
 import com.github.vihaan.isrentalapp.devices.entities.Computer;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import com.github.vihaan.isrentalapp.devices.ComputerService;

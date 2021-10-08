@@ -1,4 +1,4 @@
-package com.github.vihaan.isrentalapp.devices;
+package com.github.vihaan.isrentalapp.devices.dto;
 
 public class ComputerStatusDTO {
 
