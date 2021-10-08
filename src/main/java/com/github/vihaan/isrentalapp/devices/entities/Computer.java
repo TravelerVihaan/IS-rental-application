@@ -1,47 +1,39 @@
 package com.github.vihaan.isrentalapp.devices.entities;
 
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
+import com.github.vihaan.isrentalapp.util.BaseEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "computers")
-class Computer implements Serializable {
+class Computer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_computer")
     private Long id;
 
-    @NotEmpty
     @Column(name = "OT_number", nullable = false, unique = true)
     private String otnumber;
 
-    @NotEmpty
     @Column(name = "serial_number", nullable = false, unique = true)
     private String serialNumber;
 
-    @NotNull
     @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "os_id")
     private OperatingSystem operatingSystem;
 
-    @NotNull
     @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "disk_id")
     private DiskType diskType;
 
-    @NotNull
     @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "model_id")
     private ComputerModel computerModel;
 
-    @NotNull
     @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "status_id")
     private ComputerStatus computerStatus;
@@ -50,11 +42,11 @@ class Computer implements Serializable {
     private List<ComputerRental> computerRentals;
 
     public Computer(){}
-    public Computer(@NotEmpty String otnumber, @NotEmpty String serialNumber){
+    public Computer(String otnumber, String serialNumber){
         this.otnumber = otnumber;
         this.serialNumber = serialNumber;
     }
-    public Computer(@NotEmpty String otnumber, @NotEmpty String serialNumber, @NotNull OperatingSystem operatingSystem, @NotNull DiskType diskType, @NotNull ComputerModel computerModel, @NotNull ComputerStatus computerStatus) {
+    public Computer(String otnumber, String serialNumber, OperatingSystem operatingSystem, DiskType diskType, ComputerModel computerModel, ComputerStatus computerStatus) {
         this.otnumber = otnumber;
         this.serialNumber = serialNumber;
         this.operatingSystem = operatingSystem;
@@ -132,14 +124,12 @@ class Computer implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Computer computer = (Computer) o;
-        return Objects.equals(id, computer.id) &&
-                Objects.equals(otnumber, computer.otnumber) &&
-                Objects.equals(serialNumber, computer.serialNumber);
+        return getUuid().equals(computer.getUuid());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, otnumber, serialNumber);
+        return Objects.hash(getUuid());
     }
 
     @Override

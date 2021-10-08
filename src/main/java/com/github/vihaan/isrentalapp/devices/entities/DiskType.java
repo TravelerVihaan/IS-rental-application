@@ -1,20 +1,20 @@
 package com.github.vihaan.isrentalapp.devices.entities;
 
+import com.github.vihaan.isrentalapp.util.BaseEntity;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "disk_type")
-class DiskType implements Serializable {
+class DiskType extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_disk")
     private Long id;
 
-    @NotEmpty
     @Column(name = "disk_type", nullable = false, unique = true)
     private String diskType;
 
@@ -22,7 +22,7 @@ class DiskType implements Serializable {
     private List<Computer> computers;
 
     public DiskType(){}
-    public DiskType(@NotEmpty String diskType) {
+    public DiskType(String diskType) {
         this.diskType = diskType;
     }
 
@@ -48,6 +48,19 @@ class DiskType implements Serializable {
 
     public void setComputers(List<Computer> computers) {
         this.computers = computers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DiskType diskType = (DiskType) o;
+        return getUuid().equals(diskType.getUuid());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUuid());
     }
 
     @Override
