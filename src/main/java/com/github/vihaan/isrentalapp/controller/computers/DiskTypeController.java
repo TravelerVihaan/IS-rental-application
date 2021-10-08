@@ -1,0 +1,58 @@
+package com.github.vihaan.isrentalapp.controller.computers;
+
+import com.github.vihaan.isrentalapp.devices.DiskTypeDTO;
+import com.github.vihaan.isrentalapp.devices.entities.DiskType;
+import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
+import com.github.vihaan.isrentalapp.devices.DiskTypeService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("computers/disks")
+public class DiskTypeController {
+
+    private DiskTypeService diskTypeService;
+    private ModelMapper modelMapper;
+
+    @Autowired
+    public DiskTypeController(DiskTypeService diskTypeService, ModelMapper modelMapper){
+        this.diskTypeService = diskTypeService;
+        this.modelMapper = modelMapper;
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<DiskTypeDTO>> getAllDisks(){
+        return ResponseEntity.ok(diskTypeService
+                .getAllDisks()
+                .stream()
+                .map(disk -> modelMapper.map(disk, DiskTypeDTO.class))
+                .collect(Collectors.toList()));
+    }
+
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DiskTypeDTO> getDisk(@PathVariable long id){
+        Optional<DiskTypeDTO> diskTypeDTO = Optional.ofNullable(modelMapper
+                .map(diskTypeService.getDiskTypeById(id).orElseThrow(), DiskTypeDTO.class));
+        return ResponseEntity.of(diskTypeDTO);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addDiskType(@RequestBody DiskTypeDTO diskTypeDTO){
+        DiskType diskType = modelMapper.map(diskTypeDTO, DiskType.class);
+        HttpStatusEnum status = diskTypeService.addNewDiskType(diskType);
+        return HttpStatusEnum.isHttpStatusEquals(status);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDiskType(@PathVariable Long id){
+        HttpStatusEnum status = diskTypeService.deleteDiskType(id);
+        return HttpStatusEnum.isHttpStatusEquals(status);
+    }
+}
