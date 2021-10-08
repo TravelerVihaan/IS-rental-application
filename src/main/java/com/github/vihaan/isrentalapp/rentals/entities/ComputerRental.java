@@ -2,47 +2,37 @@ package com.github.vihaan.isrentalapp.rentals.entities;
 
 import com.github.vihaan.isrentalapp.devices.entities.Computer;
 import com.github.vihaan.isrentalapp.users.entities.User;
+import com.github.vihaan.isrentalapp.util.BaseEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
 @Table(name = "computer_rentals")
-public class ComputerRental implements Serializable {
+public class ComputerRental extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_rental")
     private Long id;
 
-    @NotNull
     @Column(name = "start_date", nullable = false)
     private LocalDate startRentalDate;
 
-    @NotNull
     @Column(name = "end_date", nullable = false)
     private LocalDate endRentalDate;
 
-    @Email
-    @NotEmpty
     @Column(name = "email", nullable = false)
     private String rentingPersonEmail;
 
-    @NotEmpty
     @Column(name = "who_rent", nullable = false)
     private String rentingPersonName;
 
-    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "computer_id")
     private Computer rentedComputer;
 
-    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "rent_status_id")
     private RentStatus rentStatus;
@@ -52,34 +42,13 @@ public class ComputerRental implements Serializable {
     private User whoSetStatus;
 
     public ComputerRental(){}
-
-    public ComputerRental(@NotNull LocalDate startRentalDate, @NotNull LocalDate endRentalDate, @Email @NotEmpty String rentingPersonEmail, @NotEmpty String rentingPersonName, @NotNull Computer rentedComputer, @NotNull RentStatus rentStatus) {
+    public ComputerRental(LocalDate startRentalDate, LocalDate endRentalDate, String rentingPersonEmail, String rentingPersonName, Computer rentedComputer, RentStatus rentStatus) {
         this.startRentalDate = startRentalDate;
         this.endRentalDate = endRentalDate;
         this.rentingPersonEmail = rentingPersonEmail;
         this.rentingPersonName = rentingPersonName;
         this.rentedComputer = rentedComputer;
         this.rentStatus = rentStatus;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ComputerRental that = (ComputerRental) o;
-        return id.equals(that.id) &&
-                startRentalDate.equals(that.startRentalDate) &&
-                endRentalDate.equals(that.endRentalDate) &&
-                rentingPersonEmail.equals(that.rentingPersonEmail) &&
-                rentingPersonName.equals(that.rentingPersonName) &&
-                Objects.equals(rentedComputer, that.rentedComputer) &&
-                Objects.equals(rentStatus, that.rentStatus) &&
-                Objects.equals(whoSetStatus, that.whoSetStatus);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, startRentalDate, endRentalDate, rentingPersonEmail, rentingPersonName, rentedComputer, rentStatus, whoSetStatus);
     }
 
     public Long getId() { return id; }
@@ -140,6 +109,19 @@ public class ComputerRental implements Serializable {
 
     public void setWhoSetStatus(User whoSetStatus) {
         this.whoSetStatus = whoSetStatus;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ComputerRental computerRental = (ComputerRental) o;
+        return getUuid().equals(computerRental.getUuid());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUuid());
     }
 
     @Override

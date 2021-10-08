@@ -1,20 +1,20 @@
 package com.github.vihaan.isrentalapp.rentals.entities;
 
+import com.github.vihaan.isrentalapp.util.BaseEntity;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "rent_status")
-public class RentStatus implements Serializable {
+public class RentStatus extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_status")
     private Long id;
 
-    @NotEmpty
     @Column(nullable = false, unique = true)
     private String status;
 
@@ -22,7 +22,7 @@ public class RentStatus implements Serializable {
     private List<ComputerRental> computerRentals;
 
     public RentStatus(){}
-    public RentStatus(@NotEmpty String status) {
+    public RentStatus(String status) {
         this.status = status;
     }
 
@@ -40,6 +40,19 @@ public class RentStatus implements Serializable {
 
     public void setComputerRentals(List<ComputerRental> computerRentals) {
         this.computerRentals = computerRentals;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RentStatus rentStatus = (RentStatus) o;
+        return getUuid().equals(rentStatus.getUuid());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUuid());
     }
 
     @Override

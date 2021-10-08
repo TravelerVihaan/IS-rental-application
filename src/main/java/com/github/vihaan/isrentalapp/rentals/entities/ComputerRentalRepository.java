@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface ComputerRentalRepository extends JpaRepository<ComputerRental, Long> {
+interface ComputerRentalRepository extends JpaRepository<ComputerRental, Long> {
 
     List<ComputerRental> findAllByRentingPersonEmailContaining(String pattern);
 

@@ -1,35 +1,31 @@
 package com.github.vihaan.isrentalapp.users.entities;
 
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
+import com.github.vihaan.isrentalapp.util.BaseEntity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
     private Long id;
 
-    @NotEmpty
     @Column(nullable = false, unique = true)
     private String username;
 
-    @NotEmpty
     @Column(nullable = false)
     private String password;
 
-    @NotEmpty
     @Column(nullable = false)
     private String name;
 
-    @NotEmpty
     @Column(nullable = false)
     private String surname;
 
@@ -45,7 +41,7 @@ public class User implements Serializable {
     private List<ComputerRental> computerRentals;
 
     public User(){}
-    public User(@NotEmpty String username, @NotEmpty String password, @NotEmpty String name, @NotEmpty String surname) {
+    public User(String username, String password, String name, String surname) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -86,6 +82,19 @@ public class User implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return getUuid().equals(user.getUuid());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUuid());
     }
 
     @Override

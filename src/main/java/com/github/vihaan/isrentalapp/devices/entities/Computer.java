@@ -9,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "computers")
+public
 class Computer extends BaseEntity {
 
     @Id
