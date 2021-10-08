@@ -1,6 +1,6 @@
 package onet.grupa.isrentalapplication.service.mails;
 
-import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
+import onet.grupa.isrentalapplication.rentals.entities.ComputerRental;
 import onet.grupa.isrentalapplication.service.rentals.ComputerRentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

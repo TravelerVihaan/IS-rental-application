@@ -1,7 +1,7 @@
 package onet.grupa.isrentalapplication.service.rentals;
 
-import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
-import onet.grupa.isrentalapplication.repository.rentals.RentStatusRepository;
+import onet.grupa.isrentalapplication.rentals.entities.RentStatus;
+import onet.grupa.isrentalapplication.rentals.entities.RentStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

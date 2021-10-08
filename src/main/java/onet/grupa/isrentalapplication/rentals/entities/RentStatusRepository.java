@@ -1,6 +1,6 @@
-package onet.grupa.isrentalapplication.repository.rentals;
+package onet.grupa.isrentalapplication.rentals.entities;
 
-import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
+import onet.grupa.isrentalapplication.rentals.entities.RentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,11 +1,10 @@
-package onet.grupa.isrentalapplication.repository.computers;
+package onet.grupa.isrentalapplication.devices.entities;
 
-import onet.grupa.isrentalapplication.domain.computers.Computer;
+import onet.grupa.isrentalapplication.devices.entities.Computer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, Long> {

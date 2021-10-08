@@ -1,4 +1,4 @@
-package onet.grupa.isrentalapplication.domain.computers;
+package onet.grupa.isrentalapplication.devices.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -6,24 +6,24 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "computer_status")
-public class ComputerStatus implements Serializable {
+@Table(name = "disk_type")
+public class DiskType implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_computer_status")
+    @Column(name = "id_disk")
     private Long id;
 
     @NotEmpty
-    @Column(unique = true, nullable = false)
-    private String status;
+    @Column(name = "disk_type", nullable = false, unique = true)
+    private String diskType;
 
-    @OneToMany(mappedBy = "computerStatus")
+    @OneToMany(mappedBy = "diskType")
     private List<Computer> computers;
 
-    public ComputerStatus(){}
-    public ComputerStatus(String status) {
-        this.status = status;
+    public DiskType(){}
+    public DiskType(@NotEmpty String diskType) {
+        this.diskType = diskType;
     }
 
     public Long getId() {
@@ -34,12 +34,12 @@ public class ComputerStatus implements Serializable {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDiskType() {
+        return diskType;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDiskType(String diskType) {
+        this.diskType = diskType;
     }
 
     public List<Computer> getComputers() {
@@ -52,9 +52,9 @@ public class ComputerStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "ComputerStatus{" +
+        return "DiskType{" +
                 "id=" + id +
-                ", status='" + status + '\'' +
+                ", diskType='" + diskType + '\'' +
                 '}';
     }
 }

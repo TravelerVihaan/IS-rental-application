@@ -1,7 +1,6 @@
 package onet.grupa.isrentalapplication.domain.users;
 
-import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
-import onet.grupa.isrentalapplication.domain.users.Role;
+import onet.grupa.isrentalapplication.rentals.entities.ComputerRental;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

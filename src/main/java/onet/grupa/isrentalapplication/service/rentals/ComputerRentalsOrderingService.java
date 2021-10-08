@@ -1,6 +1,6 @@
 package onet.grupa.isrentalapplication.service.rentals;
 
-import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
+import onet.grupa.isrentalapplication.rentals.entities.ComputerRental;
 import onet.grupa.isrentalapplication.service.IOrdering;
 import org.springframework.stereotype.Service;
 

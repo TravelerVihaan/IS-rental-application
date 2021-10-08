@@ -1,7 +1,7 @@
 package onet.grupa.isrentalapplication.service.computers;
 
-import onet.grupa.isrentalapplication.domain.computers.ComputerModel;
-import onet.grupa.isrentalapplication.repository.computers.ComputerModelRepository;
+import onet.grupa.isrentalapplication.devices.entities.ComputerModel;
+import onet.grupa.isrentalapplication.devices.entities.ComputerModelRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

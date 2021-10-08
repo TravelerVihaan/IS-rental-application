@@ -1,9 +1,9 @@
 package onet.grupa.isrentalapplication.service.computers;
 
-import onet.grupa.isrentalapplication.domain.computers.ComputerModel;
-import onet.grupa.isrentalapplication.domain.computers.ComputerProducer;
-import onet.grupa.isrentalapplication.repository.computers.ComputerModelRepository;
-import onet.grupa.isrentalapplication.repository.computers.ComputerProducerRepository;
+import onet.grupa.isrentalapplication.devices.entities.ComputerModel;
+import onet.grupa.isrentalapplication.devices.entities.ComputerProducer;
+import onet.grupa.isrentalapplication.devices.entities.ComputerModelRepository;
+import onet.grupa.isrentalapplication.devices.entities.ComputerProducerRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.junit.After;
 import org.junit.Before;

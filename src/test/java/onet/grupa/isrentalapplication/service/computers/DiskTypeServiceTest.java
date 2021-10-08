@@ -1,7 +1,7 @@
 package onet.grupa.isrentalapplication.service.computers;
 
-import onet.grupa.isrentalapplication.domain.computers.DiskType;
-import onet.grupa.isrentalapplication.repository.computers.DiskTypeRepository;
+import onet.grupa.isrentalapplication.devices.entities.DiskType;
+import onet.grupa.isrentalapplication.devices.entities.DiskTypeRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.junit.After;
 import org.junit.Before;

@@ -1,6 +1,6 @@
 package onet.grupa.isrentalapplication.controller.rentals;
 
-import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
+import onet.grupa.isrentalapplication.rentals.entities.ComputerRental;
 import onet.grupa.isrentalapplication.dto.ComputerRentalDTO;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.rentals.ComputerRentalService;

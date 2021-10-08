@@ -1,7 +1,7 @@
-package onet.grupa.isrentalapplication.domain.rentals;
+package onet.grupa.isrentalapplication.rentals.entities;
 
 import onet.grupa.isrentalapplication.domain.users.User;
-import onet.grupa.isrentalapplication.domain.computers.Computer;
+import onet.grupa.isrentalapplication.devices.entities.Computer;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

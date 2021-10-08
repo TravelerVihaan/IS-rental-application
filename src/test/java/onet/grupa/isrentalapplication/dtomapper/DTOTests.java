@@ -1,8 +1,8 @@
 package onet.grupa.isrentalapplication.dtomapper;
 
-import onet.grupa.isrentalapplication.domain.computers.*;
-import onet.grupa.isrentalapplication.domain.rentals.ComputerRental;
-import onet.grupa.isrentalapplication.domain.rentals.RentStatus;
+import onet.grupa.isrentalapplication.devices.entities.*;
+import onet.grupa.isrentalapplication.rentals.entities.ComputerRental;
+import onet.grupa.isrentalapplication.rentals.entities.RentStatus;
 import onet.grupa.isrentalapplication.domain.users.User;
 import onet.grupa.isrentalapplication.dto.*;
 import org.junit.Test;

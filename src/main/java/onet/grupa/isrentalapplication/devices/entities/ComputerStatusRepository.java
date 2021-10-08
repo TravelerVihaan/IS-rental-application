@@ -1,6 +1,6 @@
-package onet.grupa.isrentalapplication.repository.computers;
+package onet.grupa.isrentalapplication.devices.entities;
 
-import onet.grupa.isrentalapplication.domain.computers.ComputerStatus;
+import onet.grupa.isrentalapplication.devices.entities.ComputerStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

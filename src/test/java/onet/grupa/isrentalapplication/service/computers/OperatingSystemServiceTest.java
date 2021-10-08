@@ -1,7 +1,7 @@
 package onet.grupa.isrentalapplication.service.computers;
 
-import onet.grupa.isrentalapplication.domain.computers.OperatingSystem;
-import onet.grupa.isrentalapplication.repository.computers.OperatingSystemRepository;
+import onet.grupa.isrentalapplication.devices.entities.OperatingSystem;
+import onet.grupa.isrentalapplication.devices.entities.OperatingSystemRepository;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import org.junit.After;
 import org.junit.Before;
