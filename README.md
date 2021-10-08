@@ -7,7 +7,7 @@ It is backend side of application for renting electronic equipment such as noteb
 JAR
 
 ### Technologies Stack
-Java 14<br>
+Java 17<br>
 Spring Boot<br>
 Maven<br>
 MySQL<br>
