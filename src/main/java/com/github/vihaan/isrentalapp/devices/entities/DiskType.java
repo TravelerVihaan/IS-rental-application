@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "disk_type")
-public class DiskType implements Serializable {
+class DiskType implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

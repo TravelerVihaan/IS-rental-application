@@ -1,11 +1,8 @@
 package com.github.vihaan.isrentalapp.dtomapper;
 
 import com.github.vihaan.isrentalapp.devices.*;
+import com.github.vihaan.isrentalapp.devices.dto.*;
 import com.github.vihaan.isrentalapp.devices.entities.*;
-import com.github.vihaan.isrentalapp.devices.entities.ComputerModel;
-import com.github.vihaan.isrentalapp.devices.entities.ComputerStatus;
-import com.github.vihaan.isrentalapp.devices.entities.DiskType;
-import com.github.vihaan.isrentalapp.devices.entities.OperatingSystem;
 import com.github.vihaan.isrentalapp.rentals.ComputerRentalDTO;
 import com.github.vihaan.isrentalapp.rentals.RentStatusDTO;
 import com.github.vihaan.isrentalapp.users.UserDTO;

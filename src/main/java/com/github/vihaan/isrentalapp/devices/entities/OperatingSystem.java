@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "operating_systems")
-public class OperatingSystem implements Serializable {
+class OperatingSystem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
