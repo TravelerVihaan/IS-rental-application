@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.controller.users;
 
-import com.github.vihaan.isrentalapp.users.UserDTO;
+import com.github.vihaan.isrentalapp.users.dto.UserDTO;
 import com.github.vihaan.isrentalapp.users.entities.User;
 import com.github.vihaan.isrentalapp.service.users.UserService;
 import org.modelmapper.ModelMapper;

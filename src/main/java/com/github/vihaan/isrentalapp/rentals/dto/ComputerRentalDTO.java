@@ -1,4 +1,4 @@
-package com.github.vihaan.isrentalapp.rentals;
+package com.github.vihaan.isrentalapp.rentals.dto;
 
 import java.time.LocalDate;
 
