@@ -1,4 +1,4 @@
-package com.github.vihaan.isrentalapp.users;
+package com.github.vihaan.isrentalapp.users.dto;
 
 public class UserDTO {
     private String username;
