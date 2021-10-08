@@ -1,9 +1,9 @@
 package com.github.vihaan.isrentalapp.controller.computers;
 
+import com.github.vihaan.isrentalapp.devices.ComputerService;
 import com.github.vihaan.isrentalapp.devices.dto.ComputerDTO;
 import com.github.vihaan.isrentalapp.devices.entities.Computer;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
-import com.github.vihaan.isrentalapp.devices.ComputerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
