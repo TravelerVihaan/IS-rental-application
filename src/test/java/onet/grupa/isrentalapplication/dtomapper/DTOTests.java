@@ -1,6 +1,13 @@
 package onet.grupa.isrentalapplication.dtomapper;
 
+import onet.grupa.isrentalapplication.devices.*;
 import onet.grupa.isrentalapplication.devices.entities.*;
+import onet.grupa.isrentalapplication.devices.entities.ComputerModel;
+import onet.grupa.isrentalapplication.devices.entities.ComputerStatus;
+import onet.grupa.isrentalapplication.devices.entities.DiskType;
+import onet.grupa.isrentalapplication.devices.entities.OperatingSystem;
+import onet.grupa.isrentalapplication.rentals.ComputerRentalDTO;
+import onet.grupa.isrentalapplication.rentals.RentStatusDTO;
 import onet.grupa.isrentalapplication.rentals.entities.ComputerRental;
 import onet.grupa.isrentalapplication.rentals.entities.RentStatus;
 import onet.grupa.isrentalapplication.domain.users.User;

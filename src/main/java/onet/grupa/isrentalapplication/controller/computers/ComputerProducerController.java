@@ -1,7 +1,7 @@
 package onet.grupa.isrentalapplication.controller.computers;
 
 import onet.grupa.isrentalapplication.devices.entities.ComputerProducer;
-import onet.grupa.isrentalapplication.dto.ComputerProducerDTO;
+import onet.grupa.isrentalapplication.devices.ComputerProducerDTO;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.ComputerProducerService;
 import org.modelmapper.ModelMapper;

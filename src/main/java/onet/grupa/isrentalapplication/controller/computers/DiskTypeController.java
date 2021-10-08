@@ -1,7 +1,7 @@
 package onet.grupa.isrentalapplication.controller.computers;
 
 import onet.grupa.isrentalapplication.devices.entities.DiskType;
-import onet.grupa.isrentalapplication.dto.DiskTypeDTO;
+import onet.grupa.isrentalapplication.devices.DiskTypeDTO;
 import onet.grupa.isrentalapplication.service.HttpStatusEnum;
 import onet.grupa.isrentalapplication.service.computers.DiskTypeService;
 import org.modelmapper.ModelMapper;

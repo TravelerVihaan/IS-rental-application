@@ -1,4 +1,4 @@
-package onet.grupa.isrentalapplication.dto;
+package onet.grupa.isrentalapplication.rentals;
 
 public class RentStatusDTO {
 
