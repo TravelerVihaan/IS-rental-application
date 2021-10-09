@@ -33,7 +33,7 @@ public class ComputerOrderingService implements IOrdering<Computer> {
             rentalComparator = Comparator
                     .comparing(computer -> computer
                             .getComputerModel()
-                            .getModel());
+                            .getModelName());
         }
         return rentalComparator;
     }

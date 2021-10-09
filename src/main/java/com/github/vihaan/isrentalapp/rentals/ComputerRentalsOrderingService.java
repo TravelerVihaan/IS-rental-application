@@ -30,7 +30,7 @@ public class ComputerRentalsOrderingService implements IOrdering<ComputerRental>
                     .comparing(computerRental -> computerRental
                             .getRentedComputer()
                             .getComputerModel()
-                            .getModel());
+                            .getModelName());
         }
         if("user".equalsIgnoreCase(orderBy)){
             rentalComparator = Comparator

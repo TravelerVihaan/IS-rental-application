@@ -40,7 +40,7 @@ public class ComputerModelServiceTest {
         computerModelRepository.save(model1);
 
         ComputerModel model2 = new ComputerModel();
-        model2.setModel("E7450");
+        model2.setModelName("E7450");
         model2.setComputerProducer(computerProducerRepository.findByProducerName("DELL").orElseGet(ComputerProducer::new));
         computerModelRepository.save(model2);
     }

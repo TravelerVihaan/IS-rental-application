@@ -14,8 +14,8 @@ class ComputerModel extends BaseEntity {
     @Column(name = "id_model")
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String model;
+    @Column(name = "model_name", nullable = false, unique = true)
+    private String modelName;
 
     //@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToOne(cascade = {CascadeType.MERGE})
@@ -23,11 +23,11 @@ class ComputerModel extends BaseEntity {
     private ComputerProducer computerProducer;
 
     public ComputerModel(){}
-    public ComputerModel(String model) {
-        this.model = model;
+    public ComputerModel(String modelName) {
+        this.modelName = modelName;
     }
-    public ComputerModel(String model, ComputerProducer computerProducer) {
-        this.model = model;
+    public ComputerModel(String modelName, ComputerProducer computerProducer) {
+        this.modelName = modelName;
         this.computerProducer = computerProducer;
     }
 
@@ -39,12 +39,12 @@ class ComputerModel extends BaseEntity {
         this.id = id;
     }
 
-    public String getModel() {
-        return model;
+    public String getModelName() {
+        return modelName;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
     }
 
     public ComputerProducer getComputerProducer() {
@@ -72,7 +72,7 @@ class ComputerModel extends BaseEntity {
     public String toString() {
         return "ComputerModel{" +
                 "id=" + id +
-                ", model='" + model + '\'' +
+                ", model='" + modelName + '\'' +
                 ", producer=" + computerProducer +
                 '}';
     }
