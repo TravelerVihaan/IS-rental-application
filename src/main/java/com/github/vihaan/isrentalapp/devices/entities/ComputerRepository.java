@@ -1,6 +1,5 @@
 package com.github.vihaan.isrentalapp.devices.entities;
 
-import org.modelmapper.internal.bytebuddy.dynamic.DynamicType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
