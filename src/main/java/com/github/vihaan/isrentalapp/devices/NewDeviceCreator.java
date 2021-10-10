@@ -1,6 +1,5 @@
 package com.github.vihaan.isrentalapp.devices;
 
-import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
 import com.github.vihaan.isrentalapp.devices.entities.DevicesRepositoryFacade;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +33,10 @@ public class NewDeviceCreator {
         Set<ConstraintViolation<Computer>> validationErrors = validator.validate(computer);
         if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;
-        if(devicesRepositoryFacade.getComputerRepository().findByOtnumber(computer.getOtNumber());
+        if(devicesRepositoryFacade.getComputerRepository().findByOtnumber(computer.getOtNumber()).isPresent())
             return HttpStatusEnum.CONFLICT;
 
-        devicesRepositoryFacade.getComputerRepository().save(computer);
+        devicesRepositoryFacade.saveComputerToRepository(computer);
         return HttpStatusEnum.CREATED;
     }
 }

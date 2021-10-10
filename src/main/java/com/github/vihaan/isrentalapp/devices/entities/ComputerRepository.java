@@ -1,14 +1,16 @@
 package com.github.vihaan.isrentalapp.devices.entities;
 
+import org.modelmapper.internal.bytebuddy.dynamic.DynamicType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ComputerRepository extends JpaRepository<ComputerEntity, Long> {
 
-    ComputerEntity findByOtnumber(String OTNumber);
+    Optional<ComputerEntity> findByOtnumber(String OTNumber);
 
     List<ComputerEntity> findAllByOtnumberContaining(String searchPhrase);
 
