@@ -3,7 +3,7 @@ package com.github.vihaan.isrentalapp.controller.computers;
 import com.github.vihaan.isrentalapp.devices.dto.DiskTypeDTO;
 import com.github.vihaan.isrentalapp.devices.entities.DiskType;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
-import com.github.vihaan.isrentalapp.devices.DiskTypeService;
+import com.github.vihaan.isrentalapp.devices.oldies.DiskTypeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

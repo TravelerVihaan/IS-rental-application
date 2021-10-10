@@ -10,7 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "computers")
 public
-class Computer extends BaseEntity {
+class ComputerEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,35 +25,35 @@ class Computer extends BaseEntity {
 
     @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "os_id")
-    private OperatingSystem operatingSystem;
+    private OperatingSystemEntity operatingSystemEntity;
 
     @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "disk_id")
-    private DiskType diskType;
+    private DiskTypeEntity diskTypeEntity;
 
     @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "model_id")
-    private ComputerModel computerModel;
+    private ComputerModelEntity computerModelEntity;
 
     @ManyToOne//(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "status_id")
-    private ComputerStatus computerStatus;
+    private ComputerStatusEntity computerStatusEntity;
 
     @OneToMany(mappedBy = "rentedComputer", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ComputerRental> computerRentals;
 
-    public Computer(){}
-    public Computer(String otnumber, String serialNumber){
+    public ComputerEntity(){}
+    public ComputerEntity(String otnumber, String serialNumber){
         this.otnumber = otnumber;
         this.serialNumber = serialNumber;
     }
-    public Computer(String otnumber, String serialNumber, OperatingSystem operatingSystem, DiskType diskType, ComputerModel computerModel, ComputerStatus computerStatus) {
+    public ComputerEntity(String otnumber, String serialNumber, OperatingSystemEntity operatingSystemEntity, DiskTypeEntity diskTypeEntity, ComputerModelEntity computerModelEntity, ComputerStatusEntity computerStatusEntity) {
         this.otnumber = otnumber;
         this.serialNumber = serialNumber;
-        this.operatingSystem = operatingSystem;
-        this.diskType = diskType;
-        this.computerModel = computerModel;
-        this.computerStatus = computerStatus;
+        this.operatingSystemEntity = operatingSystemEntity;
+        this.diskTypeEntity = diskTypeEntity;
+        this.computerModelEntity = computerModelEntity;
+        this.computerStatusEntity = computerStatusEntity;
     }
 
     public Long getId() {
@@ -80,20 +80,20 @@ class Computer extends BaseEntity {
         this.serialNumber = serialNumber;
     }
 
-    public OperatingSystem getOperatingSystem() {
-        return operatingSystem;
+    public OperatingSystemEntity getOperatingSystem() {
+        return operatingSystemEntity;
     }
 
-    public void setOperatingSystem(OperatingSystem operatingSystem) {
-        this.operatingSystem = operatingSystem;
+    public void setOperatingSystem(OperatingSystemEntity operatingSystemEntity) {
+        this.operatingSystemEntity = operatingSystemEntity;
     }
 
-    public ComputerModel getComputerModel() {
-        return computerModel;
+    public ComputerModelEntity getComputerModel() {
+        return computerModelEntity;
     }
 
-    public void setComputerModel(ComputerModel computerModel) {
-        this.computerModel = computerModel;
+    public void setComputerModel(ComputerModelEntity computerModelEntity) {
+        this.computerModelEntity = computerModelEntity;
     }
 
     public List<ComputerRental> getComputerRentals() {
@@ -104,28 +104,28 @@ class Computer extends BaseEntity {
         this.computerRentals = computerRentals;
     }
 
-    public DiskType getDiskType() {
-        return diskType;
+    public DiskTypeEntity getDiskType() {
+        return diskTypeEntity;
     }
 
-    public void setDiskType(DiskType diskType) {
-        this.diskType = diskType;
+    public void setDiskType(DiskTypeEntity diskTypeEntity) {
+        this.diskTypeEntity = diskTypeEntity;
     }
 
-    public ComputerStatus getComputerStatus() {
-        return computerStatus;
+    public ComputerStatusEntity getComputerStatus() {
+        return computerStatusEntity;
     }
 
-    public void setComputerStatus(ComputerStatus computerStatus) {
-        this.computerStatus = computerStatus;
+    public void setComputerStatus(ComputerStatusEntity computerStatusEntity) {
+        this.computerStatusEntity = computerStatusEntity;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Computer computer = (Computer) o;
-        return getUuid().equals(computer.getUuid());
+        ComputerEntity computerEntity = (ComputerEntity) o;
+        return getUuid().equals(computerEntity.getUuid());
     }
 
     @Override
@@ -139,10 +139,10 @@ class Computer extends BaseEntity {
                 "id=" + id +
                 ", OTNumber='" + otnumber + '\'' +
                 ", serialNumber='" + serialNumber + '\'' +
-                ", operatingSystem=" + operatingSystem +
-                ", diskType=" + diskType +
-                ", computerModel=" + computerModel +
-                ", computerStatus=" + computerStatus +
+                ", operatingSystem=" + operatingSystemEntity +
+                ", diskType=" + diskTypeEntity +
+                ", computerModel=" + computerModelEntity +
+                ", computerStatus=" + computerStatusEntity +
                 '}';
     }
 }

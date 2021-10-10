@@ -1,7 +1,7 @@
 package com.github.vihaan.isrentalapp.devices;
 
-import com.github.vihaan.isrentalapp.devices.entities.ComputerRepository;
-import com.github.vihaan.isrentalapp.devices.entities.Computer;
+import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
+import com.github.vihaan.isrentalapp.devices.entities.DevicesRepositoryFacade;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ import javax.validation.Validator;
 import java.util.Set;
 
 @Service
-public class ComputerAddService {
+public class NewDeviceCreator {
 
-    private ComputerRepository computerRepository;
+    private final DevicesRepositoryFacade devicesRepositoryFacade;
 
     @Autowired
-    public ComputerAddService(ComputerRepository computerRepository) {
-        this.computerRepository = computerRepository;
+    public NewDeviceCreator(DevicesRepositoryFacade devicesRepositoryFacade) {
+        this.devicesRepositoryFacade = devicesRepositoryFacade;
     }
 
     /**
@@ -34,10 +34,10 @@ public class ComputerAddService {
         Set<ConstraintViolation<Computer>> validationErrors = validator.validate(computer);
         if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;
-        if(computerRepository.findByOtnumber(computer.getOtnumber())!=null)
+        if(devicesRepositoryFacade.getComputerRepository().findByOtnumber(computer.getOtNumber());
             return HttpStatusEnum.CONFLICT;
 
-        computerRepository.save(computer);
+        devicesRepositoryFacade.getComputerRepository().save(computer);
         return HttpStatusEnum.CREATED;
     }
 }

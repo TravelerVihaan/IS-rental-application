@@ -8,7 +8,7 @@ import com.github.vihaan.isrentalapp.rentals.entities.RentStatus;
 import com.github.vihaan.isrentalapp.users.entities.User;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalRepository;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
-import com.github.vihaan.isrentalapp.devices.ComputerService;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ import static org.mockito.ArgumentMatchers.any;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class NewComputerRentalServiceTest {
+public class NewComputerEntityRentalServiceTest {
 
     @Mock
     private ComputerRentalRepository computerRentalRepository;
@@ -125,20 +125,20 @@ public class NewComputerRentalServiceTest {
         return rental;
     }
 
-    private Computer initializeComputer(){
+    private ComputerEntity initializeComputer(){
         ComputerProducer computerProducer = new ComputerProducer("Apple");
         ComputerModel computerModel = new ComputerModel("MacBook",computerProducer);
         ComputerStatus computerStatus = new ComputerStatus("rented");
         DiskType diskType = new DiskType("SSD");
         OperatingSystem os = new OperatingSystem("Windows 10");
-        Computer computer = new Computer();
-        computer.setOtnumber("1234/56/7890/IT/KR");
-        computer.setSerialNumber("XYZABCD1312");
-        computer.setOperatingSystem(os);
-        computer.setDiskType(diskType);
-        computer.setComputerModel(computerModel);
-        computer.setComputerStatus(computerStatus);
-        return computer;
+        ComputerEntity computerEntity = new ComputerEntity();
+        computerEntity.setOtnumber("1234/56/7890/IT/KR");
+        computerEntity.setSerialNumber("XYZABCD1312");
+        computerEntity.setOperatingSystem(os);
+        computerEntity.setDiskType(diskType);
+        computerEntity.setComputerModel(computerModel);
+        computerEntity.setComputerStatus(computerStatus);
+        return computerEntity;
     }
 
     private List<ComputerRental> initializeRentalsList(){

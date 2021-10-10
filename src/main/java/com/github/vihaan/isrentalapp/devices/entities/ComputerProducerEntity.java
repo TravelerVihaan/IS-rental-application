@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "producers_computer")
-class ComputerProducer extends BaseEntity {
+class ComputerProducerEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,10 @@ class ComputerProducer extends BaseEntity {
     private String producerName;
 
     @OneToMany(mappedBy = "computerProducer")//(mappedBy = "computerProducer", cascade = {CascadeType.ALL})
-    private List<ComputerModel> computerModels;
+    private List<ComputerModelEntity> computerModelEntities;
 
-    public ComputerProducer(){}
-    public ComputerProducer(String producerName) {
+    public ComputerProducerEntity(){}
+    public ComputerProducerEntity(String producerName) {
         this.producerName = producerName;
     }
 
@@ -42,20 +42,20 @@ class ComputerProducer extends BaseEntity {
         this.producerName = producerName;
     }
 
-    public List<ComputerModel> getComputerModels() {
-        return computerModels;
+    public List<ComputerModelEntity> getComputerModels() {
+        return computerModelEntities;
     }
 
-    public void setComputerModels(List<ComputerModel> computerModels) {
-        this.computerModels = computerModels;
+    public void setComputerModels(List<ComputerModelEntity> computerModelEntities) {
+        this.computerModelEntities = computerModelEntities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ComputerProducer computerProducer = (ComputerProducer) o;
-        return getUuid().equals(computerProducer.getUuid());
+        ComputerProducerEntity computerProducerEntity = (ComputerProducerEntity) o;
+        return getUuid().equals(computerProducerEntity.getUuid());
     }
 
     @Override

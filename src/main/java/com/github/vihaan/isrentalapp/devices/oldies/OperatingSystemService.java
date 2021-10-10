@@ -1,5 +1,6 @@
-package com.github.vihaan.isrentalapp.devices;
+package com.github.vihaan.isrentalapp.devices.oldies;
 
+import com.github.vihaan.isrentalapp.devices.OperatingSystem;
 import com.github.vihaan.isrentalapp.devices.entities.OperatingSystemRepository;
 import com.github.vihaan.isrentalapp.devices.entities.OperatingSystem;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;

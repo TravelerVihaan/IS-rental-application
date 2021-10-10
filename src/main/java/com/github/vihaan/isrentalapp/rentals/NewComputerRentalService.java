@@ -1,9 +1,9 @@
 package com.github.vihaan.isrentalapp.rentals;
 
-import com.github.vihaan.isrentalapp.devices.ComputerService;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerService;
+import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
 import com.github.vihaan.isrentalapp.devices.entities.ComputerStatusRepository;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalRepository;
-import com.github.vihaan.isrentalapp.devices.entities.Computer;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,13 +81,13 @@ public class NewComputerRentalService {
                 .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(OT,date,"accepted"));
     }
 
-    private Computer changeComputerRentStatus(Computer computer){
-        computer.setComputerStatus(computerStatusRepository.findByStatus("rented"));
-        computerService.saveComputerToDB(computer);
-        return computer;
+    private ComputerEntity changeComputerRentStatus(ComputerEntity computerEntity){
+        computerEntity.setComputerStatus(computerStatusRepository.findByStatus("rented"));
+        computerService.saveComputerToDB(computerEntity);
+        return computerEntity;
     }
 
-    private Computer getCorrectComputer(ComputerRental cr) throws NullPointerException{
+    private ComputerEntity getCorrectComputer(ComputerRental cr) throws NullPointerException{
         return computerService.getComputerByOT(cr.getRentedComputer().getOtnumber())
                         .orElseThrow();
     }

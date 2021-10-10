@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.service.computers;
 
-import com.github.vihaan.isrentalapp.devices.ComputerProducerService;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerProducerService;
 import com.github.vihaan.isrentalapp.devices.entities.ComputerProducer;
 import com.github.vihaan.isrentalapp.devices.entities.ComputerProducerRepository;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class ComputerProducerServiceTest {
+public class ComputerEntityProducerServiceTest {
 
     @Autowired
     ComputerProducerService computerProducerService;

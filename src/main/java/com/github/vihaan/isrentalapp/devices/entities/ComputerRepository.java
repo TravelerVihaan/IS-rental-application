@@ -6,15 +6,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-interface ComputerRepository extends JpaRepository<Computer, Long> {
+public interface ComputerRepository extends JpaRepository<ComputerEntity, Long> {
 
-    Computer findByOtnumber(String OTNumber);
+    ComputerEntity findByOtnumber(String OTNumber);
 
-    List<Computer> findAllByOtnumberContaining(String searchPhrase);
+    List<ComputerEntity> findAllByOtnumberContaining(String searchPhrase);
 
-    List<Computer> findAllByComputerModel_ModelContaining(String searchPhrase);
+    List<ComputerEntity> findAllByComputerModel_ModelContaining(String searchPhrase);
 
-    List<Computer> findAllByComputerModel_ComputerProducer_ProducerNameContaining(String searchPhrase);
+    List<ComputerEntity> findAllByComputerModel_ComputerProducer_ProducerNameContaining(String searchPhrase);
 
-    List<Computer> findAllBySerialNumberContaining(String searchPhrase);
+    List<ComputerEntity> findAllBySerialNumberContaining(String searchPhrase);
 }

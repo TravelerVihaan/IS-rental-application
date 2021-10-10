@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.service.computers;
 
-import com.github.vihaan.isrentalapp.devices.ComputerService;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerService;
 import com.github.vihaan.isrentalapp.devices.entities.*;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import org.junit.After;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class ComputerServiceTest {
+public class ComputerEntityServiceTest {
 
     @Autowired
     DiskTypeRepository diskTypeRepository;
@@ -58,14 +58,14 @@ public class ComputerServiceTest {
         ComputerStatus status1 = new ComputerStatus("waiting");
         computerStatusRepository.save(status1);
 
-        Computer computer = new Computer();
-        computer.setOtnumber("11/11/2019/IT/RASP");
-        computer.setSerialNumber("1234567A");
-        computer.setOperatingSystem(operatingSystemRepository.findByOperatingSystem("Windows 7"));
-        computer.setDiskType(diskTypeRepository.findByDiskType("SSD"));
-        computer.setComputerModel(computerModelRepository.findByModel("E6440"));
-        computer.setComputerStatus(status1);
-        computerRepository.save(computer);
+        ComputerEntity computerEntity = new ComputerEntity();
+        computerEntity.setOtnumber("11/11/2019/IT/RASP");
+        computerEntity.setSerialNumber("1234567A");
+        computerEntity.setOperatingSystem(operatingSystemRepository.findByOperatingSystem("Windows 7"));
+        computerEntity.setDiskType(diskTypeRepository.findByDiskType("SSD"));
+        computerEntity.setComputerModel(computerModelRepository.findByModel("E6440"));
+        computerEntity.setComputerStatus(status1);
+        computerRepository.save(computerEntity);
 
     }
 
@@ -93,16 +93,16 @@ public class ComputerServiceTest {
 
     @Test
     public void addNewComputer() {
-        Computer computer = computerRepository.findByOtnumber("11/11/2019/IT/RASP");
-        computer.setOtnumber("22/22/2019/IT/RASP");
-        computer.setSerialNumber("222222A");
-        assertEquals(HttpStatusEnum.CREATED, computerService.addNewComputer(computer));
+        ComputerEntity computerEntity = computerRepository.findByOtnumber("11/11/2019/IT/RASP");
+        computerEntity.setOtnumber("22/22/2019/IT/RASP");
+        computerEntity.setSerialNumber("222222A");
+        assertEquals(HttpStatusEnum.CREATED, computerService.addNewComputer(computerEntity));
     }
 
     @Test
     public void deletingComputerTest(){
-        Computer computer = computerRepository.findByOtnumber("11/11/2019/IT/RASP");
-        computerRepository.delete(computer);
+        ComputerEntity computerEntity = computerRepository.findByOtnumber("11/11/2019/IT/RASP");
+        computerRepository.delete(computerEntity);
         assertEquals(0,computerRepository.findAll().size());
         assertEquals(1,computerModelRepository.findAll().size());
         assertEquals(1,diskTypeRepository.findAll().size());
@@ -114,13 +114,13 @@ public class ComputerServiceTest {
     @Test
     public void changePropertyComputerTest(){
         //given
-        Computer computer = computerRepository.findByOtnumber("11/11/2019/IT/RASP");
+        ComputerEntity computerEntity = computerRepository.findByOtnumber("11/11/2019/IT/RASP");
         DiskType diskType = new DiskType("HDD");
         diskTypeRepository.save(diskType);
 
         //when
-        computer.setDiskType(diskTypeRepository.findByDiskType("HDD"));
-        computerRepository.save(computer);
+        computerEntity.setDiskType(diskTypeRepository.findByDiskType("HDD"));
+        computerRepository.save(computerEntity);
 
         //then
         assertEquals("HDD",computerRepository.findByOtnumber("11/11/2019/IT/RASP").getDiskType().getDiskType());

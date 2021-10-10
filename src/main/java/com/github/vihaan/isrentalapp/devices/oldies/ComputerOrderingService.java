@@ -1,6 +1,6 @@
-package com.github.vihaan.isrentalapp.devices;
+package com.github.vihaan.isrentalapp.devices.oldies;
 
-import com.github.vihaan.isrentalapp.devices.entities.Computer;
+import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
 import com.github.vihaan.isrentalapp.service.IOrdering;
 import org.springframework.stereotype.Service;
 
@@ -10,18 +10,18 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class ComputerOrderingService implements IOrdering<Computer> {
+public class ComputerOrderingService implements IOrdering<ComputerEntity> {
 
     @Override
-    public List<Computer> sortOrderingBy(Set<Computer> inputSet, String orderBy) {
-        List<Computer> orderedComputers = new ArrayList<>(inputSet);
-        Comparator<Computer> computerComparator = comparatorFactoryMethod(orderBy);
-        orderedComputers.sort(computerComparator);
-        return orderedComputers;
+    public List<ComputerEntity> sortOrderingBy(Set<ComputerEntity> inputSet, String orderBy) {
+        List<ComputerEntity> orderedComputerEntities = new ArrayList<>(inputSet);
+        Comparator<ComputerEntity> computerComparator = comparatorFactoryMethod(orderBy);
+        orderedComputerEntities.sort(computerComparator);
+        return orderedComputerEntities;
     }
 
-    private Comparator<Computer> comparatorFactoryMethod(String orderBy){
-        Comparator<Computer> rentalComparator = null;
+    private Comparator<ComputerEntity> comparatorFactoryMethod(String orderBy){
+        Comparator<ComputerEntity> rentalComparator = null;
         if("producer".equalsIgnoreCase(orderBy)) {
             rentalComparator = Comparator
                     .comparing(computer -> computer

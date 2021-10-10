@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "computer_status")
-class ComputerStatus extends BaseEntity {
+class ComputerStatusEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,10 @@ class ComputerStatus extends BaseEntity {
     private String status;
 
     @OneToMany(mappedBy = "computerStatus")
-    private List<Computer> computers;
+    private List<ComputerEntity> computerEntities;
 
-    public ComputerStatus(){}
-    public ComputerStatus(String status) {
+    public ComputerStatusEntity(){}
+    public ComputerStatusEntity(String status) {
         this.status = status;
     }
 
@@ -42,20 +42,20 @@ class ComputerStatus extends BaseEntity {
         this.status = status;
     }
 
-    public List<Computer> getComputers() {
-        return computers;
+    public List<ComputerEntity> getComputers() {
+        return computerEntities;
     }
 
-    public void setComputers(List<Computer> computers) {
-        this.computers = computers;
+    public void setComputers(List<ComputerEntity> computerEntities) {
+        this.computerEntities = computerEntities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ComputerStatus computerStatus = (ComputerStatus) o;
-        return getUuid().equals(computerStatus.getUuid());
+        ComputerStatusEntity computerStatusEntity = (ComputerStatusEntity) o;
+        return getUuid().equals(computerStatusEntity.getUuid());
     }
 
     @Override

@@ -1,9 +1,9 @@
-package com.github.vihaan.isrentalapp.devices;
+package com.github.vihaan.isrentalapp.devices.oldies;
 
+import com.github.vihaan.isrentalapp.devices.ComputerStatus;
+import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
 import com.github.vihaan.isrentalapp.devices.entities.ComputerRepository;
 import com.github.vihaan.isrentalapp.devices.entities.ComputerStatusRepository;
-import com.github.vihaan.isrentalapp.devices.entities.Computer;
-import com.github.vihaan.isrentalapp.devices.entities.ComputerStatus;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,9 +37,9 @@ public class ComputerUpdateService {
     HttpStatusEnum updateComputer(Long id, Map<String, String> updates){
         if(computerRepository.findById(id).isEmpty())
             return HttpStatusEnum.NOTFOUND;
-        Computer computer = executeUpdates(computerRepository.findById(id).orElseThrow(), updates);
+        ComputerEntity computerEntity = executeUpdates(computerRepository.findById(id).orElseThrow(), updates);
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        Set<ConstraintViolation<Computer>> validationErrors = validator.validate(computer);
+        Set<ConstraintViolation<ComputerEntity>> validationErrors = validator.validate(computerEntity);
         if(!validationErrors.isEmpty())
             return HttpStatusEnum.BADREQUEST;
         return HttpStatusEnum.OK;
@@ -53,31 +53,31 @@ public class ComputerUpdateService {
         return HttpStatusEnum.NOTFOUND;
     }
 
-    private void updateComputerStatus(Computer computer, String status){
+    private void updateComputerStatus(ComputerEntity computerEntity, String status){
         ComputerStatus computerStatus = computerStatusRepository.findByStatus(status);
-        computer.setComputerStatus(computerStatus);
-        computerRepository.save(computer);
+        computerEntity.setComputerStatus(computerStatus);
+        computerRepository.save(computerEntity);
     }
 
-    private Computer executeUpdates(Computer computer, Map<String, String> updates){
+    private ComputerEntity executeUpdates(ComputerEntity computerEntity, Map<String, String> updates){
         if(updates.containsKey("operatingSystem")) {
-            updateOperatingSystem(computer, updates.get("operatingSystem"));
+            updateOperatingSystem(computerEntity, updates.get("operatingSystem"));
         }
         if(updates.containsKey("diskType")) {
-            updateDiskType(computer, updates.get("diskType"));
+            updateDiskType(computerEntity, updates.get("diskType"));
         }
-        return computer;
+        return computerEntity;
     }
 
-    private Computer updateOperatingSystem(Computer computer, String os){
-        computer.setOperatingSystem(operatingSystemService
-                .getOperatingSystemByName(os).orElseGet(computer::getOperatingSystem));
-        return computer;
+    private ComputerEntity updateOperatingSystem(ComputerEntity computerEntity, String os){
+        computerEntity.setOperatingSystem(operatingSystemService
+                .getOperatingSystemByName(os).orElseGet(computerEntity::getOperatingSystem));
+        return computerEntity;
     }
 
-    private Computer updateDiskType(Computer computer, String disk){
-        computer.setDiskType(diskTypeService
-                .getDiskTypeByName(disk).orElseGet(computer::getDiskType));
-        return computer;
+    private ComputerEntity updateDiskType(ComputerEntity computerEntity, String disk){
+        computerEntity.setDiskType(diskTypeService
+                .getDiskTypeByName(disk).orElseGet(computerEntity::getDiskType));
+        return computerEntity;
     }
 }

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "models_computer")
-class ComputerModel extends BaseEntity {
+class ComputerModelEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +20,15 @@ class ComputerModel extends BaseEntity {
     //@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "producer_id")
-    private ComputerProducer computerProducer;
+    private ComputerProducerEntity computerProducerEntity;
 
-    public ComputerModel(){}
-    public ComputerModel(String modelName) {
+    public ComputerModelEntity(){}
+    public ComputerModelEntity(String modelName) {
         this.modelName = modelName;
     }
-    public ComputerModel(String modelName, ComputerProducer computerProducer) {
+    public ComputerModelEntity(String modelName, ComputerProducerEntity computerProducerEntity) {
         this.modelName = modelName;
-        this.computerProducer = computerProducer;
+        this.computerProducerEntity = computerProducerEntity;
     }
 
     public Long getId() {
@@ -47,20 +47,20 @@ class ComputerModel extends BaseEntity {
         this.modelName = modelName;
     }
 
-    public ComputerProducer getComputerProducer() {
-        return computerProducer;
+    public ComputerProducerEntity getComputerProducer() {
+        return computerProducerEntity;
     }
 
-    public void setComputerProducer(ComputerProducer computerProducer) {
-        this.computerProducer = computerProducer;
+    public void setComputerProducer(ComputerProducerEntity computerProducerEntity) {
+        this.computerProducerEntity = computerProducerEntity;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ComputerModel computerModel = (ComputerModel) o;
-        return getUuid().equals(computerModel.getUuid());
+        ComputerModelEntity computerModelEntity = (ComputerModelEntity) o;
+        return getUuid().equals(computerModelEntity.getUuid());
     }
 
     @Override
@@ -73,7 +73,7 @@ class ComputerModel extends BaseEntity {
         return "ComputerModel{" +
                 "id=" + id +
                 ", model='" + modelName + '\'' +
-                ", producer=" + computerProducer +
+                ", producer=" + computerProducerEntity +
                 '}';
     }
 }

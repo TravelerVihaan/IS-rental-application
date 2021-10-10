@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface ComputerModelRepository extends JpaRepository<ComputerModel, Long> {
+interface ComputerModelRepository extends JpaRepository<ComputerModelEntity, Long> {
 
-    ComputerModel findByModel(String modelName);
+    ComputerModelEntity findByModel(String modelName);
 }

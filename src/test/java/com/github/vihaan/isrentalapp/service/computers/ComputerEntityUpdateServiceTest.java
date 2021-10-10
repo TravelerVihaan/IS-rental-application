@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class ComputerUpdateServiceTest {
+public class ComputerEntityUpdateServiceTest {
 
     @Before
     public void setUp() throws Exception {

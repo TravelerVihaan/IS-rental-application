@@ -3,7 +3,7 @@ package com.github.vihaan.isrentalapp.controller.computers;
 import com.github.vihaan.isrentalapp.devices.dto.ComputerProducerDTO;
 import com.github.vihaan.isrentalapp.devices.entities.ComputerProducer;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
-import com.github.vihaan.isrentalapp.devices.ComputerProducerService;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerProducerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.service.computers;
 
-import com.github.vihaan.isrentalapp.devices.DiskTypeService;
+import com.github.vihaan.isrentalapp.devices.oldies.DiskTypeService;
 import com.github.vihaan.isrentalapp.devices.entities.DiskType;
 import com.github.vihaan.isrentalapp.devices.entities.DiskTypeRepository;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class DiskTypeServiceTest {
+public class DiskTypeEntityServiceTest {
 
     @Autowired
     DiskTypeService diskTypeService;

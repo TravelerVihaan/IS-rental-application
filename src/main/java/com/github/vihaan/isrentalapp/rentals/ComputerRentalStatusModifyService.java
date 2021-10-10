@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.rentals;
 
-import com.github.vihaan.isrentalapp.devices.ComputerService;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerService;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalRepository;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;

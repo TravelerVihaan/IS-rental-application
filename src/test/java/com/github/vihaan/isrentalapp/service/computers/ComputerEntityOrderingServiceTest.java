@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.service.computers;
 
-import com.github.vihaan.isrentalapp.devices.ComputerOrderingService;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerOrderingService;
 import com.github.vihaan.isrentalapp.devices.entities.*;
 import com.github.vihaan.isrentalapp.service.IOrdering;
 import org.junit.After;
@@ -21,11 +21,11 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class ComputerOrderingServiceTest {
+public class ComputerEntityOrderingServiceTest {
 
-    private Set<Computer> inputSet = new HashSet<>();
+    private Set<ComputerEntity> inputSet = new HashSet<>();
 
-    private IOrdering<Computer> computerOrderingService;
+    private IOrdering<ComputerEntity> computerOrderingService;
 
     @Before
     public void setUp(){
@@ -50,15 +50,15 @@ public class ComputerOrderingServiceTest {
         assertEquals(listSortedByModel(),computerOrderingService.sortOrderingBy(inputSet,"model"));
     }
 
-    private List<Computer> listSortedByProducer(){
-        List<Computer> list = new ArrayList<>();
+    private List<ComputerEntity> listSortedByProducer(){
+        List<ComputerEntity> list = new ArrayList<>();
         list.add(getComputer1());
         list.add(getComputer2());
         list.add(getComputer3());
         return list;
     }
-    private List<Computer> listSortedByModel(){
-        List<Computer> list = new ArrayList<>();
+    private List<ComputerEntity> listSortedByModel(){
+        List<ComputerEntity> list = new ArrayList<>();
         list.add(getComputer2());
         list.add(getComputer3());
         list.add(getComputer1());
@@ -66,51 +66,51 @@ public class ComputerOrderingServiceTest {
     }
 
 
-    private Computer getComputer1(){
+    private ComputerEntity getComputer1(){
         ComputerProducer apple = new ComputerProducer("Apple");
         ComputerModel macBook = new ComputerModel("MacBook",apple);
         ComputerStatus computerStatus = new ComputerStatus("rented");
         DiskType diskType = new DiskType("SSD");
         OperatingSystem os = new OperatingSystem("Windows 10");
-        Computer computer = new Computer();
-        computer.setOtnumber("0000/56/7890/IT/KR");
-        computer.setSerialNumber("XYZABCD1312");
-        computer.setOperatingSystem(os);
-        computer.setDiskType(diskType);
-        computer.setComputerModel(macBook);
-        computer.setComputerStatus(computerStatus);
-        return computer;
+        ComputerEntity computerEntity = new ComputerEntity();
+        computerEntity.setOtnumber("0000/56/7890/IT/KR");
+        computerEntity.setSerialNumber("XYZABCD1312");
+        computerEntity.setOperatingSystem(os);
+        computerEntity.setDiskType(diskType);
+        computerEntity.setComputerModel(macBook);
+        computerEntity.setComputerStatus(computerStatus);
+        return computerEntity;
     }
 
-    private Computer getComputer2(){
+    private ComputerEntity getComputer2(){
         ComputerProducer apple = new ComputerProducer("DELL");
         ComputerModel macBook = new ComputerModel("E6440",apple);
         ComputerStatus computerStatus = new ComputerStatus("rented");
         DiskType diskType = new DiskType("SSD");
         OperatingSystem os = new OperatingSystem("Windows 10");
-        Computer computer = new Computer();
-        computer.setOtnumber("1111/56/7890/IT/KR");
-        computer.setSerialNumber("XYZABCD1312");
-        computer.setOperatingSystem(os);
-        computer.setDiskType(diskType);
-        computer.setComputerModel(macBook);
-        computer.setComputerStatus(computerStatus);
-        return computer;
+        ComputerEntity computerEntity = new ComputerEntity();
+        computerEntity.setOtnumber("1111/56/7890/IT/KR");
+        computerEntity.setSerialNumber("XYZABCD1312");
+        computerEntity.setOperatingSystem(os);
+        computerEntity.setDiskType(diskType);
+        computerEntity.setComputerModel(macBook);
+        computerEntity.setComputerStatus(computerStatus);
+        return computerEntity;
     }
 
-    private Computer getComputer3(){
+    private ComputerEntity getComputer3(){
         ComputerProducer apple = new ComputerProducer("Lenovo");
         ComputerModel macBook = new ComputerModel("E7440",apple);
         ComputerStatus computerStatus = new ComputerStatus("rented");
         DiskType diskType = new DiskType("SSD");
         OperatingSystem os = new OperatingSystem("Windows 10");
-        Computer computer = new Computer();
-        computer.setOtnumber("2222/56/7890/IT/KR");
-        computer.setSerialNumber("XYZABCD1312");
-        computer.setOperatingSystem(os);
-        computer.setDiskType(diskType);
-        computer.setComputerModel(macBook);
-        computer.setComputerStatus(computerStatus);
-        return computer;
+        ComputerEntity computerEntity = new ComputerEntity();
+        computerEntity.setOtnumber("2222/56/7890/IT/KR");
+        computerEntity.setSerialNumber("XYZABCD1312");
+        computerEntity.setOperatingSystem(os);
+        computerEntity.setDiskType(diskType);
+        computerEntity.setComputerModel(macBook);
+        computerEntity.setComputerStatus(computerStatus);
+        return computerEntity;
     }
 }

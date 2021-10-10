@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.rentals.entities;
 
-import com.github.vihaan.isrentalapp.devices.entities.Computer;
+import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
 import com.github.vihaan.isrentalapp.users.entities.User;
 import com.github.vihaan.isrentalapp.util.BaseEntity;
 
@@ -31,7 +31,7 @@ public class ComputerRental extends BaseEntity {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "computer_id")
-    private Computer rentedComputer;
+    private ComputerEntity rentedComputerEntity;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "rent_status_id")
@@ -42,12 +42,12 @@ public class ComputerRental extends BaseEntity {
     private User whoSetStatus;
 
     public ComputerRental(){}
-    public ComputerRental(LocalDate startRentalDate, LocalDate endRentalDate, String rentingPersonEmail, String rentingPersonName, Computer rentedComputer, RentStatus rentStatus) {
+    public ComputerRental(LocalDate startRentalDate, LocalDate endRentalDate, String rentingPersonEmail, String rentingPersonName, ComputerEntity rentedComputerEntity, RentStatus rentStatus) {
         this.startRentalDate = startRentalDate;
         this.endRentalDate = endRentalDate;
         this.rentingPersonEmail = rentingPersonEmail;
         this.rentingPersonName = rentingPersonName;
-        this.rentedComputer = rentedComputer;
+        this.rentedComputerEntity = rentedComputerEntity;
         this.rentStatus = rentStatus;
     }
 
@@ -87,12 +87,12 @@ public class ComputerRental extends BaseEntity {
         this.rentingPersonName = rentingPersonName;
     }
 
-    public Computer getRentedComputer() {
-        return rentedComputer;
+    public ComputerEntity getRentedComputer() {
+        return rentedComputerEntity;
     }
 
-    public void setRentedComputer(Computer rentedComputer) {
-        this.rentedComputer = rentedComputer;
+    public void setRentedComputer(ComputerEntity rentedComputerEntity) {
+        this.rentedComputerEntity = rentedComputerEntity;
     }
 
     public RentStatus getRentStatus() {
@@ -132,7 +132,7 @@ public class ComputerRental extends BaseEntity {
                 ", endRentalDate=" + endRentalDate +
                 ", rentingPersonemail='" + rentingPersonEmail + '\'' +
                 ", rentingPersonName='" + rentingPersonName + '\'' +
-                ", rentedComputer=" + rentedComputer +
+                ", rentedComputer=" + rentedComputerEntity +
                 ", rentStatus=" + rentStatus +
                 ", whoSetStatus=" + whoSetStatus +
                 '}';

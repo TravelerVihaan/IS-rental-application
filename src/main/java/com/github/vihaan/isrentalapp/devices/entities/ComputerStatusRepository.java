@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface ComputerStatusRepository extends JpaRepository<ComputerStatus, Long> {
+interface ComputerStatusRepository extends JpaRepository<ComputerStatusEntity, Long> {
 
-    ComputerStatus findByStatus(String status);
+    ComputerStatusEntity findByStatus(String status);
 }

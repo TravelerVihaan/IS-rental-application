@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "operating_systems")
-class OperatingSystem extends BaseEntity {
+class OperatingSystemEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,10 @@ class OperatingSystem extends BaseEntity {
     private String operatingSystem;
 
     @OneToMany(mappedBy = "operatingSystem")
-    private List<Computer> computers;
+    private List<ComputerEntity> computerEntities;
 
-    public OperatingSystem(){}
-    public OperatingSystem(String operatingSystem) {
+    public OperatingSystemEntity(){}
+    public OperatingSystemEntity(String operatingSystem) {
         this.operatingSystem = operatingSystem;
     }
 
@@ -42,20 +42,20 @@ class OperatingSystem extends BaseEntity {
         this.operatingSystem = operatingSystem;
     }
 
-    public List<Computer> getComputers() {
-        return computers;
+    public List<ComputerEntity> getComputers() {
+        return computerEntities;
     }
 
-    public void setComputers(List<Computer> computers) {
-        this.computers = computers;
+    public void setComputers(List<ComputerEntity> computerEntities) {
+        this.computerEntities = computerEntities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OperatingSystem operatingSystem = (OperatingSystem) o;
-        return getUuid().equals(operatingSystem.getUuid());
+        OperatingSystemEntity operatingSystemEntity = (OperatingSystemEntity) o;
+        return getUuid().equals(operatingSystemEntity.getUuid());
     }
 
     @Override

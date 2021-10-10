@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.service.computers;
 
-import com.github.vihaan.isrentalapp.devices.OperatingSystemService;
+import com.github.vihaan.isrentalapp.devices.oldies.OperatingSystemService;
 import com.github.vihaan.isrentalapp.devices.entities.OperatingSystem;
 import com.github.vihaan.isrentalapp.devices.entities.OperatingSystemRepository;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class OperatingSystemServiceTest {
+public class OperatingSystemEntityServiceTest {
 
     @Autowired
     OperatingSystemService operatingSystemService;

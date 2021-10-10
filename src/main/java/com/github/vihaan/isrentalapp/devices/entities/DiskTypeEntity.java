@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "disk_type")
-class DiskType extends BaseEntity {
+class DiskTypeEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,10 @@ class DiskType extends BaseEntity {
     private String diskType;
 
     @OneToMany(mappedBy = "diskType")
-    private List<Computer> computers;
+    private List<ComputerEntity> computerEntities;
 
-    public DiskType(){}
-    public DiskType(String diskType) {
+    public DiskTypeEntity(){}
+    public DiskTypeEntity(String diskType) {
         this.diskType = diskType;
     }
 
@@ -42,20 +42,20 @@ class DiskType extends BaseEntity {
         this.diskType = diskType;
     }
 
-    public List<Computer> getComputers() {
-        return computers;
+    public List<ComputerEntity> getComputers() {
+        return computerEntities;
     }
 
-    public void setComputers(List<Computer> computers) {
-        this.computers = computers;
+    public void setComputers(List<ComputerEntity> computerEntities) {
+        this.computerEntities = computerEntities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DiskType diskType = (DiskType) o;
-        return getUuid().equals(diskType.getUuid());
+        DiskTypeEntity diskTypeEntity = (DiskTypeEntity) o;
+        return getUuid().equals(diskTypeEntity.getUuid());
     }
 
     @Override
