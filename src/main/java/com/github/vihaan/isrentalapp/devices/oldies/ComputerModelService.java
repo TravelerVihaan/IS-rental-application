@@ -33,7 +33,7 @@ public class ComputerModelService {
     }
 
     Optional<ComputerModel> getComputerModelByName(String modelName){
-        return Optional.ofNullable(computerModelRepository.findByModel(modelName));
+        return Optional.ofNullable(computerModelRepository.findByModelName(modelName));
     }
 
     /**

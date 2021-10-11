@@ -63,7 +63,7 @@ public class ComputerEntityServiceTest {
         computerEntity.setSerialNumber("1234567A");
         computerEntity.setOperatingSystem(operatingSystemRepository.findByOperatingSystem("Windows 7"));
         computerEntity.setDiskType(diskTypeRepository.findByDiskType("SSD"));
-        computerEntity.setComputerModel(computerModelRepository.findByModel("E6440"));
+        computerEntity.setComputerModel(computerModelRepository.findByModelName("E6440"));
         computerEntity.setComputerStatus(status1);
         computerRepository.save(computerEntity);
 
