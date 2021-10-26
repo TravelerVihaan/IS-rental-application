@@ -2,11 +2,13 @@ package com.github.vihaan.isrentalapp.dtomapper;
 
 import com.github.vihaan.isrentalapp.devices.*;
 import com.github.vihaan.isrentalapp.devices.dto.*;
+import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
+import com.github.vihaan.isrentalapp.devices.entities.DiskTypeEntity;
 import com.github.vihaan.isrentalapp.rentals.dto.ComputerRentalDTO;
 import com.github.vihaan.isrentalapp.rentals.dto.RentStatusDTO;
-import com.github.vihaan.isrentalapp.users.dto.UserDTO;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
 import com.github.vihaan.isrentalapp.rentals.entities.RentStatusEntity;
+import com.github.vihaan.isrentalapp.users.dto.UserDTO;
 import com.github.vihaan.isrentalapp.users.entities.UserEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -67,7 +69,7 @@ public class DTOTests {
     @Test
     public void ComputerDTO_Test(){
         //given
-        Computer computer = prepareComputerToTests();
+        ComputerEntity computer = prepareComputerToTests();
         //when
         ComputerDTO computerDTO = modelMapper.map(computer, ComputerDTO.class);
         //then
@@ -83,7 +85,7 @@ public class DTOTests {
     @Test
     public void ComputerRentalDTO_Test(){
         //given
-        Computer computer = prepareComputerToTests();
+        ComputerEntity computer = prepareComputerToTests();
         RentStatusEntity rentStatusEntity = new RentStatusEntity("accepted");
         ComputerRentalEntity computerRentalEntity = new ComputerRentalEntity();
         computerRentalEntity.setStartRentalDate(LocalDate.now());
@@ -124,13 +126,13 @@ public class DTOTests {
         return new ComputerModel("MacBook",computerProducer);
     }
 
-    private Computer prepareComputerToTests(){
+    private ComputerEntity prepareComputerToTests(){
         ComputerModel computerModel = prepareComputerModelToTests();
         ComputerStatus computerStatus = new ComputerStatus("rented");
-        DiskType diskType = new DiskType("SSD");
-        OperatingSystem os = new OperatingSystem("Windows 10");
+        DiskTypeEntity diskType = new DiskType("SSD");
+        OperatingSystemE os = new OperatingSystem("Windows 10");
 
-        Computer computer = new Computer();
+        ComputerEntity computer = new Computer();
         computer.setOtnumber("1234/56/7890/IT/KR");
         computer.setSerialNumber("XYZABCD1312");
         computer.setOperatingSystem(os);
