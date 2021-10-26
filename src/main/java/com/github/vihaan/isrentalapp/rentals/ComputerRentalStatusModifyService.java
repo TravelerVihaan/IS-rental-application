@@ -2,7 +2,7 @@ package com.github.vihaan.isrentalapp.rentals;
 
 import com.github.vihaan.isrentalapp.devices.oldies.ComputerService;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalRepository;
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,16 +24,16 @@ public class ComputerRentalStatusModifyService {
     }
 
     HttpStatusEnum changeRentalStatus(long id, String status){
-        ComputerRental computerRental = computerRentalRepository.findById(id).orElseThrow();
-        HttpStatusEnum httpStatus = changeComputerStatus(computerRental, status);
+        ComputerRentalEntity computerRentalEntity = computerRentalRepository.findById(id).orElseThrow();
+        HttpStatusEnum httpStatus = changeComputerStatus(computerRentalEntity, status);
         if(httpStatus.equals(HttpStatusEnum.OK)) {
-            computerRental.setRentStatus(rentStatusService.getStatusByName(status).orElseThrow());
-            computerRentalRepository.save(computerRental);
+            computerRentalEntity.setRentStatus(rentStatusService.getStatusByName(status).orElseThrow());
+            computerRentalRepository.save(computerRentalEntity);
         }
         return httpStatus;
     }
 
-    private HttpStatusEnum changeComputerStatus(ComputerRental cr, String status){
+    private HttpStatusEnum changeComputerStatus(ComputerRentalEntity cr, String status){
         HttpStatusEnum httpStatus = HttpStatusEnum.NOTFOUND;
         if("finalize".equalsIgnoreCase(status))
             httpStatus = computerService.changeComputerStatus("available",cr.getRentedComputer().getId());

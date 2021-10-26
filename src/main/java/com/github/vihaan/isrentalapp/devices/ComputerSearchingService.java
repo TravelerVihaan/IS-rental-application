@@ -1,7 +1,8 @@
-package com.github.vihaan.isrentalapp.devices.oldies;
+package com.github.vihaan.isrentalapp.devices;
 
 import com.github.vihaan.isrentalapp.devices.entities.ComputerRepository;
 import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerOrderingService;
 import com.github.vihaan.isrentalapp.service.IOrdering;
 import com.github.vihaan.isrentalapp.service.ISearching;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ import java.util.Set;
 @Service
 public class ComputerSearchingService implements ISearching<ComputerEntity> {
 
-    private ComputerRepository computerRepository;
-    private IOrdering<ComputerEntity> computerOrderingService;
+    private final ComputerRepository computerRepository;
+    private final IOrdering<ComputerEntity> computerOrderingService;
 
     @Autowired
     public ComputerSearchingService(ComputerRepository computerRepository,

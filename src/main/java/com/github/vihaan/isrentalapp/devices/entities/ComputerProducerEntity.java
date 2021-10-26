@@ -18,7 +18,7 @@ class ComputerProducerEntity extends BaseEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String producerName;
 
-    @OneToMany(mappedBy = "computerProducer")//(mappedBy = "computerProducer", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "computerProducerEntity")//(mappedBy = "computerProducer", cascade = {CascadeType.ALL})
     private List<ComputerModelEntity> computerModelEntities;
 
     public ComputerProducerEntity(){}

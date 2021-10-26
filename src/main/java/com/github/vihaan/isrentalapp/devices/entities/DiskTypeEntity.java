@@ -18,7 +18,7 @@ class DiskTypeEntity extends BaseEntity {
     @Column(name = "disk_type", nullable = false, unique = true)
     private String diskType;
 
-    @OneToMany(mappedBy = "diskType")
+    @OneToMany(mappedBy = "diskTypeEntity")
     private List<ComputerEntity> computerEntities;
 
     public DiskTypeEntity(){}

@@ -1,7 +1,7 @@
 package com.github.vihaan.isrentalapp.rentals;
 
 import com.github.vihaan.isrentalapp.rentals.entities.RentStatusRepository;
-import com.github.vihaan.isrentalapp.rentals.entities.RentStatus;
+import com.github.vihaan.isrentalapp.rentals.entities.RentStatusEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +11,22 @@ import java.util.Optional;
 @Service
 public class RentStatusService {
 
-    private RentStatusRepository rentStatusRepository;
+    private final RentStatusRepository rentStatusRepository;
 
     @Autowired
     public RentStatusService(RentStatusRepository rentStatusRepository){
         this.rentStatusRepository = rentStatusRepository;
     }
 
-    public List<RentStatus> getAllStatuses(){
+    public List<RentStatusEntity> getAllStatuses(){
         return rentStatusRepository.findAll();
     }
 
-    public Optional<RentStatus> getStatus(long id){
+    public Optional<RentStatusEntity> getStatus(long id){
         return rentStatusRepository.findById(id);
     }
 
-    Optional<RentStatus> getStatusByName(String status){
+    Optional<RentStatusEntity> getStatusByName(String status){
         return rentStatusRepository.findByStatus(status);
     }
 }

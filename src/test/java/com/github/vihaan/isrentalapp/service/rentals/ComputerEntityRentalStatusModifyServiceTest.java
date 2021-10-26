@@ -4,9 +4,9 @@ import com.github.vihaan.isrentalapp.devices.entities.*;
 import onet.grupa.isrentalapplication.devices.entities.*;
 import com.github.vihaan.isrentalapp.rentals.ComputerRentalStatusModifyService;
 import com.github.vihaan.isrentalapp.rentals.RentStatusService;
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
-import com.github.vihaan.isrentalapp.rentals.entities.RentStatus;
-import com.github.vihaan.isrentalapp.users.entities.User;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
+import com.github.vihaan.isrentalapp.rentals.entities.RentStatusEntity;
+import com.github.vihaan.isrentalapp.users.entities.UserEntity;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalRepository;
 import com.github.vihaan.isrentalapp.devices.oldies.ComputerService;
 import org.junit.Before;
@@ -56,24 +56,24 @@ public class ComputerEntityRentalStatusModifyServiceTest {
     @Test
     public void shouldCallSaveMethodOnce(){
         Mockito.when(computerRentalRepository.findById(any(Long.class))).thenReturn(Optional.of(initializeRental()));
-        Mockito.doNothing().doThrow(new RuntimeException()).when(computerRentalRepository).save(any(ComputerRental.class));
+        Mockito.doNothing().doThrow(new RuntimeException()).when(computerRentalRepository).save(any(ComputerRentalEntity.class));
         Mockito.doNothing().doThrow(new RuntimeException()).when(computerService).changeComputerStatus(any(String.class),any(Long.class));
 
         computerRentalStatusModifyService.changeRentalStatus(1,"available");
-        verify(computerRentalRepository,times(1)).save(any(ComputerRental.class));
+        verify(computerRentalRepository,times(1)).save(any(ComputerRentalEntity.class));
     }
 
 
-    private ComputerRental initializeRental(){
-        ComputerRental rental = new ComputerRental();
+    private ComputerRentalEntity initializeRental(){
+        ComputerRentalEntity rental = new ComputerRentalEntity();
         rental.setRentedComputer(initializeComputer());
         rental.setRentingPersonEmail("test@test");
         rental.setRentingPersonName("test");
-        rental.setRentStatus(new RentStatus("waiting"));
+        rental.setRentStatus(new RentStatusEntity("waiting"));
         rental.setStartRentalDate(LocalDate.now().minusDays(1));
         rental.setStartRentalDate(LocalDate.now().plusDays(1));
-        User user = new User("username","password","name","surname");
-        rental.setWhoSetStatus(user);
+        UserEntity userEntity = new UserEntity("username","password","name","surname");
+        rental.setWhoSetStatus(userEntity);
         return rental;
     }
 

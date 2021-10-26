@@ -2,13 +2,12 @@ package com.github.vihaan.isrentalapp.dtomapper;
 
 import com.github.vihaan.isrentalapp.devices.*;
 import com.github.vihaan.isrentalapp.devices.dto.*;
-import com.github.vihaan.isrentalapp.devices.entities.*;
 import com.github.vihaan.isrentalapp.rentals.dto.ComputerRentalDTO;
 import com.github.vihaan.isrentalapp.rentals.dto.RentStatusDTO;
 import com.github.vihaan.isrentalapp.users.dto.UserDTO;
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
-import com.github.vihaan.isrentalapp.rentals.entities.RentStatus;
-import com.github.vihaan.isrentalapp.users.entities.User;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
+import com.github.vihaan.isrentalapp.rentals.entities.RentStatusEntity;
+import com.github.vihaan.isrentalapp.users.entities.UserEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
@@ -34,12 +33,12 @@ public class DTOTests {
         //given
         DiskType diskType = new DiskType("SSD");
         OperatingSystem os = new OperatingSystem("Windows 10");
-        RentStatus rentStatus = new RentStatus("accepted");
+        RentStatusEntity rentStatusEntity = new RentStatusEntity("accepted");
         ComputerStatus computerStatus = new ComputerStatus("rented");
         //when
         DiskTypeDTO diskTypeDTO = modelMapper.map(diskType, DiskTypeDTO.class);
         OperatingSystemDTO operatingSystemDTO = modelMapper.map(os, OperatingSystemDTO.class);
-        RentStatusDTO rentStatusDTO = modelMapper.map(rentStatus, RentStatusDTO.class);
+        RentStatusDTO rentStatusDTO = modelMapper.map(rentStatusEntity, RentStatusDTO.class);
         ComputerStatusDTO computerStatusDTO =
                 modelMapper.map(computerStatus, ComputerStatusDTO.class);
         //then
@@ -85,17 +84,17 @@ public class DTOTests {
     public void ComputerRentalDTO_Test(){
         //given
         Computer computer = prepareComputerToTests();
-        RentStatus rentStatus = new RentStatus("accepted");
-        ComputerRental computerRental = new ComputerRental();
-        computerRental.setStartRentalDate(LocalDate.now());
-        computerRental.setEndRentalDate(LocalDate.now());
-        computerRental.setRentingPersonEmail("test@test");
-        computerRental.setRentingPersonName("Name");
-        computerRental.setRentedComputer(computer);
-        computerRental.setRentStatus(rentStatus);
+        RentStatusEntity rentStatusEntity = new RentStatusEntity("accepted");
+        ComputerRentalEntity computerRentalEntity = new ComputerRentalEntity();
+        computerRentalEntity.setStartRentalDate(LocalDate.now());
+        computerRentalEntity.setEndRentalDate(LocalDate.now());
+        computerRentalEntity.setRentingPersonEmail("test@test");
+        computerRentalEntity.setRentingPersonName("Name");
+        computerRentalEntity.setRentedComputer(computer);
+        computerRentalEntity.setRentStatus(rentStatusEntity);
         //when
         ComputerRentalDTO computerRentalDTO = modelMapper
-                .map(computerRental, ComputerRentalDTO.class);
+                .map(computerRentalEntity, ComputerRentalDTO.class);
         //then
         assertEquals(LocalDate.now(),computerRentalDTO.getStartRentalDate());
         assertEquals(LocalDate.now(),computerRentalDTO.getEndRentalDate());
@@ -111,9 +110,9 @@ public class DTOTests {
 
     public void UserDTO_Test(){
         //given
-        User user = new User("username","password","name","surname");
+        UserEntity userEntity = new UserEntity("username","password","name","surname");
         //when
-        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        UserDTO userDTO = modelMapper.map(userEntity, UserDTO.class);
         //then
         assertEquals("username",userDTO.getUsername());
         assertEquals("name",userDTO.getName());

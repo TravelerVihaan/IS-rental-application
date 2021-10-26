@@ -18,7 +18,7 @@ class ComputerStatusEntity extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "computerStatus")
+    @OneToMany(mappedBy = "computerStatusEntity")
     private List<ComputerEntity> computerEntities;
 
     public ComputerStatusEntity(){}

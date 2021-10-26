@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "rent_status")
-public class RentStatus extends BaseEntity {
+public class RentStatusEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,11 @@ public class RentStatus extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String status;
 
-    @OneToMany(mappedBy = "rentStatus")
-    private List<ComputerRental> computerRentals;
+    @OneToMany(mappedBy = "rentStatusEntity")
+    private List<ComputerRentalEntity> computerRentalEntities;
 
-    public RentStatus(){}
-    public RentStatus(String status) {
+    public RentStatusEntity(){}
+    public RentStatusEntity(String status) {
         this.status = status;
     }
 
@@ -34,20 +34,20 @@ public class RentStatus extends BaseEntity {
 
     public void setStatus(String status) { this.status = status; }
 
-    public List<ComputerRental> getComputerRentals() {
-        return computerRentals;
+    public List<ComputerRentalEntity> getComputerRentals() {
+        return computerRentalEntities;
     }
 
-    public void setComputerRentals(List<ComputerRental> computerRentals) {
-        this.computerRentals = computerRentals;
+    public void setComputerRentals(List<ComputerRentalEntity> computerRentalEntities) {
+        this.computerRentalEntities = computerRentalEntities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RentStatus rentStatus = (RentStatus) o;
-        return getUuid().equals(rentStatus.getUuid());
+        RentStatusEntity rentStatusEntity = (RentStatusEntity) o;
+        return getUuid().equals(rentStatusEntity.getUuid());
     }
 
     @Override

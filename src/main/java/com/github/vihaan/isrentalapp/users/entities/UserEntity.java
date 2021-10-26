@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.users.entities;
 
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
 import com.github.vihaan.isrentalapp.util.BaseEntity;
 
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class UserEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +35,13 @@ public class User extends BaseEntity {
                     referencedColumnName = "id_user")},
             inverseJoinColumns = {@JoinColumn(name="role_id",
                     referencedColumnName = "id_role")})
-    private Set<Role> roles;
+    private Set<RoleEntity> roleEntities;
 
     @OneToMany(mappedBy = "whoSetStatus")
-    private List<ComputerRental> computerRentals;
+    private List<ComputerRentalEntity> computerRentals;
 
-    public User(){}
-    public User(String username, String password, String name, String surname) {
+    public UserEntity(){}
+    public UserEntity(String username, String password, String name, String surname) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -68,28 +68,28 @@ public class User extends BaseEntity {
 
     public void setSurname(String surname) { this.surname = surname; }
 
-    public List<ComputerRental> getComputerRentals() {
+    public List<ComputerRentalEntity> getComputerRentals() {
         return computerRentals;
     }
 
-    public void setComputerRentals(List<ComputerRental> computerRentals) {
-        this.computerRentals = computerRentals;
+    public void setComputerRentals(List<ComputerRentalEntity> computerRentalEntities) {
+        this.computerRentals = computerRentalEntities;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Set<RoleEntity> getRoles() {
+        return roleEntities;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Set<RoleEntity> roleEntities) {
+        this.roleEntities = roleEntities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return getUuid().equals(user.getUuid());
+        UserEntity userEntity = (UserEntity) o;
+        return getUuid().equals(userEntity.getUuid());
     }
 
     @Override
@@ -104,7 +104,7 @@ public class User extends BaseEntity {
                 ", username='" + username + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", roles=" + roles +
+                ", roles=" + roleEntities +
                 '}';
     }
 }

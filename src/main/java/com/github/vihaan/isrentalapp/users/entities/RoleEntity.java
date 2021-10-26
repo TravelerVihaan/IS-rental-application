@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
-public class Role extends BaseEntity {
+public class RoleEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,11 @@ public class Role extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+    @ManyToMany(mappedBy = "roleEntities")
+    private List<UserEntity> userEntities;
 
-    public Role(){}
-    public Role(String role) {
+    public RoleEntity(){}
+    public RoleEntity(String role) {
         this.role = role;
     }
 
@@ -42,20 +42,20 @@ public class Role extends BaseEntity {
         this.role = role;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserEntity> getUsers() {
+        return userEntities;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUsers(List<UserEntity> userEntities) {
+        this.userEntities = userEntities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Role role = (Role) o;
-        return getUuid().equals(role.getUuid());
+        RoleEntity roleEntity = (RoleEntity) o;
+        return getUuid().equals(roleEntity.getUuid());
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-interface RentStatusRepository extends JpaRepository<RentStatus, Long> {
+interface RentStatusRepository extends JpaRepository<RentStatusEntity, Long> {
 
-    Optional<RentStatus> findByStatus(String status);
+    Optional<RentStatusEntity> findByStatus(String status);
 }

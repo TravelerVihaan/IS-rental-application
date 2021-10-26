@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.devices.entities;
 
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
 import com.github.vihaan.isrentalapp.util.BaseEntity;
 
 import javax.persistence.*;
@@ -39,8 +39,8 @@ class ComputerEntity extends BaseEntity {
     @JoinColumn(name = "status_id")
     private ComputerStatusEntity computerStatusEntity;
 
-    @OneToMany(mappedBy = "rentedComputer", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<ComputerRental> computerRentals;
+    @OneToMany(mappedBy = "rentedComputerEntity", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private List<ComputerRentalEntity> computerRentalEntities;
 
     public ComputerEntity(){}
     public ComputerEntity(String otnumber, String serialNumber){
@@ -96,12 +96,12 @@ class ComputerEntity extends BaseEntity {
         this.computerModelEntity = computerModelEntity;
     }
 
-    public List<ComputerRental> getComputerRentals() {
-        return computerRentals;
+    public List<ComputerRentalEntity> getComputerRentals() {
+        return computerRentalEntities;
     }
 
-    public void setComputerRentals(List<ComputerRental> computerRentals) {
-        this.computerRentals = computerRentals;
+    public void setComputerRentals(List<ComputerRentalEntity> computerRentalEntities) {
+        this.computerRentalEntities = computerRentalEntities;
     }
 
     public DiskTypeEntity getDiskType() {

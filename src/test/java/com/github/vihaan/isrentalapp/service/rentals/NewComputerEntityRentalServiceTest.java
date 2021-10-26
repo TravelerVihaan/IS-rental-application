@@ -3,9 +3,9 @@ package com.github.vihaan.isrentalapp.service.rentals;
 import com.github.vihaan.isrentalapp.devices.entities.*;
 import onet.grupa.isrentalapplication.devices.entities.*;
 import com.github.vihaan.isrentalapp.rentals.NewComputerRentalService;
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
-import com.github.vihaan.isrentalapp.rentals.entities.RentStatus;
-import com.github.vihaan.isrentalapp.users.entities.User;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
+import com.github.vihaan.isrentalapp.rentals.entities.RentStatusEntity;
+import com.github.vihaan.isrentalapp.users.entities.UserEntity;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalRepository;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import com.github.vihaan.isrentalapp.devices.oldies.ComputerService;
@@ -40,53 +40,53 @@ public class NewComputerEntityRentalServiceTest {
     private ComputerStatusRepository computerStatusRepository;
 
     private NewComputerRentalService newComputerRentalService;
-    private ComputerRental computerRental;
+    private ComputerRentalEntity computerRentalEntity;
 
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         newComputerRentalService = new NewComputerRentalService(computerRentalRepository,computerService,computerStatusRepository);
-        computerRental = initializeRental();
+        computerRentalEntity = initializeRental();
     }
 
     @Test
     public void shouldReturnBadRequestBecauseOfComputerNotExist(){
         Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.empty());
-        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRentalEntity));
     }
 
     @Test
     public void shouldReturnBadRequestBecauseWrongDates(){
         Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.of(initializeComputer()));
 
-        computerRental.setStartRentalDate(LocalDate.now().plusDays(3));
-        computerRental.setEndRentalDate(LocalDate.now().plusDays(2));
-        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+        computerRentalEntity.setStartRentalDate(LocalDate.now().plusDays(3));
+        computerRentalEntity.setEndRentalDate(LocalDate.now().plusDays(2));
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRentalEntity));
 
-        computerRental.setStartRentalDate(LocalDate.now().minusDays(3));
-        computerRental.setEndRentalDate(LocalDate.now().minusDays(2));
-        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
+        computerRentalEntity.setStartRentalDate(LocalDate.now().minusDays(3));
+        computerRentalEntity.setEndRentalDate(LocalDate.now().minusDays(2));
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRentalEntity));
     }
 
     @Test
     public void shouldReturnBadRequestBecauseWrongRentalProperties(){
         Mockito.when(computerService.getComputerByOT(any(String.class))).thenReturn(Optional.of(initializeComputer()));
 
-        computerRental.setEndRentalDate(null);
-        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
-        computerRental = initializeRental();
+        computerRentalEntity.setEndRentalDate(null);
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRentalEntity));
+        computerRentalEntity = initializeRental();
 
-        computerRental.setStartRentalDate(null);
-        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
-        computerRental = initializeRental();
+        computerRentalEntity.setStartRentalDate(null);
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRentalEntity));
+        computerRentalEntity = initializeRental();
 
-        computerRental.setRentedComputer(null);
-        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
-        computerRental = initializeRental();
+        computerRentalEntity.setRentedComputer(null);
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRentalEntity));
+        computerRentalEntity = initializeRental();
 
-        computerRental.setRentingPersonEmail("wrongemail");
-        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRental));
-        computerRental = initializeRental();
+        computerRentalEntity.setRentingPersonEmail("wrongemail");
+        assertEquals(HttpStatusEnum.BADREQUEST,newComputerRentalService.addNewComputerRental(computerRentalEntity));
+        computerRentalEntity = initializeRental();
     }
 
     @Test
@@ -95,9 +95,9 @@ public class NewComputerEntityRentalServiceTest {
         Mockito.when(computerRentalRepository
                 .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(any(String.class),any(LocalDate.class),any(String.class)))
                 .thenReturn(initializeRentalsList());
-        computerRental.setStartRentalDate(LocalDate.now().plusDays(1));
-        computerRental.setEndRentalDate(LocalDate.now().plusDays(4));
-        assertEquals(HttpStatusEnum.CONFLICT,newComputerRentalService.addNewComputerRental(computerRental));
+        computerRentalEntity.setStartRentalDate(LocalDate.now().plusDays(1));
+        computerRentalEntity.setEndRentalDate(LocalDate.now().plusDays(4));
+        assertEquals(HttpStatusEnum.CONFLICT,newComputerRentalService.addNewComputerRental(computerRentalEntity));
     }
 
     @Test
@@ -106,22 +106,22 @@ public class NewComputerEntityRentalServiceTest {
         Mockito.when(computerRentalRepository
                 .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(any(String.class),any(LocalDate.class),any(String.class)))
                 .thenReturn(new ArrayList<>());
-        computerRental.setStartRentalDate(LocalDate.now().plusDays(1));
-        computerRental.setEndRentalDate(LocalDate.now().plusDays(4));
+        computerRentalEntity.setStartRentalDate(LocalDate.now().plusDays(1));
+        computerRentalEntity.setEndRentalDate(LocalDate.now().plusDays(4));
 
-        assertEquals(HttpStatusEnum.CREATED,newComputerRentalService.addNewComputerRental(computerRental));
+        assertEquals(HttpStatusEnum.CREATED,newComputerRentalService.addNewComputerRental(computerRentalEntity));
     }
 
-    private ComputerRental initializeRental(){
-        ComputerRental rental = new ComputerRental();
+    private ComputerRentalEntity initializeRental(){
+        ComputerRentalEntity rental = new ComputerRentalEntity();
         rental.setRentedComputer(initializeComputer());
         rental.setRentingPersonEmail("test@test");
         rental.setRentingPersonName("test");
-        rental.setRentStatus(new RentStatus("available"));
+        rental.setRentStatus(new RentStatusEntity("available"));
         rental.setStartRentalDate(LocalDate.now().minusDays(1));
         rental.setStartRentalDate(LocalDate.now().plusDays(1));
-        User user = new User("username","password","name","surname");
-        rental.setWhoSetStatus(user);
+        UserEntity userEntity = new UserEntity("username","password","name","surname");
+        rental.setWhoSetStatus(userEntity);
         return rental;
     }
 
@@ -141,11 +141,11 @@ public class NewComputerEntityRentalServiceTest {
         return computerEntity;
     }
 
-    private List<ComputerRental> initializeRentalsList(){
-        ComputerRental rental = initializeRental();
+    private List<ComputerRentalEntity> initializeRentalsList(){
+        ComputerRentalEntity rental = initializeRental();
         rental.setStartRentalDate(LocalDate.now().minusDays(3));
         rental.setEndRentalDate(LocalDate.now().minusDays(1));
-        ComputerRental rental2 = initializeRental();
+        ComputerRentalEntity rental2 = initializeRental();
         rental.setStartRentalDate(LocalDate.now().plusDays(3));
         rental.setEndRentalDate(LocalDate.now().plusDays(5));
         return List.of(rental,rental2);

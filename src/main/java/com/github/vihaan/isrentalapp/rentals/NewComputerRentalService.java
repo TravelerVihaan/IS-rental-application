@@ -4,7 +4,7 @@ import com.github.vihaan.isrentalapp.devices.oldies.ComputerService;
 import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
 import com.github.vihaan.isrentalapp.devices.entities.ComputerStatusRepository;
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalRepository;
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,26 +36,26 @@ public class NewComputerRentalService {
         this.computerStatusRepository = computerStatusRepository;
     }
 
-    HttpStatusEnum addNewComputerRental(ComputerRental computerRental){
+    HttpStatusEnum addNewComputerRental(ComputerRentalEntity computerRentalEntity){
         try{
-            computerRental.
-                    setRentedComputer(getCorrectComputer(computerRental));
+            computerRentalEntity.
+                    setRentedComputer(getCorrectComputer(computerRentalEntity));
         }catch(NullPointerException e){
             System.err.println("This computer does not exist");
             return HttpStatusEnum.BADREQUEST;
         }
-        if(!isComputerRentalCorrect(computerRental))
+        if(!isComputerRentalCorrect(computerRentalEntity))
             return HttpStatusEnum.BADREQUEST;
-        if(!isComputerRentAvailable(computerRental))
+        if(!isComputerRentAvailable(computerRentalEntity))
             return HttpStatusEnum.CONFLICT;
-        computerRental.setRentedComputer(changeComputerRentStatus(getCorrectComputer(computerRental)));
-        computerRentalRepository.save(computerRental);
+        computerRentalEntity.setRentedComputer(changeComputerRentStatus(getCorrectComputer(computerRentalEntity)));
+        computerRentalRepository.save(computerRentalEntity);
         return HttpStatusEnum.CREATED;
     }
 
-    private boolean isComputerRentalCorrect(ComputerRental cr){
+    private boolean isComputerRentalCorrect(ComputerRentalEntity cr){
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        Set<ConstraintViolation<ComputerRental>> validationErrors = validator.validate(cr);
+        Set<ConstraintViolation<ComputerRentalEntity>> validationErrors = validator.validate(cr);
         if(!validationErrors.isEmpty())
             return false;
         if(cr.getStartRentalDate().isAfter(cr.getEndRentalDate()))
@@ -63,12 +63,12 @@ public class NewComputerRentalService {
         return !cr.getStartRentalDate().isBefore(LocalDate.now());
     }
 
-    private boolean isComputerRentAvailable(ComputerRental crent){
-        Set<ComputerRental> rentals = getRentalsOfComputer(crent.getRentedComputer().getOtnumber(),
+    private boolean isComputerRentAvailable(ComputerRentalEntity crent){
+        Set<ComputerRentalEntity> rentals = getRentalsOfComputer(crent.getRentedComputer().getOtnumber(),
                 crent.getStartRentalDate());
         Stream<LocalDate> dates = crent.getStartRentalDate().datesUntil(crent.getEndRentalDate().plusDays(1));
         List<LocalDate> rentRange = dates.collect(Collectors.toList());
-        for(ComputerRental cr: rentals) {
+        for(ComputerRentalEntity cr: rentals) {
             if (rentRange.stream()
                     .anyMatch(date -> date.isAfter(cr.getStartRentalDate()) && date.isBefore(cr.getEndRentalDate())))
                 return false;
@@ -76,7 +76,7 @@ public class NewComputerRentalService {
         return true;
     }
 
-    private Set<ComputerRental> getRentalsOfComputer(String OT, LocalDate date){
+    private Set<ComputerRentalEntity> getRentalsOfComputer(String OT, LocalDate date){
         return new HashSet<>(computerRentalRepository
                 .findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(OT,date,"accepted"));
     }
@@ -87,7 +87,7 @@ public class NewComputerRentalService {
         return computerEntity;
     }
 
-    private ComputerEntity getCorrectComputer(ComputerRental cr) throws NullPointerException{
+    private ComputerEntity getCorrectComputer(ComputerRentalEntity cr) throws NullPointerException{
         return computerService.getComputerByOT(cr.getRentedComputer().getOtnumber())
                         .orElseThrow();
     }

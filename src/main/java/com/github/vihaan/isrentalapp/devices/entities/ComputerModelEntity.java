@@ -17,15 +17,11 @@ class ComputerModelEntity extends BaseEntity {
     @Column(name = "model_name", nullable = false, unique = true)
     private String modelName;
 
-    //@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "producer_id")
     private ComputerProducerEntity computerProducerEntity;
 
     public ComputerModelEntity(){}
-    public ComputerModelEntity(String modelName) {
-        this.modelName = modelName;
-    }
     public ComputerModelEntity(String modelName, ComputerProducerEntity computerProducerEntity) {
         this.modelName = modelName;
         this.computerProducerEntity = computerProducerEntity;

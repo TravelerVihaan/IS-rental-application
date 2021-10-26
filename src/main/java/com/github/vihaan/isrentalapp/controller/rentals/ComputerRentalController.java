@@ -1,7 +1,7 @@
 package com.github.vihaan.isrentalapp.controller.rentals;
 
 import com.github.vihaan.isrentalapp.rentals.dto.ComputerRentalDTO;
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import com.github.vihaan.isrentalapp.rentals.ComputerRentalService;
 import org.modelmapper.ModelMapper;
@@ -55,7 +55,7 @@ public class ComputerRentalController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addNewComputerRental(@RequestBody ComputerRentalDTO computerRentalDTO){
         HttpStatusEnum status = computerRentalService
-                .addNewComputerRental(modelMapper.map(computerRentalDTO, ComputerRental.class));
+                .addNewComputerRental(modelMapper.map(computerRentalDTO, ComputerRentalEntity.class));
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
 

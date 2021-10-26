@@ -1,7 +1,7 @@
 package com.github.vihaan.isrentalapp.rentals.entities;
 
 import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
-import com.github.vihaan.isrentalapp.users.entities.User;
+import com.github.vihaan.isrentalapp.users.entities.UserEntity;
 import com.github.vihaan.isrentalapp.util.BaseEntity;
 
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "computer_rentals")
-public class ComputerRental extends BaseEntity {
+public class ComputerRentalEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,20 +35,20 @@ public class ComputerRental extends BaseEntity {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "rent_status_id")
-    private RentStatus rentStatus;
+    private RentStatusEntity rentStatusEntity;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "who_set_status")
-    private User whoSetStatus;
+    private UserEntity whoSetStatus;
 
-    public ComputerRental(){}
-    public ComputerRental(LocalDate startRentalDate, LocalDate endRentalDate, String rentingPersonEmail, String rentingPersonName, ComputerEntity rentedComputerEntity, RentStatus rentStatus) {
+    public ComputerRentalEntity(){}
+    public ComputerRentalEntity(LocalDate startRentalDate, LocalDate endRentalDate, String rentingPersonEmail, String rentingPersonName, ComputerEntity rentedComputerEntity, RentStatusEntity rentStatusEntity) {
         this.startRentalDate = startRentalDate;
         this.endRentalDate = endRentalDate;
         this.rentingPersonEmail = rentingPersonEmail;
         this.rentingPersonName = rentingPersonName;
         this.rentedComputerEntity = rentedComputerEntity;
-        this.rentStatus = rentStatus;
+        this.rentStatusEntity = rentStatusEntity;
     }
 
     public Long getId() { return id; }
@@ -95,19 +95,19 @@ public class ComputerRental extends BaseEntity {
         this.rentedComputerEntity = rentedComputerEntity;
     }
 
-    public RentStatus getRentStatus() {
-        return rentStatus;
+    public RentStatusEntity getRentStatus() {
+        return rentStatusEntity;
     }
 
-    public void setRentStatus(RentStatus rentStatus) {
-        this.rentStatus = rentStatus;
+    public void setRentStatus(RentStatusEntity rentStatusEntity) {
+        this.rentStatusEntity = rentStatusEntity;
     }
 
-    public User getWhoSetStatus() {
+    public UserEntity getWhoSetStatus() {
         return whoSetStatus;
     }
 
-    public void setWhoSetStatus(User whoSetStatus) {
+    public void setWhoSetStatus(UserEntity whoSetStatus) {
         this.whoSetStatus = whoSetStatus;
     }
 
@@ -115,8 +115,8 @@ public class ComputerRental extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ComputerRental computerRental = (ComputerRental) o;
-        return getUuid().equals(computerRental.getUuid());
+        ComputerRentalEntity computerRentalEntity = (ComputerRentalEntity) o;
+        return getUuid().equals(computerRentalEntity.getUuid());
     }
 
     @Override
@@ -133,7 +133,7 @@ public class ComputerRental extends BaseEntity {
                 ", rentingPersonemail='" + rentingPersonEmail + '\'' +
                 ", rentingPersonName='" + rentingPersonName + '\'' +
                 ", rentedComputer=" + rentedComputerEntity +
-                ", rentStatus=" + rentStatus +
+                ", rentStatus=" + rentStatusEntity +
                 ", whoSetStatus=" + whoSetStatus +
                 '}';
     }

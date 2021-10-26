@@ -18,7 +18,7 @@ class OperatingSystemEntity extends BaseEntity {
     @Column(name = "operating_system", nullable = false, unique = true)
     private String operatingSystem;
 
-    @OneToMany(mappedBy = "operatingSystem")
+    @OneToMany(mappedBy = "operatingSystemEntity")
     private List<ComputerEntity> computerEntities;
 
     public OperatingSystemEntity(){}
