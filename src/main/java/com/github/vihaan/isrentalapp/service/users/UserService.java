@@ -1,7 +1,7 @@
 package com.github.vihaan.isrentalapp.service.users;
 
+import com.github.vihaan.isrentalapp.users.entities.UserEntity;
 import com.github.vihaan.isrentalapp.users.entities.UserRepository;
-import com.github.vihaan.isrentalapp.users.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +18,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers(){
+    public List<UserEntity> getAllUsers(){
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Long id){
+    public Optional<UserEntity> getUserById(Long id){
         return userRepository.findById(id);
     }
 
-    Optional<User> getUserByUsername(String username){
+    Optional<UserEntity> getUserByUsername(String username){
         return userRepository.findByUsername(username);
     }
 }

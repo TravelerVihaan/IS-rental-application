@@ -1,7 +1,7 @@
 package com.github.vihaan.isrentalapp.service.mails;
 
 import com.github.vihaan.isrentalapp.rentals.ComputerRentalService;
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -73,7 +73,7 @@ public class ReminderMailService {
      * This method filter terminated rentals.
      * @param rentalsList list of rentals
      */
-    private void addCurrentMailsToList(List<ComputerRental> rentalsList){
+    private void addCurrentMailsToList(List<ComputerRentalEntity> rentalsList){
         rentalsList
                 .stream()
                 .filter(rental -> rental.getEndRentalDate()

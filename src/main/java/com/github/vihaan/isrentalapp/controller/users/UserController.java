@@ -1,7 +1,7 @@
 package com.github.vihaan.isrentalapp.controller.users;
 
 import com.github.vihaan.isrentalapp.users.dto.UserDTO;
-import com.github.vihaan.isrentalapp.users.entities.User;
+import com.github.vihaan.isrentalapp.users.entities.UserEntity;
 import com.github.vihaan.isrentalapp.service.users.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id){
-        Optional<User> user = userService.getUserById(id);
+        Optional<UserEntity> user = userService.getUserById(id);
         if(user.isEmpty())
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));

@@ -1,8 +1,8 @@
 package com.github.vihaan.isrentalapp.controller.computers;
 
-import com.github.vihaan.isrentalapp.devices.ComputerService;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerService;
 import com.github.vihaan.isrentalapp.devices.dto.ComputerDTO;
-import com.github.vihaan.isrentalapp.devices.entities.Computer;
+import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class ComputerController {
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ComputerDTO> getComputer(@PathVariable long id){
-        Optional<Computer> computer = computerService.getComputer(id);
+        Optional<ComputerEntity> computer = computerService.getComputer(id);
         if(computer.isEmpty())
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(modelMapper.map(computer, ComputerDTO.class));
@@ -60,8 +60,8 @@ public class ComputerController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addComputer(@RequestBody ComputerDTO computerDTO){
-        Computer computer = modelMapper.map(computerDTO, Computer.class);
-        HttpStatusEnum status = computerService.addNewComputer(computer);
+        ComputerEntity computerEntity = modelMapper.map(computerDTO, ComputerEntity.class);
+        HttpStatusEnum status = computerService.addNewComputer(computerEntity);
         return HttpStatusEnum.isHttpStatusEquals(status);
     }
 

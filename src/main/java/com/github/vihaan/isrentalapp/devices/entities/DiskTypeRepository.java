@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface DiskTypeRepository extends JpaRepository<DiskType, Long> {
+interface DiskTypeRepository extends JpaRepository<DiskTypeEntity, Long> {
 
-    DiskType findByDiskType(String diskType);
+    DiskTypeEntity findByDiskType(String diskType);
 }

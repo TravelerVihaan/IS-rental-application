@@ -1,7 +1,7 @@
 package com.github.vihaan.isrentalapp.rentals;
 
 import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalRepository;
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRental;
+import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import com.github.vihaan.isrentalapp.service.ISearching;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class ComputerRentalService {
 
     private ComputerRentalRepository computerRentalRepository;
     private NewComputerRentalService newComputerRentalService;
-    private ISearching<ComputerRental> computerRentalSearchingService;
+    private ISearching<ComputerRentalEntity> computerRentalSearchingService;
     private ComputerRentalStatusModifyService computerRentalStatusModifyService;
 
     @Autowired
@@ -28,7 +28,7 @@ public class ComputerRentalService {
         this.computerRentalStatusModifyService = computerRentalStatusModifyService;
     }
 
-    public List<ComputerRental> getComputerRentals(String searchPattern, String orderBy){
+    public List<ComputerRentalEntity> getComputerRentals(String searchPattern, String orderBy){
         if(searchPattern != null && !searchPattern.isEmpty())
             return getAllComputerRentals();
         else
@@ -36,11 +36,11 @@ public class ComputerRentalService {
 
     }
 
-    public HttpStatusEnum addNewComputerRental(ComputerRental computerRental){
-        return newComputerRentalService.addNewComputerRental(computerRental);
+    public HttpStatusEnum addNewComputerRental(ComputerRentalEntity computerRentalEntity){
+        return newComputerRentalService.addNewComputerRental(computerRentalEntity);
     }
 
-    public List<ComputerRental> getAllComputerRentalsWithStatus (String status){
+    public List<ComputerRentalEntity> getAllComputerRentalsWithStatus (String status){
         return computerRentalRepository.findAllByRentStatus_Status(status);
     }
 
@@ -49,11 +49,11 @@ public class ComputerRentalService {
         return HttpStatusEnum.OK;
     }
 
-    private List<ComputerRental> getSpecificComputerRentals(String searchPattern, String orderBy){
+    private List<ComputerRentalEntity> getSpecificComputerRentals(String searchPattern, String orderBy){
         return computerRentalSearchingService.getWithSearchingAndOrder(searchPattern,orderBy);
     }
 
-    private List<ComputerRental> getAllComputerRentals(){
+    private List<ComputerRentalEntity> getAllComputerRentals(){
         return computerRentalRepository.findAll();
     }
 }

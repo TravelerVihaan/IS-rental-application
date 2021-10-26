@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.controller.rentals;
 
-import com.github.vihaan.isrentalapp.rentals.entities.RentStatus;
+import com.github.vihaan.isrentalapp.rentals.entities.RentStatusEntity;
 import com.github.vihaan.isrentalapp.rentals.RentStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,12 +21,12 @@ public class RentStatusController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RentStatus>> getAllStatuses(){
+    public ResponseEntity<List<RentStatusEntity>> getAllStatuses(){
         return ResponseEntity.ok(rentStatusService.getAllStatuses());
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RentStatus> getStatus(@PathVariable long id){
+    public ResponseEntity<RentStatusEntity> getStatus(@PathVariable long id){
         return ResponseEntity.of(rentStatusService.getStatus(id));
     }
 

@@ -1,7 +1,8 @@
 package com.github.vihaan.isrentalapp.devices;
 
 import com.github.vihaan.isrentalapp.devices.entities.ComputerRepository;
-import com.github.vihaan.isrentalapp.devices.entities.Computer;
+import com.github.vihaan.isrentalapp.devices.entities.ComputerEntity;
+import com.github.vihaan.isrentalapp.devices.oldies.ComputerOrderingService;
 import com.github.vihaan.isrentalapp.service.IOrdering;
 import com.github.vihaan.isrentalapp.service.ISearching;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,10 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class ComputerSearchingService implements ISearching<Computer> {
+public class ComputerSearchingService implements ISearching<ComputerEntity> {
 
-    private ComputerRepository computerRepository;
-    private IOrdering<Computer> computerOrderingService;
+    private final ComputerRepository computerRepository;
+    private final IOrdering<ComputerEntity> computerOrderingService;
 
     @Autowired
     public ComputerSearchingService(ComputerRepository computerRepository,
@@ -33,25 +34,25 @@ public class ComputerSearchingService implements ISearching<Computer> {
      * @return List with Computers found in DB
      */
     @Override
-    public List<Computer> getWithSearchingAndOrder(String searchPhrase, String orderBy) {
-        Set<Computer> foundComputers = getComputersWithSearching(searchPhrase);
-        return computerOrderingService.sortOrderingBy(foundComputers,orderBy);
+    public List<ComputerEntity> getWithSearchingAndOrder(String searchPhrase, String orderBy) {
+        Set<ComputerEntity> foundComputerEntities = getComputersWithSearching(searchPhrase);
+        return computerOrderingService.sortOrderingBy(foundComputerEntities,orderBy);
     }
 
-    private Set<Computer> getComputersWithSearching(String searchPhrase){
-        Set<Computer> foundComputers = new HashSet<>();
-        foundComputers.addAll(computerRepository.findAllByOtnumberContaining(searchPhrase));
-        foundComputers.addAll(computerRepository.findAllBySerialNumberContaining(searchPhrase));
-        foundComputers.addAll(getComputersByModel(searchPhrase));
-        foundComputers.addAll(getComputersByProducer(searchPhrase));
-        return foundComputers;
+    private Set<ComputerEntity> getComputersWithSearching(String searchPhrase){
+        Set<ComputerEntity> foundComputerEntities = new HashSet<>();
+        foundComputerEntities.addAll(computerRepository.findAllByOtnumberContaining(searchPhrase));
+        foundComputerEntities.addAll(computerRepository.findAllBySerialNumberContaining(searchPhrase));
+        foundComputerEntities.addAll(getComputersByModel(searchPhrase));
+        foundComputerEntities.addAll(getComputersByProducer(searchPhrase));
+        return foundComputerEntities;
     }
 
-    private List<Computer> getComputersByModel(String searchPhrase){
+    private List<ComputerEntity> getComputersByModel(String searchPhrase){
         return computerRepository.findAllByComputerModel_ModelContaining(searchPhrase);
     }
 
-    private List<Computer> getComputersByProducer(String searchPhrase){
+    private List<ComputerEntity> getComputersByProducer(String searchPhrase){
         return computerRepository
                 .findAllByComputerModel_ComputerProducer_ProducerNameContaining(searchPhrase);
     }

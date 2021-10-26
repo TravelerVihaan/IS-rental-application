@@ -7,18 +7,18 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface ComputerRentalRepository extends JpaRepository<ComputerRental, Long> {
+interface ComputerRentalRepository extends JpaRepository<ComputerRentalEntity, Long> {
 
-    List<ComputerRental> findAllByRentingPersonEmailContaining(String pattern);
+    List<ComputerRentalEntity> findAllByRentingPersonEmailContaining(String pattern);
 
-    List<ComputerRental> findAllByRentingPersonNameContaining(String pattern);
+    List<ComputerRentalEntity> findAllByRentingPersonNameContaining(String pattern);
 
-    List<ComputerRental> findAllByRentedComputer_ComputerModel_ModelContaining(String pattern);
+    List<ComputerRentalEntity> findAllByRentedComputer_ComputerModel_ModelContaining(String pattern);
 
-    List<ComputerRental> findAllByRentedComputer_ComputerModel_ComputerProducer_ProducerNameContaining(String pattern);
+    List<ComputerRentalEntity> findAllByRentedComputer_ComputerModel_ComputerProducer_ProducerNameContaining(String pattern);
 
-    List<ComputerRental> findAllByRentStatus_Status(String status);
+    List<ComputerRentalEntity> findAllByRentStatus_Status(String status);
 
-    List<ComputerRental> findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(String otNumber, LocalDate date, String status);
+    List<ComputerRentalEntity> findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(String otNumber, LocalDate date, String status);
 
 }

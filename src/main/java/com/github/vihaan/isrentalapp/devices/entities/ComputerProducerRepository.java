@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-interface ComputerProducerRepository extends JpaRepository<ComputerProducer, Long> {
+interface ComputerProducerRepository extends JpaRepository<ComputerProducerEntity, Long> {
 
-    Optional<ComputerProducer> findByProducerName(String producerName);
+    Optional<ComputerProducerEntity> findByProducerName(String producerName);
 }
