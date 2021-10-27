@@ -29,7 +29,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class ComputerEntityRentalStatusModifyServiceTest {
+public class ComputerEntityComputerRentalStatusModifyServiceTest {
 
     @Mock
     private ComputerRentalRepository computerRentalRepository;
