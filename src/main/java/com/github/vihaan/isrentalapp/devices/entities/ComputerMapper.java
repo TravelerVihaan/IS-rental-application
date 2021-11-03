@@ -10,12 +10,15 @@ public class ComputerMapper implements DomainObjectMapper<ComputerEntity, Comput
 
     private final OperatingSystemMapper operatingSystemMapper;
     private final DiskTypeMapper diskTypeMapper;
+    private final ComputerModelMapper computerModelMapper;
 
     @Autowired
     public ComputerMapper(OperatingSystemMapper operatingSystemMapper,
-                          DiskTypeMapper diskTypeMapper) {
+                          DiskTypeMapper diskTypeMapper,
+                          ComputerModelMapper computerModelMapper) {
         this.operatingSystemMapper = operatingSystemMapper;
         this.diskTypeMapper = diskTypeMapper;
+        this.computerModelMapper = computerModelMapper;
     }
 
     @Override
@@ -29,7 +32,8 @@ public class ComputerMapper implements DomainObjectMapper<ComputerEntity, Comput
                 computerEntity.getSerialNumber(),
                 operatingSystemMapper.convertToDomainObject(computerEntity.getOperatingSystem()),
                 diskTypeMapper.convertToDomainObject(computerEntity.getDiskType()),
-
+                computerModelMapper.convertToDomainObject(computerEntity.getComputerModel()),
+                computerEntity.getComputerRentals()
                 )
 
     }

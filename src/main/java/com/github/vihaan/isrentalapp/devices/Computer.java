@@ -17,12 +17,8 @@ public class Computer {
     private OperatingSystem operatingSystem;
     @NotNull
     private DiskType diskType;
-
     @NotNull
     private final ComputerModel computerModel;
-    @NotNull
-    private final ComputerProducer computerProducer;
-
     @NotNull
     private final List<ComputerRental> computerRentals;
 
@@ -31,14 +27,12 @@ public class Computer {
                     OperatingSystem operatingSystem,
                     DiskType diskType,
                     ComputerModel computerModel,
-                    ComputerProducer computerProducer,
                     List<ComputerRental> computerRentals) {
         this.otNumber = otNumber;
         this.serialNumber = serialNumber;
         this.operatingSystem = operatingSystem;
         this.diskType = diskType;
         this.computerModel = computerModel;
-        this.computerProducer = computerProducer;
         this.computerRentals = computerRentals;
     }
 
@@ -70,9 +64,6 @@ public class Computer {
         return computerModel;
     }
 
-    public ComputerProducer getComputerProducer() {
-        return computerProducer;
-    }
 
     public List<ComputerRental> getComputerRentals() {
         return computerRentals;
@@ -99,7 +90,6 @@ public class Computer {
                 ", operatingSystem=" + operatingSystem +
                 ", diskType=" + diskType +
                 ", computerModel=" + computerModel +
-                ", computerProducer=" + computerProducer +
                 '}';
     }
 }
