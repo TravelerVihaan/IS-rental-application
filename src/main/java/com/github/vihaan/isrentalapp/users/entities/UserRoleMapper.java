@@ -1,18 +1,17 @@
 package com.github.vihaan.isrentalapp.users.entities;
 
-import com.github.vihaan.isrentalapp.users.UserRole;
 import com.github.vihaan.isrentalapp.util.DomainObjectMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserRoleMapper implements DomainObjectMapper<UserRoleEntity, UserRole> {
+public class UserRoleMapper implements DomainObjectMapper<UserRoleEntity, com.github.vihaan.isrentalapp.users.UserRole> {
     @Override
-    public UserRoleEntity convertToEntity(UserRole userRole) {
+    public UserRoleEntity convertToEntity(com.github.vihaan.isrentalapp.users.UserRole userRole) {
         return new UserRoleEntity(userRole.getUserRole());
     }
 
     @Override
-    public UserRole convertToDomainObject(UserRoleEntity userRoleEntity) {
-        return UserRole.createFromString(userRoleEntity.getRole());
+    public com.github.vihaan.isrentalapp.users.UserRole convertToDomainObject(UserRoleEntity userRole) {
+        return com.github.vihaan.isrentalapp.users.UserRole.createFromString(userRole.getRole());
     }
 }

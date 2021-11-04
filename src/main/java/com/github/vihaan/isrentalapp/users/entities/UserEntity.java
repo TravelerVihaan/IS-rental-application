@@ -38,7 +38,7 @@ public class UserEntity extends BaseEntity {
     private Set<UserRoleEntity> roleEntities;
 
     @OneToMany(mappedBy = "whoSetStatus")
-    private List<ComputerRentalEntity> computerRentals;
+    private List<ComputerRentalEntity> computerRentalEntities;
 
     public UserEntity(){}
     public UserEntity(String username, String password, String name, String surname) {
@@ -69,11 +69,11 @@ public class UserEntity extends BaseEntity {
     public void setSurname(String surname) { this.surname = surname; }
 
     public List<ComputerRentalEntity> getComputerRentals() {
-        return computerRentals;
+        return computerRentalEntities;
     }
 
-    public void setComputerRentals(List<ComputerRentalEntity> computerRentalEntities) {
-        this.computerRentals = computerRentalEntities;
+    public void setComputerRentals(List<ComputerRentalEntity> computerRentalEntityEntities) {
+        this.computerRentalEntities = computerRentalEntityEntities;
     }
 
     public Set<UserRoleEntity> getRoles() {

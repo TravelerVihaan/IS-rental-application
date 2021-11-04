@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "computer_status")
+@Table(name = "computer_statuses")
 class ComputerStatusEntity extends BaseEntity {
 
     @Id

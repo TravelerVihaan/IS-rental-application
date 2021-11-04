@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "disk_type")
+@Table(name = "disk_types")
 class DiskTypeEntity extends BaseEntity {
 
     @Id

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "producers_computer")
+@Table(name = "computer_procuders")
 class ComputerProducerEntity extends BaseEntity {
 
     @Id

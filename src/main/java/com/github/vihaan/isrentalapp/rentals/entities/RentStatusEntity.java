@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "rent_status")
+@Table(name = "rent_statuses")
 public class RentStatusEntity extends BaseEntity {
 
     @Id
@@ -19,7 +19,7 @@ public class RentStatusEntity extends BaseEntity {
     private String status;
 
     @OneToMany(mappedBy = "rentStatusEntity")
-    private List<ComputerRentalEntity> computerRentalEntities;
+    private List<ComputerRentalEntity> computerRentalEntityEntities;
 
     public RentStatusEntity(){}
     public RentStatusEntity(String status) {
@@ -35,11 +35,11 @@ public class RentStatusEntity extends BaseEntity {
     public void setStatus(String status) { this.status = status; }
 
     public List<ComputerRentalEntity> getComputerRentals() {
-        return computerRentalEntities;
+        return computerRentalEntityEntities;
     }
 
-    public void setComputerRentals(List<ComputerRentalEntity> computerRentalEntities) {
-        this.computerRentalEntities = computerRentalEntities;
+    public void setComputerRentals(List<ComputerRentalEntity> computerRentalEntityEntities) {
+        this.computerRentalEntityEntities = computerRentalEntityEntities;
     }
 
     @Override

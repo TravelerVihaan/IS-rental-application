@@ -37,8 +37,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private Set<GrantedAuthority> convertAuthorities(Set<UserRoleEntity> userRoleEntities) {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        for(UserRoleEntity userRoleEntity : userRoleEntities){
-            authorities.add(new SimpleGrantedAuthority(userRoleEntity.getRole()));
+        for(UserRoleEntity userRole : userRoleEntities){
+            authorities.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
         return authorities;
     }
