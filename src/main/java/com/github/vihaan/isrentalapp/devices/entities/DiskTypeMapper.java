@@ -13,6 +13,6 @@ public class DiskTypeMapper implements DomainObjectMapper<DiskTypeEntity, DiskTy
 
     @Override
     public DiskType convertToDomainObject(DiskTypeEntity diskTypeEntity) {
-        return null;
+        return DiskType.createFromString(diskTypeEntity.getDiskType());
     }
 }
