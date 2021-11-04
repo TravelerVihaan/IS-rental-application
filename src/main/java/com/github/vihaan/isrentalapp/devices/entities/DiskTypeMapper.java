@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class DiskTypeMapper implements DomainObjectMapper<DiskTypeEntity, DiskType> {
     @Override
     public DiskTypeEntity convertToEntity(DiskType diskType) {
-        return null;
+        return new DiskTypeEntity(diskType.getDiskType());
     }
 
     @Override

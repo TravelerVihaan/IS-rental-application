@@ -1,14 +1,10 @@
 package com.github.vihaan.isrentalapp.users.entities;
 
-import com.github.vihaan.isrentalapp.rentals.ComputerRental;
-import com.github.vihaan.isrentalapp.rentals.entities.ComputerRentalEntity;
 import com.github.vihaan.isrentalapp.users.UserRole;
 import com.github.vihaan.isrentalapp.util.DomainObjectMapper;
 import org.springframework.stereotype.Service;
 
-import javax.mail.search.SearchTerm;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 

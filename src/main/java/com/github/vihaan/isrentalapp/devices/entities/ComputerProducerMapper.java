@@ -19,7 +19,9 @@ public class ComputerProducerMapper implements DomainObjectMapper<ComputerProduc
 
     @Override
     public ComputerProducerEntity convertToEntity(ComputerProducer computerProducer) {
-        return null;
+        ComputerProducerEntity computerProducerEntity = new ComputerProducerEntity(computerProducer.getProducerName());
+        computerProducerEntity.setComputerModels(computerModelMapper.convertCollectionToEntities(computerProducer.getComputerModels()));
+        return computerProducerEntity;
     }
 
     @Override

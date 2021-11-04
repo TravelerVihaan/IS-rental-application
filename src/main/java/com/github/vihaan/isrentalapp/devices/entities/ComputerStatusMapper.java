@@ -9,7 +9,7 @@ public class ComputerStatusMapper implements DomainObjectMapper<ComputerStatusEn
 
     @Override
     public ComputerStatusEntity convertToEntity(ComputerStatus computerStatus) {
-        return null;
+        return new ComputerStatusEntity(computerStatus.getComputerStatus());
     }
 
     @Override
