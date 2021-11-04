@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 public class DevicesRepositoryFacade {
 
     private final ComputerRepository computerRepository;
-    private final ComputerDomainObjectEntityConverter computerDomainObjectEntityConverter;
+    private final ComputerMapper computerMapper;
 
     @Autowired
     public DevicesRepositoryFacade(ComputerRepository computerRepository,
-                                   ComputerDomainObjectEntityConverter computerDomainObjectEntityConverter) {
+                                   ComputerMapper computerMapper) {
         this.computerRepository = computerRepository;
-        this.computerDomainObjectEntityConverter = computerDomainObjectEntityConverter;
+        this.computerMapper = computerMapper;
     }
 
     public ComputerRepository getComputerRepository() {
@@ -22,7 +22,7 @@ public class DevicesRepositoryFacade {
     }
 
     public void saveComputerToRepository(Computer computer){
-        ComputerEntity computerEntity = computerDomainObjectEntityConverter.convertToEntity(computer);
+        ComputerEntity computerEntity = computerMapper.convertToEntity(computer);
         computerRepository.save(computerEntity);
     }
 }
