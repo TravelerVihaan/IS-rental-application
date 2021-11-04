@@ -15,21 +15,29 @@ public class ComputerMapper implements DomainObjectMapper<ComputerEntity, Comput
     private final DiskTypeMapper diskTypeMapper;
     private final ComputerModelMapper computerModelMapper;
     private final ComputerRentalMapper computerRentalMapper;
+    private final ComputerStatusMapper computerStatusMapper;
 
     @Autowired
     public ComputerMapper(OperatingSystemMapper operatingSystemMapper,
                           DiskTypeMapper diskTypeMapper,
                           ComputerModelMapper computerModelMapper,
-                          ComputerRentalMapper computerRentalMapper) {
+                          ComputerRentalMapper computerRentalMapper,
+                          ComputerStatusMapper computerStatusMapper) {
         this.operatingSystemMapper = operatingSystemMapper;
         this.diskTypeMapper = diskTypeMapper;
         this.computerModelMapper = computerModelMapper;
         this.computerRentalMapper = computerRentalMapper;
+        this.computerStatusMapper = computerStatusMapper;
     }
 
     @Override
-    public ComputerEntity convertToEntity(Computer domainObject) {
-        return null;
+    public ComputerEntity convertToEntity(Computer computer) {
+        return new ComputerEntity(computer.getOtNumber(),
+                computer.getSerialNumber(),
+                operatingSystemMapper.convertToEntity(computer.getOperatingSystem()),
+                diskTypeMapper.convertToEntity(computer.getDiskType()),
+                computerModelMapper.convertToEntity(computer.getComputerModel()),
+                computerStatusMapper.convertToEntity(computer.getComputerStatus()));
     }
 
     @Override
@@ -39,6 +47,7 @@ public class ComputerMapper implements DomainObjectMapper<ComputerEntity, Comput
                 operatingSystemMapper.convertToDomainObject(computerEntity.getOperatingSystem()),
                 diskTypeMapper.convertToDomainObject(computerEntity.getDiskType()),
                 computerModelMapper.convertToDomainObject(computerEntity.getComputerModel()),
+                computerStatusMapper.convertToDomainObject(computerEntity.getComputerStatus()),
                 computerEntity.getComputerRentals().stream()
                         .map(computerRentalMapper::convertToDomainObject).collect(Collectors.toList())
                 );

@@ -40,7 +40,7 @@ class ComputerEntity extends BaseEntity {
     private ComputerStatusEntity computerStatusEntity;
 
     @OneToMany(mappedBy = "rentedComputerEntity", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<ComputerRentalEntity> computerRentalEntities;
+    private List<ComputerRentalEntity> computerRentalEntityEntities;
 
     public ComputerEntity(){}
     public ComputerEntity(String otnumber, String serialNumber){
@@ -97,11 +97,11 @@ class ComputerEntity extends BaseEntity {
     }
 
     public List<ComputerRentalEntity> getComputerRentals() {
-        return computerRentalEntities;
+        return computerRentalEntityEntities;
     }
 
-    public void setComputerRentals(List<ComputerRentalEntity> computerRentalEntities) {
-        this.computerRentalEntities = computerRentalEntities;
+    public void setComputerRentals(List<ComputerRentalEntity> computerRentalEntityEntities) {
+        this.computerRentalEntityEntities = computerRentalEntityEntities;
     }
 
     public DiskTypeEntity getDiskType() {

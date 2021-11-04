@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class OperatingSystemMapper implements DomainObjectMapper<OperatingSystemEntity, OperatingSystem> {
     @Override
-    public OperatingSystemEntity convertToEntity(OperatingSystem domainObject) {
-        return null;
+    public OperatingSystemEntity convertToEntity(OperatingSystem operatingSystem) {
+        return new OperatingSystemEntity(operatingSystem.getOperatingSystemName());
     }
 
     @Override

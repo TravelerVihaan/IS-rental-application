@@ -54,8 +54,8 @@ public class UserRoleEntity extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserRoleEntity userRoleEntity = (UserRoleEntity) o;
-        return getUuid().equals(userRoleEntity.getUuid());
+        UserRoleEntity userRole = (UserRoleEntity) o;
+        return getUuid().equals(userRole.getUuid());
     }
 
     @Override

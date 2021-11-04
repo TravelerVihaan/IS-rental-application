@@ -18,6 +18,8 @@ public class Computer {
     @NotNull
     private final ComputerModel computerModel;
     @NotNull
+    private final ComputerStatus computerStatus;
+    @NotNull
     private final List<ComputerRental> computerRentals;
 
     public Computer(String otNumber,
@@ -25,12 +27,14 @@ public class Computer {
                     OperatingSystem operatingSystem,
                     DiskType diskType,
                     ComputerModel computerModel,
+                    ComputerStatus computerStatus,
                     List<ComputerRental> computerRentals) {
         this.otNumber = otNumber;
         this.serialNumber = serialNumber;
         this.operatingSystem = operatingSystem;
         this.diskType = diskType;
         this.computerModel = computerModel;
+        this.computerStatus = computerStatus;
         this.computerRentals = computerRentals;
     }
 
@@ -62,9 +66,12 @@ public class Computer {
         return computerModel;
     }
 
-
     public List<ComputerRental> getComputerRentals() {
         return computerRentals;
+    }
+
+    public ComputerStatus getComputerStatus() {
+        return computerStatus;
     }
 
     @Override
@@ -88,6 +95,8 @@ public class Computer {
                 ", operatingSystem=" + operatingSystem +
                 ", diskType=" + diskType +
                 ", computerModel=" + computerModel +
+                ", computerStatus=" + computerStatus +
+                ", computerRentals=" + computerRentals +
                 '}';
     }
 }

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "models_computer")
+@Table(name = "computer_models")
 class ComputerModelEntity extends BaseEntity {
 
     @Id
