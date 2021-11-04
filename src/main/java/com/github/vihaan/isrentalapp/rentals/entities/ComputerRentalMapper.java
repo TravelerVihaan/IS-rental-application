@@ -6,6 +6,10 @@ import com.github.vihaan.isrentalapp.util.DomainObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ComputerRentalMapper implements DomainObjectMapper<ComputerRentalEntity, com.github.vihaan.isrentalapp.rentals.ComputerRental> {
 
@@ -27,6 +31,18 @@ public class ComputerRentalMapper implements DomainObjectMapper<ComputerRentalEn
                 computerRental.getRentingPersonName(),
                 computerMapper.convertToEntity(computerRental.getRentedComputer()),
                 rentStatusMapper.convertToEntity(computerRental.getRentStatus()));
+    }
+
+    public List<ComputerRentalEntity> convertCollectionToEntities(Collection<ComputerRental> computerRentalsEntities) {
+        return computerRentalsEntities.stream()
+                .map(this::convertToEntity)
+                .collect(Collectors.toList());
+    }
+
+    public List<ComputerRental> convertCollectionToDomainObjects(Collection<ComputerRentalEntity> computerRentalsEntities) {
+        return computerRentalsEntities.stream()
+                .map(this::convertToDomainObject)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -6,8 +6,6 @@ import com.github.vihaan.isrentalapp.util.DomainObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 @Service
 public class UserMapper implements DomainObjectMapper<UserEntity, User> {
 
@@ -22,7 +20,13 @@ public class UserMapper implements DomainObjectMapper<UserEntity, User> {
 
     @Override
     public UserEntity convertToEntity(User user) {
-        return null;
+        UserEntity userEntity = new UserEntity(user.getUsername(),
+                user.getPassword(),
+                user.getName(),
+                user.getSurname());
+        userEntity.setComputerRentals(computerRentalMapper.convertCollectionToEntities(user.getComputerRentals()));
+        userEntity.setRoles(userRoleMapper.convertCollectionToEntities(user.getRoles()));
+        return userEntity;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class UserMapper implements DomainObjectMapper<UserEntity, User> {
                 userEntity.getPassword(),
                 userEntity.getName(),
                 userEntity.getSurname(),
-                userEntity.getRoles().stream().map(userRoleMapper::convertToDomainObject).collect(Collectors.toSet()),
-                userEntity.getComputerRentals().stream().map(computerRentalMapper::convertToDomainObject).collect(Collectors.toList()));
+                userRoleMapper.convertCollectionToDomainObjects(userEntity.getRoles()),
+                computerRentalMapper.convertCollectionToDomainObjects(userEntity.getComputerRentals()));
     }
 }
