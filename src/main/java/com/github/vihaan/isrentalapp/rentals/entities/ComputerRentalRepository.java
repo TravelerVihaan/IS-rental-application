@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 interface ComputerRentalRepository extends JpaRepository<ComputerRentalEntity, Long> {
@@ -19,8 +20,6 @@ interface ComputerRentalRepository extends JpaRepository<ComputerRentalEntity, L
 
     List<ComputerRentalEntity> findAllByRentStatus_Status(String status);
 
-    List<ComputerRentalEntity> findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(String otNumber, LocalDate date, String status);
-
-    List<ComputerRentalEntity> findAllByRentStatus_StatusAndEndRentalDateAfter(String status, LocalDate date);
+    List<ComputerRentalEntity> findAllByEndRentalDateAfter(LocalDate date);
 
 }
