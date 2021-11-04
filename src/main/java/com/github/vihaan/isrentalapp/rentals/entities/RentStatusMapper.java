@@ -6,13 +6,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RentStatusMapper implements DomainObjectMapper<RentStatusEntity, RentStatus> {
+
     @Override
     public RentStatusEntity convertToEntity(RentStatus rentStatus) {
-        return null;
+        return new RentStatusEntity(rentStatus.getRentStatus());
     }
 
     @Override
     public RentStatus convertToDomainObject(RentStatusEntity rentStatusEntity) {
-        return null;
+        return RentStatus.createFromString(rentStatusEntity.getStatus());
     }
 }

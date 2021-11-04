@@ -16,11 +16,11 @@ public enum RentStatus {
         this.rentStatus = rentStatus;
     }
 
-    String getRentStatus() {
+    public String getRentStatus() {
         return rentStatus;
     }
 
-    static RentStatus createFromString(String rentStatusName) {
+    public static RentStatus createFromString(String rentStatusName) {
         return Arrays.stream(RentStatus.values())
                 .filter(rentStatus -> rentStatus.rentStatus.equalsIgnoreCase((rentStatusName)))
                 .findFirst()

@@ -5,7 +5,7 @@ import com.github.vihaan.isrentalapp.util.DomainObjectMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoleMapper implements DomainObjectMapper<UserRoleEntity, UserRole> {
+public class UserRoleMapper implements DomainObjectMapper<UserRoleEntity, UserRole> {
     @Override
     public UserRoleEntity convertToEntity(UserRole userRole) {
         return new UserRoleEntity(userRole.getUserRole());

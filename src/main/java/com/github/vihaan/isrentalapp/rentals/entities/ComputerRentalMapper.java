@@ -21,7 +21,12 @@ public class ComputerRentalMapper implements DomainObjectMapper<ComputerRentalEn
 
     @Override
     public ComputerRentalEntity convertToEntity(ComputerRental computerRental) {
-        return null;
+        return new ComputerRentalEntity(computerRental.getStartRentalDate(),
+                computerRental.getEndRentalDate(),
+                computerRental.getRentingPersonEmail(),
+                computerRental.getRentingPersonName(),
+                computerMapper.convertToEntity(computerRental.getRentedComputer()),
+                rentStatusMapper.convertToEntity(computerRental.getRentStatus()));
     }
 
     @Override
