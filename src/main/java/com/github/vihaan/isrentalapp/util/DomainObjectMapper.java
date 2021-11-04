@@ -1,6 +1,6 @@
 package com.github.vihaan.isrentalapp.util;
 
-public interface DomainObjectEntityConverter<T, S> {
+public interface DomainObjectMapper<T, S> {
 
      T convertToEntity(S domainObject);
 

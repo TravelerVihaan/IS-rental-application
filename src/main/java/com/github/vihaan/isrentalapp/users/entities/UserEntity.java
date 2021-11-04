@@ -35,7 +35,7 @@ public class UserEntity extends BaseEntity {
                     referencedColumnName = "id_user")},
             inverseJoinColumns = {@JoinColumn(name="role_id",
                     referencedColumnName = "id_role")})
-    private Set<RoleEntity> roleEntities;
+    private Set<UserRoleEntity> roleEntities;
 
     @OneToMany(mappedBy = "whoSetStatus")
     private List<ComputerRentalEntity> computerRentals;
@@ -76,11 +76,11 @@ public class UserEntity extends BaseEntity {
         this.computerRentals = computerRentalEntities;
     }
 
-    public Set<RoleEntity> getRoles() {
+    public Set<UserRoleEntity> getRoles() {
         return roleEntities;
     }
 
-    public void setRoles(Set<RoleEntity> roleEntities) {
+    public void setRoles(Set<UserRoleEntity> roleEntities) {
         this.roleEntities = roleEntities;
     }
 
