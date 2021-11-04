@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RentalsDAOFacade {
-
-    private final ComputerRentalRepository computerRentalRepository;
-    private final
+//
+//    private final ComputerRentalRepository computerRentalRepository;
+//    private final
 }

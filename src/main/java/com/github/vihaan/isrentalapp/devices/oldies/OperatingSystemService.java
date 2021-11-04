@@ -2,7 +2,6 @@ package com.github.vihaan.isrentalapp.devices.oldies;
 
 import com.github.vihaan.isrentalapp.devices.OperatingSystem;
 import com.github.vihaan.isrentalapp.devices.entities.OperatingSystemRepository;
-import com.github.vihaan.isrentalapp.devices.entities.OperatingSystem;
 import com.github.vihaan.isrentalapp.service.HttpStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

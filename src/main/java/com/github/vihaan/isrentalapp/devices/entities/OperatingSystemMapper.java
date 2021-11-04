@@ -13,6 +13,6 @@ public class OperatingSystemMapper implements DomainObjectMapper<OperatingSystem
 
     @Override
     public OperatingSystem convertToDomainObject(OperatingSystemEntity operatingSystemEntity) {
-        return OperatingSystem.createFromString(operatingSystemEntity.getOperatingSystem())
+        return OperatingSystem.createFromString(operatingSystemEntity.getOperatingSystem());
     }
 }
