@@ -21,4 +21,6 @@ interface ComputerRentalRepository extends JpaRepository<ComputerRentalEntity, L
 
     List<ComputerRentalEntity> findAllByRentedComputer_OtnumberAndEndRentalDateIsAfterAndRentStatus_Status(String otNumber, LocalDate date, String status);
 
+    List<ComputerRentalEntity> findAllByRentStatus_StatusAndEndRentalDateAfter(String status, LocalDate date);
+
 }

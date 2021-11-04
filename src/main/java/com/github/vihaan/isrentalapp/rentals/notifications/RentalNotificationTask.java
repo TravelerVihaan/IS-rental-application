@@ -1,4 +1,4 @@
-package com.github.vihaan.isrentalapp.scheduled;
+package com.github.vihaan.isrentalapp.rentals.notifications;
 
 import com.github.vihaan.isrentalapp.service.mails.ReminderMailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,12 +6,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RentalReminderTask {
+public class RentalNotificationTask {
 
     private ReminderMailService reminderMailService;
 
     @Autowired
-    public RentalReminderTask(ReminderMailService reminderMailService){
+    public RentalNotificationTask(ReminderMailService reminderMailService){
         this.reminderMailService = reminderMailService;
     }
 

@@ -1,7 +1,5 @@
 package com.github.vihaan.isrentalapp.devices;
 
-import com.github.vihaan.isrentalapp.rentals.ComputerRental;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;

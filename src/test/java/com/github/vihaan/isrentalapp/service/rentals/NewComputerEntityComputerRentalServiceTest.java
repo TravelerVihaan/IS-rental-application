@@ -30,7 +30,7 @@ import static org.mockito.ArgumentMatchers.any;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
-public class NewComputerEntityRentalServiceTest {
+public class NewComputerEntityComputerRentalServiceTest {
 
     @Mock
     private ComputerRentalRepository computerRentalRepository;
